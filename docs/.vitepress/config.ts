@@ -13,6 +13,7 @@ export default defineConfig({
       { text: 'Guide', link: '/guide/getting-started' },
       { text: 'Architecture', link: '/architecture/' },
       { text: 'Source Systems', link: '/source-systems/' },
+      { text: 'Changelog', link: '/changelog' },
       { text: 'Positioning', link: '/architecture/platform-positioning' },
       { text: 'Runbooks', link: '/runbooks/' },
       { text: 'Decisions', link: '/decisions/' }
@@ -23,7 +24,8 @@ export default defineConfig({
         items: [
           { text: 'Getting Started', link: '/guide/getting-started' },
           { text: 'Platform Charter', link: '/guide/platform-charter' },
-          { text: 'Implementation Planning', link: '/guide/implementation-planning' }
+          { text: 'Implementation Planning', link: '/guide/implementation-planning' },
+          { text: 'Changelog', link: '/changelog' }
         ]
       },
       {

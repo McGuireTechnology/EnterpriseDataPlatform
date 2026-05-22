@@ -41,6 +41,7 @@ export default defineConfig({
           { text: 'Tooling Recommendations', link: '/architecture/tooling-recommendations' },
           { text: 'Platform Positioning', link: '/architecture/platform-positioning' },
           { text: 'Runbooks', link: '/runbooks/' },
+          { text: 'Local PostgreSQL', link: '/runbooks/local-postgresql' },
           { text: 'Decisions', link: '/decisions/' }
         ]
       },

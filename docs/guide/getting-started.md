@@ -17,25 +17,25 @@ Start with the [Platform Charter](/guide/platform-charter) for the generalized p
 Install dependencies:
 
 ```sh
-npm install
+make docs-install
 ```
 
 Run the docs site locally:
 
 ```sh
-npm run docs:dev
+make docs-dev
 ```
 
 Build the static site:
 
 ```sh
-npm run docs:build
+make docs-build
 ```
 
 Preview the production build:
 
 ```sh
-npm run docs:preview
+make docs-preview
 ```
 
 ## First Content Pass

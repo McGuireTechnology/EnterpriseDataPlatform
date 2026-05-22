@@ -51,13 +51,20 @@ For most early EDP implementations, PostgreSQL provides the best balance of simp
 
 ## Design Guidance
 
-Keep schemas separated by platform concern:
+Keep EDP-owned databases separated by platform concern:
 
 - `raw` for faithful source capture
 - `ods` for normalized current-state operational models
 - `vault` for historical business keys, relationships, and attributes
 - `mart` for user-facing reporting and application datasets
-- `app` or service-specific schemas for custom application state
-- `meta` for ingestion runs, source metadata, lineage, and operational audit records
+- `app` for custom application state owned by EDP services
+
+Within each EDP-owned database, use schemas to separate the layer's primary data
+objects from local metadata. A `meta` schema in each database is a useful
+default for Alembic versioning, refresh logs, lineage records, and operational
+audit records that belong with that layer.
+
+Keep component metadata databases separate from EDP data databases. Airflow and
+Superset should use their own PostgreSQL databases and manage their own tables.
 
 Design each layer so it can evolve independently. The raw layer should preserve source truth, the ODS should make current operations understandable, the Data Vault should preserve history, and Data Marts should make common user questions easy to answer.

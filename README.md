@@ -20,8 +20,8 @@ Requirements
 Documentation Development
 
 ```sh
-make docs-install
-make docs-dev
+npm install
+npm run docs:dev
 ```
 
 Local PostgreSQL Development
@@ -32,11 +32,30 @@ for multiple databases and schemas.
 ```sh
 python -m venv .venv
 source .venv/bin/activate
-pip install -r postgres/requirements.txt
+pip install -r requirements.txt
 cp .env.example .env
 make postgres-up
 make db-upgrade
 ```
+
+Local Airflow Development
+
+```sh
+make airflow-up
+```
+
+Airflow is available at `http://127.0.0.1:8080` with the local default admin
+credentials from `.env.example`. DAGs live under `airflow/dags`.
+
+Local Superset Development
+
+```sh
+make superset-up
+```
+
+Superset is available at `http://127.0.0.1:8088` with the local default admin
+credentials from `.env.example`. Use the `edp_mart` database for initial
+dashboard development.
 
 The local container creates:
 
@@ -44,9 +63,14 @@ The local container creates:
 - Component metadata databases: `airflow` and `superset`.
 
 Postgres bootstrap settings and local database URLs are documented in
-`.env.example`. Docker Compose uses `POSTGRES_USER`, `POSTGRES_PASSWORD`, and
-`POSTGRES_DB`; the database init script uses `POSTGRES_USER` as the owner for
-the local databases it creates.
+`.env.example`. PostgreSQL runs in Docker Compose behind PgBouncer. Database
+clients in this repo should use the internal service name `pgbouncer`; direct
+host port exposure is available only through the explicit `db-port` profile.
+
+Docker Compose uses `POSTGRES_USER`, `POSTGRES_PASSWORD`, and `POSTGRES_DB`;
+the database init script uses `POSTGRES_USER` as the owner for EDP-owned
+databases and creates separate owners for the `airflow` and `superset`
+metadata databases.
 
 Use Alembic for database DDL that needs repeatable promotion between
 environments. The `airflow` and `superset` databases are intentionally not

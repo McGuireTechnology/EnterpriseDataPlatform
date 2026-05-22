@@ -11,8 +11,8 @@ cp .env.example .env
 make postgres-up
 ```
 
-The container exposes PostgreSQL on `localhost:5432` and creates these
-databases:
+The local stack keeps PostgreSQL private on the Compose network and routes
+database clients through PgBouncer. The init script creates these databases:
 
 - `edp_raw`
 - `edp_ods`
@@ -23,16 +23,19 @@ databases:
 - `superset`
 
 Postgres bootstrap settings and connection strings are documented in
-`.env.example`. Docker Compose reads `.env` automatically. The init script uses
-`POSTGRES_USER` as the owner for the local databases it creates.
+`.env.example`. Docker Compose reads `.env` automatically.
+
+Use the Compose service name `pgbouncer` in database URLs. The default workflow
+runs database tooling inside containers on the same Compose network, so direct
+PostgreSQL host-port exposure is not required.
+
+The init script uses `POSTGRES_USER` as the owner for EDP-owned databases and
+creates separate owners for the `airflow` and `superset` metadata databases.
 
 ## Install Migration Tooling
 
-```sh
-python -m venv .venv
-source .venv/bin/activate
-pip install -r postgres/requirements.txt
-```
+Migration tooling runs through the `db-tools` Compose service. The image is
+built from `postgres/Dockerfile` and installs `postgres/requirements.txt`.
 
 ## Apply Migrations
 
@@ -55,6 +58,11 @@ The `airflow` and `superset` databases are component metadata databases. Create
 them locally so the tools have somewhere to store state, but let Airflow and
 Superset manage their own tables.
 
+Airflow and Superset use their own local database roles:
+
+- `AIRFLOW_DATABASE_USER` owns the `airflow` database.
+- `SUPERSET_DATABASE_USER` owns the `superset` database.
+
 ## Create New Migrations
 
 Edit the matching model module in `postgres/models/`, then generate an Alembic
@@ -67,6 +75,55 @@ alembic -c postgres/alembic.ini -n vault revision --autogenerate -m "describe da
 alembic -c postgres/alembic.ini -n mart revision --autogenerate -m "describe data mart change"
 alembic -c postgres/alembic.ini -n app revision --autogenerate -m "describe app change"
 ```
+
+Run these commands inside the tooling container:
+
+```sh
+docker compose -f compose.yaml --profile tools run --rm db-tools alembic -c postgres/alembic.ini -n raw revision --autogenerate -m "describe raw change"
+```
+
+Use the same pattern for `ods`, `vault`, `mart`, and `app`.
+
+## Optional Database Port Exposure
+
+The stack does not expose PostgreSQL by default. If you need temporary desktop
+database-tool access, expose PgBouncer explicitly:
+
+```sh
+make db-port-up
+```
+
+Then connect to host port `6432`. Stop the temporary exposed endpoint with:
+
+```sh
+make db-port-down
+```
+
+## PgAdmin
+
+Start the local database stack with:
+
+```sh
+make pgadmin-up
+make pgadmin-logs
+make pgadmin-down
+```
+
+PgAdmin is available at `http://127.0.0.1:5050`.
+
+The PgAdmin container preloads connections from `.env` values on startup:
+
+- EDP Raw
+- EDP ODS
+- EDP Vault
+- EDP Mart
+- EDP App
+- Airflow Metadata
+- Superset Metadata
+
+The preloaded servers connect through PgBouncer at `pgbouncer:6432`. PgAdmin
+also generates a temporary pgpass file inside the container so the registered
+servers can use the same passwords supplied by `.env`.
 
 Use `raw` for ingestion metadata and source-specific raw schemas such as
 `edp_raw.ad`. Use `ods` for current operational structures. Use `vault` for

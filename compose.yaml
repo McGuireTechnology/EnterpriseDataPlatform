@@ -7,8 +7,10 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_DB: ${POSTGRES_DB:-postgres}
-    ports:
-      - "5432:5432"
+      AIRFLOW_DATABASE_USER: ${AIRFLOW_DATABASE_USER:-airflow}
+      AIRFLOW_DATABASE_PASSWORD: ${AIRFLOW_DATABASE_PASSWORD:-airflow}
+      SUPERSET_DATABASE_USER: ${SUPERSET_DATABASE_USER:-superset}
+      SUPERSET_DATABASE_PASSWORD: ${SUPERSET_DATABASE_PASSWORD:-superset}
     volumes:
       - edp-postgres:/var/lib/postgresql/data
       - ./postgres/docker/init:/docker-entrypoint-initdb.d:ro
@@ -18,6 +20,253 @@ services:
       timeout: 5s
       retries: 12
 
+  pgbouncer:
+    image: ${PGBOUNCER_IMAGE:-edoburu/pgbouncer:v1.24.1-p0}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      AIRFLOW_DATABASE_USER: ${AIRFLOW_DATABASE_USER:-airflow}
+      AIRFLOW_DATABASE_PASSWORD: ${AIRFLOW_DATABASE_PASSWORD:-airflow}
+      SUPERSET_DATABASE_USER: ${SUPERSET_DATABASE_USER:-superset}
+      SUPERSET_DATABASE_PASSWORD: ${SUPERSET_DATABASE_PASSWORD:-superset}
+    volumes:
+      - ./pgbouncer/pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini:ro
+      - ./pgbouncer/docker/entrypoint.sh:/etc/pgbouncer/entrypoint.sh:ro
+    command: ["/bin/sh", "/etc/pgbouncer/entrypoint.sh"]
+    restart: unless-stopped
+
+  pgbouncer-public:
+    image: ${PGBOUNCER_IMAGE:-edoburu/pgbouncer:v1.24.1-p0}
+    profiles:
+      - db-port
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      AIRFLOW_DATABASE_USER: ${AIRFLOW_DATABASE_USER:-airflow}
+      AIRFLOW_DATABASE_PASSWORD: ${AIRFLOW_DATABASE_PASSWORD:-airflow}
+      SUPERSET_DATABASE_USER: ${SUPERSET_DATABASE_USER:-superset}
+      SUPERSET_DATABASE_PASSWORD: ${SUPERSET_DATABASE_PASSWORD:-superset}
+    ports:
+      - "6432:6432"
+    volumes:
+      - ./pgbouncer/pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini:ro
+      - ./pgbouncer/docker/entrypoint.sh:/etc/pgbouncer/entrypoint.sh:ro
+    command: ["/bin/sh", "/etc/pgbouncer/entrypoint.sh"]
+    restart: unless-stopped
+
+  pgadmin:
+    image: ${PGADMIN_IMAGE:-dpage/pgadmin4:9.15}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-admin@example.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+      PGADMIN_SERVER_JSON_FILE: /tmp/pgadmin-servers.json
+      PGADMIN_REPLACE_SERVERS_ON_STARTUP: "True"
+      PGPASS_FILE: /tmp/pgpass
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      AIRFLOW_DATABASE_USER: ${AIRFLOW_DATABASE_USER:-airflow}
+      AIRFLOW_DATABASE_PASSWORD: ${AIRFLOW_DATABASE_PASSWORD:-airflow}
+      SUPERSET_DATABASE_USER: ${SUPERSET_DATABASE_USER:-superset}
+      SUPERSET_DATABASE_PASSWORD: ${SUPERSET_DATABASE_PASSWORD:-superset}
+    ports:
+      - "127.0.0.1:5050:80"
+    volumes:
+      - ./pgadmin/docker/entrypoint.sh:/pgadmin4/entrypoint.sh:ro
+      - edp-pgadmin:/var/lib/pgadmin
+    command: ["/bin/sh", "/pgadmin4/entrypoint.sh"]
+    restart: unless-stopped
+
+  db-tools:
+    build:
+      context: .
+      dockerfile: postgres/Dockerfile
+    depends_on:
+      pgbouncer:
+        condition: service_started
+    environment:
+      EDP_RAW_DATABASE_URL: ${EDP_RAW_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_raw}
+      EDP_ODS_DATABASE_URL: ${EDP_ODS_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_ods}
+      EDP_VAULT_DATABASE_URL: ${EDP_VAULT_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_vault}
+      EDP_MART_DATABASE_URL: ${EDP_MART_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_mart}
+      EDP_APP_DATABASE_URL: ${EDP_APP_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_app}
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    profiles:
+      - tools
+
+  superset-init:
+    image: ${SUPERSET_IMAGE:-apache/superset:6.1.0}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+    environment:
+      SUPERSET_CONFIG_PATH: /app/superset_config.py
+      SUPERSET_SECRET_KEY: ${SUPERSET_SECRET_KEY:-change-me-for-local-only}
+      SUPERSET_DATABSE_URI: ${SUPERSET_DATABSE_URI:-postgresql+psycopg2://superset:superset@pgbouncer:6432/superset}
+      SUPERSET_ADMIN_USERNAME: ${SUPERSET_ADMIN_USERNAME:-admin}
+      SUPERSET_ADMIN_PASSWORD: ${SUPERSET_ADMIN_PASSWORD:-admin}
+      SUPERSET_ADMIN_EMAIL: ${SUPERSET_ADMIN_EMAIL:-admin@example.com}
+      EDP_RAW_DATABASE_URL: ${EDP_RAW_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_raw}
+      EDP_ODS_DATABASE_URL: ${EDP_ODS_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_ods}
+      EDP_VAULT_DATABASE_URL: ${EDP_VAULT_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_vault}
+      EDP_MART_DATABASE_URL: ${EDP_MART_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_mart}
+      EDP_APP_DATABASE_URL: ${EDP_APP_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_app}
+    volumes:
+      - ./superset/superset_config.py:/app/superset_config.py:ro
+      - ./superset/docker/bootstrap.sh:/app/bootstrap.sh:ro
+      - ./superset/docker/provision_databases.py:/app/provision_databases.py:ro
+      - edp-superset-home:/app/superset_home
+    command: ["/bin/bash", "/app/bootstrap.sh"]
+    restart: "no"
+
+  superset:
+    image: ${SUPERSET_IMAGE:-apache/superset:6.1.0}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+      superset-init:
+        condition: service_completed_successfully
+    environment:
+      SUPERSET_CONFIG_PATH: /app/superset_config.py
+      SUPERSET_SECRET_KEY: ${SUPERSET_SECRET_KEY:-change-me-for-local-only}
+      SUPERSET_DATABSE_URI: ${SUPERSET_DATABSE_URI:-postgresql+psycopg2://superset:superset@pgbouncer:6432/superset}
+      EDP_RAW_DATABASE_URL: ${EDP_RAW_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_raw}
+      EDP_ODS_DATABASE_URL: ${EDP_ODS_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_ods}
+      EDP_VAULT_DATABASE_URL: ${EDP_VAULT_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_vault}
+      EDP_MART_DATABASE_URL: ${EDP_MART_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_mart}
+      EDP_APP_DATABASE_URL: ${EDP_APP_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_app}
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./superset/superset_config.py:/app/superset_config.py:ro
+      - edp-superset-home:/app/superset_home
+    command: ["superset", "run", "-h", "0.0.0.0", "-p", "8088", "--with-threads"]
+
+  airflow-init:
+    image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:3.2.1}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: ${AIRFLOW_DATABASE_URL:-postgresql+psycopg2://airflow:airflow@pgbouncer:6432/airflow}
+      AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY:-}
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://airflow-apiserver:8080/execution/
+      AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW_SECRET_KEY:-change-me-for-local-only}
+      AIRFLOW__API_AUTH__JWT_ISSUER: airflow
+      AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: "true"
+      _AIRFLOW_DB_MIGRATE: "true"
+      _AIRFLOW_WWW_USER_CREATE: "true"
+      _AIRFLOW_WWW_USER_USERNAME: ${AIRFLOW_ADMIN_USERNAME:-airflow}
+      _AIRFLOW_WWW_USER_PASSWORD: ${AIRFLOW_ADMIN_PASSWORD:-airflow}
+    user: "0:0"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/plugins:/opt/airflow/plugins
+      - ./airflow/config:/opt/airflow/config
+    command: ["airflow", "version"]
+    restart: "no"
+
+  airflow-apiserver:
+    image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:3.2.1}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+      airflow-init:
+        condition: service_completed_successfully
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: ${AIRFLOW_DATABASE_URL:-postgresql+psycopg2://airflow:airflow@pgbouncer:6432/airflow}
+      AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY:-}
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://airflow-apiserver:8080/execution/
+      AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW_SECRET_KEY:-change-me-for-local-only}
+      AIRFLOW__API_AUTH__JWT_ISSUER: airflow
+      AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: "true"
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/plugins:/opt/airflow/plugins
+      - ./airflow/config:/opt/airflow/config
+    command: ["api-server"]
+    restart: unless-stopped
+
+  airflow-scheduler:
+    image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:3.2.1}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+      airflow-init:
+        condition: service_completed_successfully
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: ${AIRFLOW_DATABASE_URL:-postgresql+psycopg2://airflow:airflow@pgbouncer:6432/airflow}
+      AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY:-}
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://airflow-apiserver:8080/execution/
+      AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW_SECRET_KEY:-change-me-for-local-only}
+      AIRFLOW__API_AUTH__JWT_ISSUER: airflow
+      AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: "true"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/plugins:/opt/airflow/plugins
+      - ./airflow/config:/opt/airflow/config
+    command: ["scheduler"]
+    restart: unless-stopped
+
+  airflow-dag-processor:
+    image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:3.2.1}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+      airflow-init:
+        condition: service_completed_successfully
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__AUTH_MANAGER: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: ${AIRFLOW_DATABASE_URL:-postgresql+psycopg2://airflow:airflow@pgbouncer:6432/airflow}
+      AIRFLOW__CORE__FERNET_KEY: ${AIRFLOW_FERNET_KEY:-}
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: "true"
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      AIRFLOW__CORE__EXECUTION_API_SERVER_URL: http://airflow-apiserver:8080/execution/
+      AIRFLOW__API_AUTH__JWT_SECRET: ${AIRFLOW_SECRET_KEY:-change-me-for-local-only}
+      AIRFLOW__API_AUTH__JWT_ISSUER: airflow
+      AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: "true"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/logs:/opt/airflow/logs
+      - ./airflow/plugins:/opt/airflow/plugins
+      - ./airflow/config:/opt/airflow/config
+    command: ["dag-processor"]
+    restart: unless-stopped
+
 volumes:
   edp-postgres:
     name: edp-postgres
+  edp-superset-home:
+    name: edp-superset-home
+  edp-pgadmin:
+    name: edp-pgadmin

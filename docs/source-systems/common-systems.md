@@ -10,11 +10,14 @@ This page lists common systems to consider. It is not a commitment to integrate 
 | --- | --- | --- |
 | Identity and Access | Entra ID, Okta, Duo, Ping, Keycloak | Cloud identities, MFA, SSO, app assignments, access posture |
 | HR and Workforce | Workday, UKG, ADP, BambooHR, Paylocity | Authoritative employee lifecycle, departments, managers, job status |
+| Student Information Systems | Infinite Campus, PowerSchool, Skyward, Aspen SIS | Student lifecycle, schools, terms, courses, sections, rosters, guardians, attendance, grades |
+| Learning Management Systems | Canvas LMS, Schoology, Google Classroom, Moodle, Blackboard | Course activity, digital instruction, enrollments, assignments, submissions, grades, learning engagement |
+| Library and Resource Management | Follett Destiny, Alexandria, Accessit, Insignia | Library collections, textbooks, instructional materials, patrons, checkouts, fines, resource assignments |
 | Service Desk and ITSM | ManageEngine ServiceDesk Plus, ServiceNow, Jira Service Management, Freshservice | Tickets, requests, changes, incidents, assets, approvals |
 | Apple Device and Education Services | Apple Business Manager, Apple School Manager, Apps and Books | Apple device enrollment, MDM assignment, Managed Apple Accounts, app and book licensing, school roster context |
 | Endpoint Management | ManageEngine Endpoint Central, Intune, Jamf, SCCM or MECM, Tanium, NinjaOne, PDQ | Device inventory, compliance, ownership, patch posture |
 | Security Platforms | Microsoft Defender, CrowdStrike, SentinelOne, Tenable, Rapid7, Qualys | Risk, vulnerabilities, endpoint security, exposure management |
-| Email and Collaboration | Exchange Online, Teams, SharePoint, Slack, Zoom, Google Workspace | Communication, memberships, sites, mailboxes, collaboration governance |
+| Email and Collaboration | Google Workspace, Exchange Online, Teams, SharePoint, Slack, Zoom | Communication, memberships, sites, mailboxes, collaboration governance |
 | Network and Infrastructure | Cisco Meraki Dashboard, VMware vCenter, Hyper-V, Proxmox, Nutanix, Fortinet, Palo Alto, Cisco | VMs, hosts, firewalls, VPNs, network inventory, cloud-managed network configuration, capacity |
 | Cloud Platforms | Azure, AWS, GCP | Cloud resources, IAM, costs, tags, inventory, policy posture |
 | Backup and Disaster Recovery | Veeam, Rubrik, Cohesity, Commvault | Backup coverage, restore status, recovery readiness |
@@ -32,13 +35,17 @@ This page lists common systems to consider. It is not a commitment to integrate 
 After Active Directory and Microsoft 365, prioritize:
 
 1. HR or workforce system
-2. Service desk or ITSM system such as ManageEngine ServiceDesk Plus
-3. Endpoint management platform such as ManageEngine Endpoint Central
-4. Apple Business Manager or Apple School Manager when Apple devices or education rosters are material
-5. Security awareness or training platform such as KnowBe4
-6. Network or cloud-managed infrastructure platform such as Cisco Meraki Dashboard
-7. Virtualization or cloud platform
-8. Backup or disaster recovery platform
+2. Student information system such as Infinite Campus when student lifecycle, course, and roster context matters
+3. Learning management system such as Canvas LMS when digital instruction and roster reconciliation matter
+4. Library or resource management system such as Follett Destiny when instructional materials, checkouts, or fines need visibility
+5. Service desk or ITSM system such as ManageEngine ServiceDesk Plus
+6. Endpoint management platform such as ManageEngine Endpoint Central
+7. Google Workspace when the organization uses Google identity, Gmail, Drive, Meet, or ChromeOS
+8. Apple Business Manager or Apple School Manager when Apple devices or education rosters are material
+9. Security awareness or training platform such as KnowBe4
+10. Network or cloud-managed infrastructure platform such as Cisco Meraki Dashboard
+11. Virtualization or cloud platform
+12. Backup or disaster recovery platform
 
 ## Why HR Matters Early
 

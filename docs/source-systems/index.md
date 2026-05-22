@@ -17,6 +17,10 @@ This section should help answer:
 
 - [Active Directory](/source-systems/active-directory): first documented source system for identities, groups, computers, organizational units, and memberships.
 - [Microsoft 365](/source-systems/microsoft-365): cloud productivity, collaboration, licensing, usage, and service metadata source.
+- [Google Workspace](/source-systems/google-workspace): cloud identity, collaboration, licensing, device, usage, audit, and administrative alert source.
+- [Infinite Campus](/source-systems/infinite-campus): SIS roster, student, enrollment, course, section, assignment, and academic context source.
+- [Canvas LMS](/source-systems/canvas-lms): learning management, course, enrollment, assignment, submission, grade, and activity source.
+- [Follett Destiny](/source-systems/follett-destiny): library, textbook, instructional material, resource, patron, checkout, fine, and fee source.
 - [Apple Business Manager and Apple School Manager](/source-systems/apple-business-school-manager): Apple device enrollment, Managed Apple Accounts, Apps and Books, and education roster source.
 - [KnowBe4](/source-systems/knowbe4): security awareness training, phishing simulation, user risk, and compliance evidence source.
 - [Cisco Meraki Dashboard](/source-systems/cisco-meraki-dashboard): cloud-managed network inventory, configuration, telemetry, licensing, client activity, and alert source.

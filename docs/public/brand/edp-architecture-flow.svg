@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 560" role="img" aria-labelledby="title desc">
+  <title id="title">Enterprise Data Platform architecture flow</title>
+  <desc id="desc">Aligned source systems, ODS, warehouse, marts, and intelligence flow with governance, security, quality, lineage, and compliance controls.</desc>
+  <defs>
+    <style>
+      @font-face {
+        font-family: "Ubuntu";
+        src: url("../fonts/ubuntu-font-family-0.83/ubuntu-font-family-0.83/Ubuntu-R.ttf") format("truetype");
+        font-style: normal;
+        font-weight: 400;
+      }
+      @font-face {
+        font-family: "Ubuntu";
+        src: url("../fonts/ubuntu-font-family-0.83/ubuntu-font-family-0.83/Ubuntu-B.ttf") format("truetype");
+        font-style: normal;
+        font-weight: 700;
+      }
+      text { font-family: Ubuntu, Arial, sans-serif; }
+    </style>
+    <linearGradient id="bg" x1="0" x2="1440" y1="0" y2="560" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#061424"/>
+      <stop offset=".55" stop-color="#08111f"/>
+      <stop offset="1" stop-color="#020814"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="0" x2="1">
+      <stop offset="0" stop-color="#176fe2"/>
+      <stop offset="1" stop-color="#28d7ec"/>
+    </linearGradient>
+    <linearGradient id="cube" x1="632" x2="782" y1="176" y2="328" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#8ab4f8"/>
+      <stop offset=".52" stop-color="#2f7de1"/>
+      <stop offset="1" stop-color="#0a3e85"/>
+    </linearGradient>
+  </defs>
+  <rect width="1440" height="560" fill="url(#bg)"/>
+  <path d="M0 380h1440" stroke="#7c8da0" stroke-opacity=".22"/>
+
+  <g font-family="Ubuntu, Arial, sans-serif" text-anchor="middle">
+    <g fill="#f7fbff" font-size="22" font-weight="700">
+      <text x="140" y="58">Source Systems</text>
+      <text x="420" y="58">ODS</text>
+      <text x="700" y="58">Warehouse</text>
+      <text x="980" y="58">Marts</text>
+      <text x="1260" y="58">Intelligence</text>
+    </g>
+    <g fill="#c9d5e3" font-size="14">
+      <text x="420" y="88">Operational</text>
+      <text x="420" y="107">Data Store</text>
+      <text x="700" y="88">Enterprise</text>
+      <text x="700" y="107">Data</text>
+      <text x="980" y="88">Business</text>
+      <text x="980" y="107">Data</text>
+      <text x="1260" y="88">Insights &amp;</text>
+      <text x="1260" y="107">Visibility</text>
+    </g>
+  </g>
+
+  <g font-family="Ubuntu, Arial, sans-serif" font-size="16" fill="#d8e2ee">
+    <text x="108" y="139">Applications</text>
+    <text x="108" y="184">Databases</text>
+    <text x="108" y="229">APIs &amp; Services</text>
+    <text x="108" y="274">Files &amp; Logs</text>
+    <text x="108" y="319">Infrastructure</text>
+  </g>
+  <g fill="none" stroke="#d9e5f2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".9">
+    <rect x="72" y="124" width="9" height="9"/><rect x="88" y="124" width="9" height="9"/><rect x="72" y="140" width="9" height="9"/><rect x="88" y="140" width="9" height="9"/>
+    <ellipse cx="84" cy="179" rx="14" ry="5"/><path d="M70 179v17c0 3 6 5 14 5s14-2 14-5v-17"/>
+    <path d="M72 226c2-8 9-13 17-12 6-9 21-5 22 6 7 1 12 6 12 13 0 8-7 14-15 14H84c-8 0-15-6-15-14 0-3 1-5 3-7Z"/>
+    <path d="M74 260h25l12 12v30H74Z"/><path d="M99 260v12h12"/><path d="M82 280h20M82 291h15"/>
+    <ellipse cx="84" cy="318" rx="14" ry="5"/><path d="M70 318v25c0 3 6 5 14 5s14-2 14-5v-25"/><path d="M70 331c0 3 6 5 14 5s14-2 14-5"/>
+  </g>
+
+  <g fill="none" stroke-width="3" stroke-linecap="round">
+    <path d="M226 136c78 0 82 54 150 54" stroke="#38c7f5" stroke-dasharray="3 13"/>
+    <path d="M226 181c74 0 83 26 150 26" stroke="#2f8ff1" stroke-dasharray="3 13"/>
+    <path d="M226 226h150" stroke="#24d4f2" stroke-dasharray="3 13"/>
+    <path d="M226 271c74 0 83-26 150-26" stroke="#9fb0c2" stroke-dasharray="3 13"/>
+    <path d="M226 316c78 0 82-54 150-54" stroke="#657384" stroke-dasharray="3 13"/>
+  </g>
+  <g fill="#58c9f4">
+    <circle cx="376" cy="190" r="4"/><circle cx="376" cy="207" r="4"/><circle cx="376" cy="226" r="4"/><circle cx="376" cy="245" r="4"/><circle cx="376" cy="262" r="4"/>
+  </g>
+
+  <g transform="translate(350 150)">
+    <polygon points="70,0 140,40 70,80 0,40" fill="#6fb2f6"/>
+    <polygon points="0,40 70,80 70,162 0,122" fill="#183f74"/>
+    <polygon points="140,40 70,80 70,162 140,122" fill="#0d284f"/>
+    <polygon points="34,40 70,19 106,40 70,61" fill="#c7dcff"/>
+    <polygon points="34,40 70,61 70,98 34,77" fill="#3268ae"/>
+    <polygon points="106,40 70,61 70,98 106,77" fill="#173d78"/>
+    <path d="M14 133 70 165l56-32M14 105l56 32 56-32" stroke="#91a5b9" stroke-opacity=".32" fill="none"/>
+  </g>
+
+  <g stroke="url(#signal)" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M504 206h96"/>
+    <path d="M504 240h96"/>
+    <path d="M504 274h96"/>
+    <path d="M800 206h92l16 16h116"/>
+    <path d="M800 240h224"/>
+    <path d="M800 274h92l16-16h116"/>
+    <path d="M1080 218h126"/>
+    <path d="M1080 240h126"/>
+    <path d="M1080 262h126"/>
+  </g>
+  <g fill="#22bdf0">
+    <circle cx="538" cy="206" r="4.5"/><circle cx="568" cy="240" r="4.5"/><circle cx="586" cy="274" r="4.5"/>
+    <circle cx="842" cy="206" r="4.5"/><circle cx="868" cy="240" r="4.5"/><circle cx="918" cy="274" r="4.5"/>
+    <circle cx="1125" cy="218" r="4.5"/><circle cx="1160" cy="240" r="4.5"/><circle cx="1190" cy="262" r="4.5"/>
+  </g>
+
+  <g transform="translate(640 150)">
+    <polygon points="60,0 130,40 130,120 60,160 -10,120 -10,40" fill="url(#cube)"/>
+    <polygon points="60,0 130,40 60,80 -10,40" fill="#8ab4f8"/>
+    <polygon points="-10,40 60,80 60,160 -10,120" fill="#2f7de1"/>
+    <polygon points="130,40 60,80 60,160 130,120" fill="#0b3f87"/>
+    <path d="M60 80V0M-10 40l70 40 70-40" stroke="#b9d2fb" stroke-opacity=".35" fill="none"/>
+  </g>
+
+  <g transform="translate(920 152)">
+    <g fill="#1b59ae">
+      <polygon points="60,0 96,20 60,40 24,20"/>
+      <polygon points="20,48 56,68 20,88 -16,68"/>
+      <polygon points="100,48 136,68 100,88 64,68"/>
+      <polygon points="60,96 96,116 60,136 24,116"/>
+    </g>
+    <g fill="#2f7de1">
+      <polygon points="24,20 60,40 60,82 24,62"/>
+      <polygon points="-16,68 20,88 20,130 -16,110"/>
+      <polygon points="64,68 100,88 100,130 64,110"/>
+      <polygon points="24,116 60,136 60,178 24,158"/>
+    </g>
+    <g fill="#0c2b5b">
+      <polygon points="96,20 60,40 60,82 96,62"/>
+      <polygon points="56,68 20,88 20,130 56,110"/>
+      <polygon points="136,68 100,88 100,130 136,110"/>
+      <polygon points="96,116 60,136 60,178 96,158"/>
+    </g>
+  </g>
+
+  <g transform="translate(1210 152)">
+    <rect width="140" height="128" rx="8" fill="#07111f" stroke="#45d4f4" stroke-width="2"/>
+    <line x1="24" y1="106" x2="118" y2="106" stroke="#3c4d62"/>
+    <g fill="#126fd7">
+      <rect x="28" y="82" width="8" height="24"/>
+      <rect x="46" y="58" width="8" height="48"/>
+      <rect x="64" y="32" width="8" height="74"/>
+      <rect x="82" y="72" width="8" height="34"/>
+      <rect x="100" y="46" width="8" height="60"/>
+    </g>
+    <g fill="#38d4f2">
+      <rect x="36" y="72" width="8" height="34"/>
+      <rect x="72" y="92" width="8" height="14"/>
+      <rect x="108" y="40" width="8" height="66"/>
+    </g>
+  </g>
+
+  <g stroke="#6d7d90" stroke-opacity=".75" fill="none">
+    <path d="M290 365h860"/>
+    <path d="M290 365v-22M1150 365v-22"/>
+    <path d="M720 365v-22"/>
+  </g>
+  <g font-family="Ubuntu, Arial, sans-serif" font-size="18" fill="#e8eef7" text-anchor="middle">
+    <text x="390" y="434">Governance</text>
+    <text x="570" y="434">Security</text>
+    <text x="720" y="434">Quality</text>
+    <text x="880" y="434">Lineage</text>
+    <text x="1060" y="434">Compliance</text>
+  </g>
+  <g fill="none" stroke="#c8d4e3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".95">
+    <path d="M340 414l16-7 16 7v15c0 12-16 21-16 21s-16-9-16-21Z"/>
+    <rect x="544" y="416" width="24" height="26" rx="3"/><path d="M550 416v-8c0-8 12-8 12 0v8"/>
+    <circle cx="720" cy="429" r="16"/><path d="m712 428 6 6 12-13"/>
+    <path d="M850 418h20m20 0h20M870 418c0 5-4 9-9 9s-9-4-9-9 4-9 9-9 9 4 9 9ZM908 418c0 5-4 9-9 9s-9-4-9-9 4-9 9-9 9 4 9 9ZM880 442c0 5-4 9-9 9s-9-4-9-9 4-9 9-9 9 4 9 9ZM870 427l1 6M899 427l-20 10"/>
+    <path d="M1016 411h28l12 12v28h-40Z"/><path d="M1044 411v12h12"/><path d="M1025 432h16M1025 442h10"/><circle cx="1053" cy="447" r="8"/><path d="m1049 447 3 3 6-7"/>
+  </g>
+</svg>

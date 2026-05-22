@@ -1,5 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Enterprise Data Platform">
-  <rect width="64" height="64" rx="12" fill="#1967d2"/>
-  <path d="M18 20h28v8H18zM18 36h28v8H18z" fill="#fff"/>
-  <path d="M22 28v8M32 28v8M42 28v8" stroke="#8ab4f8" stroke-width="4" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="Enterprise Data Platform">
+  <defs>
+    <linearGradient id="bg" x1="22" x2="236" y1="18" y2="238" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#071525"/>
+      <stop offset="0.58" stop-color="#08111f"/>
+      <stop offset="1" stop-color="#020814"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="34" x2="206" y1="70" y2="82" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0b57c7"/>
+      <stop offset="0.58" stop-color="#1778e7"/>
+      <stop offset="1" stop-color="#28d7ec"/>
+    </linearGradient>
+    <linearGradient id="blue2" x1="34" x2="206" y1="104" y2="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#174aa0"/>
+      <stop offset="0.6" stop-color="#2f7de1"/>
+      <stop offset="1" stop-color="#43c7f4"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="34" x2="206" y1="138" y2="150" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#486a99"/>
+      <stop offset="0.55" stop-color="#548bd0"/>
+      <stop offset="1" stop-color="#8ab4f8"/>
+    </linearGradient>
+    <linearGradient id="silver" x1="34" x2="206" y1="172" y2="184" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#56606b"/>
+      <stop offset="0.58" stop-color="#8e9aa8"/>
+      <stop offset="1" stop-color="#cad4df"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="32" fill="url(#bg)"/>
+  <path d="M34 70h92c4.7 0 8.9 1.4 12.7 4.2l23.8 17.4c3.6 2.7 7.7 4.1 12.2 4.1H204v15.2h-33.5c-6.4 0-12.2-1.9-17.4-5.7l-23.8-17.4a16.9 16.9 0 0 0-10-3.2H34Z" fill="url(#blue)"/>
+  <path d="M34 104h92c4.7 0 8.9 1.4 12.7 4.2l23.8 17.4c3.6 2.7 7.7 4.1 12.2 4.1H204v15.2h-33.5c-6.4 0-12.2-1.9-17.4-5.7l-23.8-17.4a16.9 16.9 0 0 0-10-3.2H34Z" fill="url(#blue2)"/>
+  <path d="M34 138h92c4.7 0 8.9 1.4 12.7 4.2l23.8 17.4c3.6 2.7 7.7 4.1 12.2 4.1H204v15.2h-33.5c-6.4 0-12.2-1.9-17.4-5.7l-23.8-17.4a16.9 16.9 0 0 0-10-3.2H34Z" fill="url(#steel)"/>
+  <path d="M34 172h92c4.7 0 8.9-1.4 12.7-4.2l23.8-17.4c3.6-2.7 7.7-4.1 12.2-4.1H204v15.2h-33.5c-2.8 0-5.4.8-7.7 2.5L139 181.4c-5.2 3.8-11 5.7-17.4 5.7H34Z" fill="url(#silver)"/>
+  <rect x="218" y="73.5" width="9" height="9" rx="2" fill="#24c8f2"/>
+  <rect x="218" y="107.5" width="9" height="9" rx="2" fill="#24c8f2"/>
+  <rect x="218" y="141.5" width="9" height="9" rx="2" fill="#73a8ea"/>
+  <rect x="218" y="175.5" width="9" height="9" rx="2" fill="#8daee4"/>
 </svg>

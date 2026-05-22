@@ -92,6 +92,28 @@ Dashboards are good for seeing. Custom applications are better when users need t
 
 Custom applications should consume governed ODS views, Data Marts, or purpose-built application APIs. They should not duplicate transformation logic that belongs in dbt or the platform data model.
 
+### Example Custom App
+
+Consider an Endpoint Exception Review app. Source systems can show device
+facts: FleetTrack knows whether a laptop checked in, Entra ID knows the assigned
+user, the HR system knows the manager and department, and the service desk knows
+whether a ticket exists. None of those source systems owns the cross-system
+workflow of deciding whether an exception is acceptable, who reviewed it, when
+it should be revisited, or what remediation action was agreed to.
+
+The custom app fills that operational gap. It reads governed current-state data
+from `edp_ods`, such as device owner, department, encryption status, last
+check-in, and existing service ticket references. It may also read summary
+context from `edp_mart`, such as department-level exception trends or stale
+device counts. The app stores its own workflow state in `edp_app`: assigned
+reviewer, review status, risk acceptance notes, due date, escalation history,
+and links to remediation tickets.
+
+That separation matters. FleetTrack remains the source of device facts, the ODS
+remains the current-state operational model, the mart remains the reporting
+surface, and the app database owns only the workflow state that no upstream
+source system naturally captures.
+
 ## Power BI
 
 Power BI can be useful in Microsoft-heavy environments, especially where users already live in Microsoft 365 and business teams have existing Power BI skills.

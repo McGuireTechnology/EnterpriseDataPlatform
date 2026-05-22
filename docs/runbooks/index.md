@@ -15,6 +15,7 @@ Use this structure for each runbook:
 
 ## Initial Runbooks
 
+- [Local PostgreSQL](/runbooks/local-postgresql)
 - Failed data pipeline
 - Delayed source extract
 - Schema drift detected

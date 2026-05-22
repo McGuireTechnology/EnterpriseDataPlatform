@@ -36,12 +36,17 @@ Use this page to document systems that EDP may collect from. The inventory shoul
 | --- | --- | --- | --- | --- | --- |
 | [Active Directory](/source-systems/active-directory) | Identity and access management | Planned | Prebuilt planned | LDAPS, LDAP, PowerShell export, or scheduled directory query | Users, groups, computers, OUs, memberships |
 | [Microsoft 365](/source-systems/microsoft-365) | Cloud productivity and collaboration | Planned | Prebuilt planned | Microsoft Graph API, reports API, admin exports where needed | Users, groups, teams, channels, licenses, usage, service metadata |
+| [Apple Business Manager and Apple School Manager](/source-systems/apple-business-school-manager) | Apple device enrollment, Managed Apple Accounts, Apps and Books, and education roster management | Planned | Planned | Apple School and Business Manager API, ASM Roster API, Apps and Books web services, export | Devices, MDM assignments, locations, managed accounts, apps, books, licenses, classes, rosters |
+| [KnowBe4](/source-systems/knowbe4) | Security awareness training and phishing simulation | Planned | Planned | Reporting API, Graph API, User Event API, Product API, webhooks, export | Users, groups, training campaigns, enrollments, completions, phishing campaigns, risk scores, user events |
+| [Cisco Meraki Dashboard](/source-systems/cisco-meraki-dashboard) | Cloud-managed network operations | Planned | Planned | Dashboard API v1, webhooks, syslog or SNMP export where needed | Organizations, networks, devices, clients, licenses, configuration, statuses, events, alerts |
+| [ManageEngine ServiceDesk Plus](/source-systems/manageengine-servicedesk-plus) | IT service management and CMDB | Planned | Planned | Cloud API v3, on-prem API v3, webhooks, database read or export where approved | Requests, incidents, problems, changes, tasks, worklogs, requesters, technicians, assets, CIs, SLAs, approvals |
+| [ManageEngine Endpoint Central](/source-systems/manageengine-endpoint-central) | Unified endpoint management | Planned | Planned | Cloud REST API, on-prem REST API, custom query reports, scheduled export | Endpoints, users, hardware, software, patches, deployments, configurations, groups, remote offices, compliance |
 | HR or workforce system | Workforce lifecycle | Candidate | Candidate | API, export, secure file transfer | Employees, departments, managers, job status, hire and termination dates |
 | Identity provider | Identity and access management | Candidate | Planned | API or directory query | Identities, groups, memberships |
 | Collaboration platform | Communication and collaboration | Candidate | Planned | API | Teams, channels, memberships, activity |
-| Endpoint management | Device and endpoint operations | Candidate | Planned | API or export | Devices, users, compliance, inventory |
-| Service desk | Tickets and operational work | Candidate | Planned | API | Incidents, requests, changes, assets |
-| Security awareness platform | Training and awareness | Candidate | Planned | API or export | Users, assignments, completions |
+| Other endpoint management | Device and endpoint operations | Candidate | Planned | API or export | Devices, users, compliance, inventory |
+| Other service desk | Tickets and operational work | Candidate | Planned | API | Incidents, requests, changes, assets |
+| Other security awareness platform | Training and awareness | Candidate | Planned | API or export | Users, assignments, completions |
 | Virtualization platform | Infrastructure operations | Candidate | Planned | API | Hosts, VMs, clusters, capacity |
 | Backup or disaster recovery platform | Operational resilience | Candidate | Candidate | API or export | Backup jobs, restore points, protected assets, success and failure status |
 

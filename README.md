@@ -1,8 +1,14 @@
 # Enterprise Data Platform
 
+<p>
+  <img src="docs/public/brand/edp-wordmark-dark.svg" alt="Enterprise Data Platform" width="720">
+</p>
+
 Canonical version: see `VERSION`.
 
 Public website: https://edp.mcguire.technology/
+
+Brand assets and usage guidance: https://edp.mcguire.technology/branding
 
 Enterprise Data Platform is a collection of tools and data processing patterns for collecting cross-system operational data, landing it in a raw data store, normalizing and enriching it into an Operational Data Store, historizing it in a Data Vault, and publishing focused Data Marts for reporting and application use.
 

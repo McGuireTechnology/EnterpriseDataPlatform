@@ -17,6 +17,11 @@ This section should help answer:
 
 - [Active Directory](/source-systems/active-directory): first documented source system for identities, groups, computers, organizational units, and memberships.
 - [Microsoft 365](/source-systems/microsoft-365): cloud productivity, collaboration, licensing, usage, and service metadata source.
+- [Apple Business Manager and Apple School Manager](/source-systems/apple-business-school-manager): Apple device enrollment, Managed Apple Accounts, Apps and Books, and education roster source.
+- [KnowBe4](/source-systems/knowbe4): security awareness training, phishing simulation, user risk, and compliance evidence source.
+- [Cisco Meraki Dashboard](/source-systems/cisco-meraki-dashboard): cloud-managed network inventory, configuration, telemetry, licensing, client activity, and alert source.
+- [ManageEngine ServiceDesk Plus](/source-systems/manageengine-servicedesk-plus): ITSM, service desk, ticket, asset, CMDB, SLA, and workflow source.
+- [ManageEngine Endpoint Central](/source-systems/manageengine-endpoint-central): endpoint inventory, patch, software, configuration, compliance, and deployment source.
 - [Common Systems](/source-systems/common-systems): additional source-system categories and prioritization guidance.
 - [Inventory](/source-systems/inventory): source system inventory and documentation template.
 - [Connector Catalog](/source-systems/connector-catalog): catalog of connector options, prebuilt packages, and implementation status.

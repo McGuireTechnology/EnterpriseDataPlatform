@@ -23,11 +23,16 @@ Connector status should be explicit so teams know what can be deployed quickly, 
 | --- | --- | --- | --- |
 | [Active Directory](/source-systems/active-directory) | LDAPS query, LDAP query, PowerShell export, scheduled file export | Prebuilt planned | First source system; supports identity lifecycle, access visibility, and membership correlation |
 | [Microsoft 365](/source-systems/microsoft-365) | Microsoft Graph API, reports API, admin exports, PowerShell-assisted export | Prebuilt planned | Supports users, groups, Teams, licenses, usage, and cloud collaboration visibility |
+| [Apple Business Manager and Apple School Manager](/source-systems/apple-business-school-manager) | Apple School and Business Manager API, ASM Roster API, Apps and Books web services, admin export | Planned | Supports Apple device enrollment, MDM assignment, Managed Apple Accounts, Apps and Books, and education roster visibility |
+| [KnowBe4](/source-systems/knowbe4) | Reporting API, Graph API, User Event API, Product API, webhooks, CSV export | Planned | Supports security awareness training, phishing simulation, user risk, group, and compliance evidence reporting |
+| [Cisco Meraki Dashboard](/source-systems/cisco-meraki-dashboard) | Dashboard API v1, webhooks, syslog, SNMP, NetFlow, dashboard export | Planned | Supports cloud-managed network inventory, configuration, device status, client activity, licensing, events, and alerts |
+| [ManageEngine ServiceDesk Plus](/source-systems/manageengine-servicedesk-plus) | Cloud API v3, on-prem API v3, webhooks, database read, report export | Planned | Supports service requests, incidents, problems, changes, assets, CMDB, SLAs, approvals, and service operations reporting |
+| [ManageEngine Endpoint Central](/source-systems/manageengine-endpoint-central) | Cloud REST API, on-prem REST API, custom query reports, scheduled export, database read | Planned | Supports endpoint inventory, patch compliance, software inventory, deployments, configurations, MDM, and endpoint compliance reporting |
 | Identity provider | API, directory query, export, vendor SDK | Planned | Common first integration for identity lifecycle and access visibility |
 | Collaboration platform | API, audit exports, webhook where available | Planned | Useful for team, channel, membership, and communication governance |
-| Endpoint management | API, scheduled export, vendor connector | Planned | Supports device inventory, compliance, ownership, and lifecycle views |
-| Service desk | REST API, database replica, export | Planned | Supports ticket analytics, workload views, service operations, and CMDB patterns |
-| Security awareness platform | API, CSV export | Planned | Supports training status, campaign completion, and compliance evidence |
+| Other endpoint management | API, scheduled export, vendor connector | Planned | Supports device inventory, compliance, ownership, and lifecycle views |
+| Other service desk | REST API, database replica, export | Planned | Supports ticket analytics, workload views, service operations, and CMDB patterns |
+| Other security awareness platform | API, CSV export | Planned | Supports training status, campaign completion, and compliance evidence |
 | Virtualization platform | API, inventory export | Planned | Supports VM, host, cluster, capacity, and ownership visibility |
 | HR or workforce system | API, export, secure file transfer | Candidate | Often important for identity lifecycle, but sensitive and governance-heavy |
 | Backup or disaster recovery platform | API, scheduled export, reporting database | Candidate | Supports backup coverage, recovery readiness, and audit evidence |

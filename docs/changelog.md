@@ -2,6 +2,23 @@
 
 The canonical project version is maintained in the root `VERSION` file.
 
+## 26.5.2
+
+Added:
+
+- Root `requirements.txt` that references subproject Python requirement files
+- Root npm `package.json` workspace and lockfile for project-level docs commands
+- Local Apache Airflow Compose scaffold, DAG folder structure, healthcheck DAG, Make targets, and runbook
+- Local Apache Superset Compose scaffold, configuration, bootstrap script, Make targets, and runbook
+- PgBouncer and PgAdmin services for the local containerized database stack, with database port exposure disabled by default
+- Pinned local Superset and PgAdmin container image versions for repeatable startup
+- Google Workspace source-system documentation and connector catalog entries
+- Infinite Campus, Canvas LMS, and Follett Destiny source-system documentation and connector catalog entries
+
+Changed:
+
+- Updated README setup examples to use root dependency entry points
+
 ## 26.5.1
 
 Added:

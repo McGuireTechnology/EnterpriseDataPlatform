@@ -53,6 +53,8 @@ export default defineConfig({
           { text: 'Platform Positioning', link: '/architecture/platform-positioning' },
           { text: 'Runbooks', link: '/runbooks/' },
           { text: 'Local PostgreSQL', link: '/runbooks/local-postgresql' },
+          { text: 'Local Airflow', link: '/runbooks/local-airflow' },
+          { text: 'Local Superset', link: '/runbooks/local-superset' },
           { text: 'Decisions', link: '/decisions/' }
         ]
       },
@@ -62,6 +64,10 @@ export default defineConfig({
           { text: 'Overview', link: '/source-systems/' },
           { text: 'Active Directory', link: '/source-systems/active-directory' },
           { text: 'Microsoft 365', link: '/source-systems/microsoft-365' },
+          { text: 'Google Workspace', link: '/source-systems/google-workspace' },
+          { text: 'Infinite Campus', link: '/source-systems/infinite-campus' },
+          { text: 'Canvas LMS', link: '/source-systems/canvas-lms' },
+          { text: 'Follett Destiny', link: '/source-systems/follett-destiny' },
           { text: 'Apple Business and School Manager', link: '/source-systems/apple-business-school-manager' },
           { text: 'KnowBe4', link: '/source-systems/knowbe4' },
           { text: 'Cisco Meraki Dashboard', link: '/source-systems/cisco-meraki-dashboard' },

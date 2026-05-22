@@ -16,6 +16,8 @@ Use this structure for each runbook:
 ## Initial Runbooks
 
 - [Local PostgreSQL](/runbooks/local-postgresql)
+- [Local Airflow](/runbooks/local-airflow)
+- [Local Superset](/runbooks/local-superset)
 - Failed data pipeline
 - Delayed source extract
 - Schema drift detected

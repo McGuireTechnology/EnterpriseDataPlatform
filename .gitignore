@@ -185,3 +185,7 @@ node_modules/
 docs/.vitepress/cache/
 docs/.vitepress/dist/
 docs/.vitepress/.temp/
+
+# Local Airflow runtime
+airflow/logs/*
+!airflow/logs/.gitkeep

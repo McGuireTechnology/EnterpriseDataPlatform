@@ -15,8 +15,8 @@ This section should help answer:
 
 ## Pages
 
-- [Active Directory](/source-systems/active-directory): first documented source system for identities, groups, computers, organizational units, and memberships.
-- [Microsoft 365](/source-systems/microsoft-365): cloud productivity, collaboration, licensing, usage, and service metadata source.
+- [AD](/source-systems/active-directory): first documented source system for identities, groups, computers, organizational units, and memberships.
+- [M365](/source-systems/microsoft-365): cloud productivity, collaboration, licensing, usage, and service metadata source.
 - [Google Workspace](/source-systems/google-workspace): cloud identity, collaboration, licensing, device, usage, audit, and administrative alert source.
 - [Infinite Campus](/source-systems/infinite-campus): SIS roster, student, enrollment, course, section, assignment, and academic context source.
 - [Canvas LMS](/source-systems/canvas-lms): learning management, course, enrollment, assignment, submission, grade, and activity source.

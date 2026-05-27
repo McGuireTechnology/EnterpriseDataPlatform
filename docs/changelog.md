@@ -28,7 +28,7 @@ Added:
 - Component metadata databases for Airflow and Superset
 - Alembic migration environments for each EDP-owned database
 - SQLAlchemy modeling layer for Alembic autogeneration
-- Source-specific raw schema convention, starting with Active Directory
+- Source-specific raw schema convention, starting with AD
 - Local PostgreSQL runbook and lifecycle examples showing raw to ODS to vault to mart flow
 - Custom operational app example for endpoint exception review workflows
 
@@ -49,7 +49,7 @@ Added:
 - Platform charter and implementation planning guidance
 - Architecture documentation for runtime infrastructure, data lifecycle, persistence, orchestration, consumer tools, tool categories, tooling recommendations, and platform positioning
 - Source Systems documentation area
-- Initial source system pages for Active Directory and Microsoft 365
+- Initial source system pages for AD and M365
 - Common source system roadmap
 - Connector catalog and connector standard
 - Version file as the canonical version source

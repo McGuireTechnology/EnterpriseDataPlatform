@@ -116,7 +116,7 @@ source system naturally captures.
 
 ## Power BI
 
-Power BI can be useful in Microsoft-heavy environments, especially where users already live in Microsoft 365 and business teams have existing Power BI skills.
+Power BI can be useful in Microsoft-heavy environments, especially where users already live in M365 and business teams have existing Power BI skills.
 
 Treat Power BI as an optional enterprise reporting endpoint rather than the default platform dependency. If used, it should consume governed Data Marts or semantic models instead of rebuilding logic in isolated reports.
 

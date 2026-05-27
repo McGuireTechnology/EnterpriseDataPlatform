@@ -16,7 +16,7 @@ EDP should use ManageEngine Endpoint Central data to support:
 - Mobile device management visibility where enabled
 - Remote office, site, and scope-of-management reporting
 - Endpoint-to-ticket and endpoint-to-asset reconciliation
-- Cross-system correlation with Active Directory, Microsoft 365, ServiceDesk Plus, asset inventory, security tools, and network platforms
+- Cross-system correlation with AD, M365, ServiceDesk Plus, asset inventory, security tools, and network platforms
 
 ## Ownership
 
@@ -163,7 +163,7 @@ Common mapping rules:
 - Correlate endpoint users to identities through approved identifiers such as username, UPN, email address, employee identifier, or directory object.
 - Treat patch, software, compliance, and agent status as time-bound observations.
 - Keep desired configuration, deployment status, and observed endpoint state as separate entities.
-- Reconcile Endpoint Central inventory with ServiceDesk Plus, Active Directory, Microsoft 365, Intune, Jamf, Meraki, and security platform data using explicit source-of-authority rules.
+- Reconcile Endpoint Central inventory with ServiceDesk Plus, AD, M365, Intune, Jamf, Meraki, and security platform data using explicit source-of-authority rules.
 
 ## Data Vault Mapping
 

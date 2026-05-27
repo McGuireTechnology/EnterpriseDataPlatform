@@ -15,7 +15,7 @@ EDP should use KnowBe4 data to support:
 - New-hire and annual training validation
 - Remedial training tracking
 - Compliance evidence for audit and governance
-- Cross-system reconciliation with HR, Active Directory, Microsoft 365, identity provider, and service desk data
+- Cross-system reconciliation with HR, AD, M365, identity provider, and service desk data
 
 ## Ownership
 

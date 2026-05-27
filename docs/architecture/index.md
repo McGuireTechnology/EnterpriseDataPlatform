@@ -25,6 +25,7 @@ Use this section to explain how the platform is assembled, how data moves throug
 - [Connector and ingestion patterns](/architecture/tool-categories)
 - [Suggested tooling by category](/architecture/tooling-recommendations)
 - [Raw data store, Operational Data Store, Data Vault, and Data Mart layers](/architecture/data-lifecycle)
+- [Data workflow and reprocessing pattern](/architecture/data-workflow)
 - [Database and persistence recommendations](/architecture/data-persistence)
 - [Orchestration and recovery patterns](/architecture/orchestration)
 - Custom application integration patterns

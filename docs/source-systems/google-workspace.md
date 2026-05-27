@@ -1,6 +1,6 @@
 # Google Workspace
 
-Google Workspace is a core EDP source system for cloud identity, collaboration, licensing, device, usage, audit, and administrative visibility. It should be documented separately from Microsoft 365 because it uses Google Workspace Admin APIs, Google Cloud authentication patterns, and Google-specific identifiers.
+Google Workspace is a core EDP source system for cloud identity, collaboration, licensing, device, usage, audit, and administrative visibility. It should be documented separately from M365 because it uses Google Workspace Admin APIs, Google Cloud authentication patterns, and Google-specific identifiers.
 
 ## Overview
 
@@ -17,7 +17,7 @@ EDP should use Google Workspace data to support:
 - Security alert and audit evidence collection
 - Onboarding and offboarding validation
 - Access review and collaboration governance
-- Cross-system identity correlation with Active Directory, HR, and service desk data
+- Cross-system identity correlation with AD, HR, and service desk data
 
 ## Ownership
 
@@ -160,7 +160,7 @@ Common mapping rules:
 
 - Use stable Google user IDs and group IDs as source identifiers.
 - Preserve primary email, aliases, and suspended status as descriptive attributes because they can change over time.
-- Correlate Google Workspace accounts to Active Directory, HR, and service desk records through employee identifiers, email, UPN, or approved matching rules.
+- Correlate Google Workspace accounts to AD, HR, and service desk records through employee identifiers, email, UPN, or approved matching rules.
 - Keep group membership and administrative role assignments as auditable relationships.
 - Model usage reports and audit events as observations, not current-state identity attributes.
 - Keep device inventory separate from account inventory, then link through assigned users where supported.
@@ -250,7 +250,7 @@ Google Workspace APIs may enforce quotas, page limits, eventual consistency, and
 
 Some audit, security, investigation, and reporting data can depend on Google Workspace edition, tenant settings, retention periods, and administrator privileges.
 
-Google Workspace accounts and Active Directory accounts may represent the same person but use different identifiers. Correlation rules should be explicit and auditable.
+Google Workspace accounts and AD accounts may represent the same person but use different identifiers. Correlation rules should be explicit and auditable.
 
 Permission requirements can change as endpoints and data domains expand. Keep OAuth scopes reviewed and documented with the connector package.
 

@@ -25,4 +25,6 @@ features:
     details: EDP correlates identities, assets, permissions, tickets, licenses, and operational records across specialized systems.
   - title: Governed Reporting
     details: Shared models, version-controlled transformations, and reusable dashboards reduce spreadmarts and conflicting sources of truth.
+  - title: Contrib References
+    details: Local-only reference documents such as CIS Controls inputs can guide target features without committing source material.
 ---

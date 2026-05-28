@@ -22,6 +22,7 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/guide/getting-started' },
       { text: 'Architecture', link: '/architecture/' },
+      { text: 'GRC', link: '/grc/' },
       { text: 'Source Systems', link: '/source-systems/' },
       { text: 'Changelog', link: '/changelog' },
       { text: 'Positioning', link: '/architecture/platform-positioning' },
@@ -51,6 +52,8 @@ export default defineConfig({
           { text: 'Tool Categories', link: '/architecture/tool-categories' },
           { text: 'Tooling Recommendations', link: '/architecture/tooling-recommendations' },
           { text: 'Platform Positioning', link: '/architecture/platform-positioning' },
+          { text: 'GRC', link: '/grc/' },
+          { text: 'Policy Template Conversion', link: '/grc/policy-template-conversion' },
           { text: 'Runbooks', link: '/runbooks/' },
           { text: 'Local PostgreSQL', link: '/runbooks/local-postgresql' },
           { text: 'Local Airflow', link: '/runbooks/local-airflow' },

@@ -60,3 +60,9 @@ CIS Controls references are high-value inputs for:
 - Mappings between controls, assets, identities, and source-system observations
 
 Derived EDP artifacts should use concise module names such as `AD` and `M365` when referencing source-system coverage.
+
+## Policy Templates
+
+Policy templates are source material for the GRC capability. Convert selected templates into Markdown under `docs/grc/policy-templates` when they become durable EDP examples or requirements.
+
+See [Policy Template Conversion](/grc/policy-template-conversion) for the conversion conventions.

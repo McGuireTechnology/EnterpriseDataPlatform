@@ -1,0 +1,81 @@
+﻿{
+  "Id": 308,
+  "UUID": "9db6aed0-726a-4384-9d31-3cc64c9dbb76",
+  "Version": "1.219.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "User deactivation in the last 7 days",
+  "ScriptName": "OKTA_UserDeactivate",
+  "ShortName": "SI000308",
+  "Description": "This indicator checks if a user has been deactivated within the last 7 days.",
+  "CategoryId": "8",
+  "Weight": 1,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 1,
+  "LikelihoodOfCompromise": "Deactivated users no longer have the ability to authenticate and perform actions within the environment. However, an attacker may intentionally deactivate a user to disrupt the functioning of the environment or to hide their activities. It is important to monitor and verify the deactivation status of users to ensure that it aligns with the intended access controls.",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Impact"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "10",
+      "Name": "PK",
+      "MinVersion": "4.0",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ]
+    }
+  ],
+  "DataSources": [
+    "Okta.OktaAPI"
+  ],
+  "OutputFields": [
+    {
+      "Name": "Operation",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Users",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ActorID",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ActorName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "Okta"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} new deactivated users.",
+  "Remediation": "Review the deactivation status of users to confirm that they should indeed be deactivated. Reactivate any users who require access and whose deactivation may be unauthorized. Additionally, investigate any unauthorized deactivations as they may indicate malicious activity.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

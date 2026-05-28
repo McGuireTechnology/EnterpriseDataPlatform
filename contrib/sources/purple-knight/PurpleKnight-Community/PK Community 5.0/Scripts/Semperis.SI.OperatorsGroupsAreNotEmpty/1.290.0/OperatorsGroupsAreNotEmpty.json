@@ -1,0 +1,94 @@
+﻿{
+  "Id": 150,
+  "UUID": "681db401-004b-4cec-a4b8-07926a63e281",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Operators Groups that are not empty",
+  "ScriptName": "OperatorsGroupsAreNotEmpty",
+  "ShortName": "SI000150",
+  "Description": "<p>This indicator checks if the Account Operators, Server Operators, Backup Operators and Print Operators groups in Active Directory are populated.</p>",
+  "CategoryId": "2",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>The operator groups in Active Directory, Account Operators, Server Operators, Backup Operators, and Print Operators, all provide users within these groups certain privileges over different critical domain resources in Active Directory and different levels of access to domain controllers.</p>\n      <p>An attacker may target users in these groups for further privilege escalation and lateral movement in Active Directory.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-groups\" target=\"_blank\">Active Directory security groups | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - User Account Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "GroupDistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DomainName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} Members in Operator groups",
+  "Remediation": "<p>Organizations should evaluate the use of these groups, and work to reduce and remove membership of these groups.</p>\n      <p>Organizations that are using these groups should implement an appropriate rights delegation to the necessary OUs in Active Directory as an alternative. For Backup Operators, organizations should implement a different group and manage access to lower tier servers or workstations through group policy objects.</p>\n      <p>If the organization accepts the risk of these groups being populated, they should use attack path analysis software, such as Forest Druid, to determine the attack paths that exist due to the population of these groups, and further consider members of this group to be Tier 0.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

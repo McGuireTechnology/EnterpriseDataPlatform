@@ -1,0 +1,111 @@
+﻿{
+  "Id": 74,
+  "UUID": "32c2a92b-fe99-4e5c-bfbb-7497b759946d",
+  "Version": "1.291.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "User accounts with password not required",
+  "ScriptName": "UsersPWDNotReq",
+  "ShortName": "SI000074",
+  "Description": "This indicator identifies user accounts where a password is not required.",
+  "CategoryId": "2",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "3d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>Accounts with weak access controls are often targeted by attackers seeking to move laterally or gain a persistent foothold within the environment.</p>\n      <h3>References</h3>\n      <p><a href=\"https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63-3.pdf\" target=\"_blank\">NIST.SP.800-63-3</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Lateral Movement"
+      ]
+    },
+    {
+      "Name": "MITRE D3FEND",
+      "Tags": [
+        "Harden - Strong Password Policy"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MaxVersion": "3.0",
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UserAccountControl",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ManagedBy",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastChanged",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Created",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} users with PASSWD_NOTREQD flag set on their User Account Control value.",
+  "Remediation": "This flag represents a potential weakness in user accounts, which if left in place, could make these accounts targets of takeover attacks. If the flag is required, ensure that these accounts have the least privileges possible.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

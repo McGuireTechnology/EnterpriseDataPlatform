@@ -1,0 +1,76 @@
+﻿{
+  "Id": 118,
+  "UUID": "cd191d30-9e68-4658-bec2-7d5c4c97c715",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Check if legacy authentication is allowed",
+  "ScriptName": "AAD_CheckLegacyAuthentication",
+  "ShortName": "SI000118",
+  "Description": "<p>This indicator checks if legacy authentication is blocked either by Conditional Access policies or Security Defaults.</p>\n        <h3>Required permissions</h3>\n        <ul>\n          <li>Policy.Read.All</li>\n          </ul>",
+  "CategoryId": "6",
+  "Weight": 4,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>Legacy authentication presents risk that an attacker may use compromised credentials to access resources, as legacy authentication does not support security mechanisms like Conditional Access or MFA.</p>\n      <p>While Microsoft has now restricted the use of legacy authentication in Entra ID, organizations should ensure it is blocked with their own policies for defense-in-depth.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-block-legacy-authentication\" target=\"_blank\">Block legacy authentication with Conditional Access - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "LegacyAuthenticationMethod",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All"
+  ],
+  "ResultMessage": "Legacy Authentication is not being blocked.",
+  "Remediation": "<p>Create a Conditional Access policy blocking legacy authentication.</p>\n      <p>Microsoft provides both a Conditional Access policy template, as well as step-by-step instructions for creating a Conditional Access policy to block legacy authentication.</p>\n      <p>If legacy authentication is still required for limited resources that may utilize it, such as SMTP with Exchange Online, additional Conditional Access policies should be created for those resources to limit authentication to trusted IP ranges.</p>\n      <p><b>Creation and deployment of Conditional Access policies can negatively impact users if not tested. Organizations need to ensure that policies are tested before broad deployment.</b>",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

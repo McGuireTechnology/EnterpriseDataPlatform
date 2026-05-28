@@ -1,0 +1,92 @@
+﻿{
+  "Id": 70,
+  "UUID": "275b22b7-6386-46b8-a1bd-3f14965bf643",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Principals with constrained authentication delegation enabled for a DC service",
+  "ScriptName": "ObjectsWithConstrainedDelegationDC",
+  "ShortName": "SI000070",
+  "Description": "This indicator looks for principals (computers or users) that have constrained delegation enabled for a service running on a DC. If an attacker can create such a delegation, they can authenticate to that service using any user that is not protected against delegation.",
+  "CategoryId": "5",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "Constrained delegation allows a service to act on behalf of an authenticated user to another service. While this is sometimes necessary and requires the user to authenticate to the delegating service first, delegation to such services on domain controllers greatly increases risk. An attacker that is able to compromise such a service can significantly elevate their privileges in this way and infiltrate Active Directory.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/audit-user-account-management\" target=\"_blank\">audit-user-account-management of Microsoft</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Detect - Domain Account Monitoring"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "AllowedToDelegateTo",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} objects with constrained delegation configured to Domain Controller.",
+  "Remediation": "Remove any delegations, constrained or otherwise, that are defined against remote DC services.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

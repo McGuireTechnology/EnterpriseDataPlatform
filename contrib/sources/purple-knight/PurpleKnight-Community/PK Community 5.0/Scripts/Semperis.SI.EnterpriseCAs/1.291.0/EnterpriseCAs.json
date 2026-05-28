@@ -1,0 +1,88 @@
+﻿{
+  "Id": 95,
+  "UUID": "08612871-a9dc-4d18-a2cc-580e086e3199",
+  "Version": "1.291.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "AD Certificate Authority with Web Enrollment - ESC8",
+  "ScriptName": "EnterpriseCAs",
+  "ShortName": "SI000095",
+  "Description": "<p>This indicator attempts to identify AD CS servers in the domain that accept NTLM authentication to Web Enrollment Services. The script enumerates CAs in the Enrollment Services container, resolves their IP and attempts NTLM authentication to https://IP/certsrv and http://IP/certsrv. Note: This indicator currently does not identify EPA or other mitigations suggested by Microsoft.</p>\n        <p>The indicator will return a <b>Passed</b> if an enrollment service is contacted, but NTLM authentication is denied (positive effect on the posture score) for any endpoint.</p>\n        <p>The indicator will return an <b>IoE Found</b> if NTLM authentication is available on an enrollment service (negative effect on security posture) on any endpoint.</p>\n        <p>The indicator will <b>Fail to Run</b> (no effect on security posture score) if one of the following is true for all endpoints:</p>\n        <ul>\n        <li><b>Cannot Resolve</b> - Enrollment Service Certificate found in AD CS container, but address cannot be resolved</li>\n        <li><b>Unreachable</b> - IP is resolved, but service cannot be reached</li>\n        </ul>",
+  "CategoryId": "3",
+  "Weight": 8,
+  "Severity": "Critical",
+  "Schedule": "1h",
+  "Impact": 8,
+  "LikelihoodOfCompromise": "<p>Attackers can exploit misconfigured Active Directory Certificate Services (AD CS) Web Enrollment to launch NTLM and Kerberos relay attacks, enabling them to authenticate as privileged users or computer accounts. One notable instance occurred in July 2021, when attackers combined this method with the PetitPotam attack on the MS-EFSRPC protocol, using only network access to coerce authentication. Other techniques allow any domain user to coerce a domain controller or computer account's authentication, relay it to AD CS Web Enrollment, and request a certificate for privileged access. This can ultimately result in domain takeover. For more information on this attack, often referred to as ESC8, consult detailed write-ups available online.</p>\n      <h3>References</h3>\n      <p><a href=\"https://support.microsoft.com/en-us/topic/kb5005413-mitigating-ntlm-relay-attacks-on-active-directory-certificate-services-ad-cs-3612b773-4043-4aa9-b23d-b87910cd3429\">KB5005413: Mitigating NTLM Relay Attacks on Active Directory Certificate Services (AD CS)</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Credential Access",
+        "Privilege Escalation"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MaxVersion": "3.0",
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "HostName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "IPAddress",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "NTLMHttpsStatus",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} AD CS Enrollment endpoints. A 'True' result in the table below means that NTLM authentication to the endpoint was successful. A 'False' result means that the script was unable to authenticate - this means that a mitigation MAY be in place. An 'Unable to resolve' result means that the script was unable to resolve an IP address to the endpoint.",
+  "Remediation": "As per Microsoft guidance, ensure EPA is enabled and NTLM authentication is disabled on all AD CS servers.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

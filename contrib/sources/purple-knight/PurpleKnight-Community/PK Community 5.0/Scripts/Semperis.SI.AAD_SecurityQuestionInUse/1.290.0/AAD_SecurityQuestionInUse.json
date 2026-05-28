@@ -1,0 +1,83 @@
+﻿{
+  "Id": 45,
+  "UUID": "16503719-3c1a-4766-830c-7aa4133652ee",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Security questions are in use",
+  "ScriptName": "AAD_SecurityQuestionInUse",
+  "ShortName": "SI000045",
+  "Description": "<p>This indicator checks if security questions are in use for Entra self-service password reset.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Reports.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 2,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 2,
+  "LikelihoodOfCompromise": "<p>Security questions, also known as knowledge-based authentication (KBA) are a mechanism in Entra ID that organizations can use for authentication flows during a self-service password reset scenario. If a user does not know their password, these alternative means of authentication can be used to allow the user to reset their password.</p>\n      <p>Due to the rise of availability of information about users on the internet, as well as the increase in social engineering, it's increasingly easier for an attacker to gather answers for KBA scenarios. Organizations that rely on KBA as a means of authentication for self-service password reset are at a greater risk of an attacker using this to compromise users. NIST 800-63B, section 5.1.1.2, indicates that providers should no longer use KBA for user verification.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-authentication-security-questions\" target=\"_blank\">Security questions authentication method - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://csrc.nist.rip/publications/detail/sp/800-63b/final\" target=\"_blank\">NIST 800-63B</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access",
+        "Initial Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Strong Password Policy"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Reports.Read.All"
+  ],
+  "ResultMessage": "Security questions are configured for self service password reset.",
+  "Remediation": "<p>Consider deprecating security questions as method available for self-service password reset.</p>\n      <p>If the organization does not have a policy around the use of knowledge-based authentication (KBA), known as security questions in Entra ID, NIST indicates in SP 800-63B, under section 5.1.1.2, that providers should not use KBA.</p>\n      <p>To review the existing security question settings, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/PasswordResetMenuBlade/%7E/AuthenticationMethods/fromNav/\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Protection</b>, select <b>Password reset</b>.</p>\n      <p>In the blade on the right, select <b>Authentication methods</b>. You can review the settings for the number of security questions required for reset, as well as view the questions available under <b>Select security questions</b>.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

@@ -1,0 +1,110 @@
+﻿{
+  "Id": 68,
+  "UUID": "4eab7c02-aae3-4b4c-ba3b-d08977ce7c18",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Trust accounts with old passwords",
+  "ScriptName": "TrustPwdLastSet",
+  "ShortName": "SI000068",
+  "Description": "This indicator looks for trust accounts whose password has not changed within the last year. This could mean that a trust relationship was removed but its corresponding trust account wasn't cleaned up.",
+  "CategoryId": "2",
+  "Weight": 3,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 3,
+  "LikelihoodOfCompromise": "<p>Trust accounts facilitate authentication across trusts. As such they should be protected just like privileged user accounts. Normally trust account passwords are rotated automatically so a trust account without a recent password change could indicate an orphaned trust account.</p>\n      <h3>References</h3>\n      <p><a href=\"https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63-3.pdf\" target=\"_blank\">NIST.SP.800-63-3</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_trusts_accounts\" target=\"_blank\">Trust account passwords unchanged for more than a year | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Initial Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Strong Password Policy"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln2_trusts_accounts"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PasswordLastSet",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DaysSinceLastSet",
+      "Type": "Integer",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastChanged",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} trusted domain objects whose password has not changed in the last {1} days.",
+  "Remediation": "Old passwords on trust accounts usually indicate the trust is no longer valid. Verify that the trust account is no longer needed and then delete it.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

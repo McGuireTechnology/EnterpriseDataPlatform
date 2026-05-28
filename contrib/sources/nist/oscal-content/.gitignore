@@ -1,0 +1,7 @@
+# Name of default directory for build artifacts
+generated/
+# Downloaded utilities for content transformation
+yq
+jq
+.DS_Store
+build/oscal-cli/

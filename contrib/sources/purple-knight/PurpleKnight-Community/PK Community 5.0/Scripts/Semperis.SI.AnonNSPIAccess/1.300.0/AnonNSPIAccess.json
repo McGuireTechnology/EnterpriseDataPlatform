@@ -1,0 +1,100 @@
+﻿{
+  "Id": 52,
+  "UUID": "aace861d-9d2c-47df-9d3a-eb8f07008abb",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Anonymous NSPI access to AD enabled",
+  "ScriptName": "AnonNSPIAccess",
+  "ShortName": "SI000052",
+  "Description": "Anonymous name service provider interface (NSPI) access on AD is a feature that allows anonymous RPC-based binds to AD. This indicator detects when NSPI access is enabled.",
+  "CategoryId": "3",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>NSPI access is rarely ever enabled so if you find it enabled, this should be a cause for concern.</p>\n       <h3>References</h3>\n      <p><a href= \"https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/e5899be4-862e-496f-9a38-33950617d2c5\" target=\"_blank\">6.1.1.2.4.1.2 dSHeuristics | Microsoft Learn</a></p>\n      <p><a href= \"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_dsheuristics_bad\" target=\"_blank\">Dangerous dsHeuristics settings | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Initial Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - User Account Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln1_dsheuristics_bad",
+        "vuln2_dsheuristics_bad",
+        "vuln3_dsheuristics_bad"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "DSHeuristics",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastChanged",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found risky configuration in the forest that enables anonymous access to NSPI RPC operations.",
+  "Remediation": "Disable anonymous name service provider interface (NSPI) access to AD unless it is absolutely needed. The dsHeuristics attribute on the CN=Directory Service,CN=Windows NT,CN=Services,CN=Configuration,DC=<forest_name> object should be set to disable anonymous access.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

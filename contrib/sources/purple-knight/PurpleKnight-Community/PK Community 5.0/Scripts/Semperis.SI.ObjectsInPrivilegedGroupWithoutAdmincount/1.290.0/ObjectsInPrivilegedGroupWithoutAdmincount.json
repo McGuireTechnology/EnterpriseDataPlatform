@@ -1,0 +1,88 @@
+﻿{
+  "Id": 46,
+  "UUID": "b5df966a-2202-401e-8c0c-0e212d7f666d",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Objects in privileged groups without adminCount=1 (SDProp)",
+  "ScriptName": "ObjectsInPrivilegedGroupWithoutAdmincount",
+  "ShortName": "SI000046",
+  "Description": "This indicator looks for objects in privileged groups with AdminCount not equal to 1. AdminCount is an object flag that is set by the SDProp process (run by default every 60 minutes) if that object's DACLs are modified to sync with the AdminSDHolder object through inheritance. If an object within these groups has an AdminCount not equal to 1 then it could signify that the DACLs were manually set (no inheritance) or that there is an issue with SDProp.",
+  "CategoryId": "1",
+  "Weight": 4,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "While not immediately indicative of an attack, privileged users that are not clearly marked as such (adminCount =1) represent an exposure in that they may be used nefariously without being detected. Additionally, an attacker may add a privileged account and attempt to hide it using this method.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/previous-versions/technet-magazine/ee361593(v=msdn.10)\" target=\"_blank\">AdminSDHolder, protected groups and SDPROP | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Defense Evasion",
+        "Persistence"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "GroupDistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UserAccountControl",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} privileged users that do not have adminCount equal to 1.",
+  "Remediation": "Set adminCount=1 and ensure that SDProp is working properly.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

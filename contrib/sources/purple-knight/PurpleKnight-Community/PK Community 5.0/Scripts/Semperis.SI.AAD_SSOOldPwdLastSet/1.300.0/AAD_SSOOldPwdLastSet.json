@@ -1,0 +1,91 @@
+﻿{
+  "Id": 133,
+  "UUID": "86e00792-a38f-409b-bd74-76e7ceecb93e",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "SSO computer account with password last set over 90 days ago",
+  "ScriptName": "AAD_SSOOldPwdLastSet",
+  "ShortName": "SI000133",
+  "Description": "This indicator checks the Entra Seamless Single Sign-On computer account, AZUREADSSOACC, to determine if the password has been rotated in the last 90 days.",
+  "CategoryId": "7",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>When configuring Entra Seamless SSO, a computer account is created in Active Directory, AZUREADSSOACC. This computer account is used by Entra ID to decrypt Kerberos tickets that are used as part of the seamless SSO mechanism between Active Directory and Entra ID. Because this is not an actual computer that is a member of Active Directory, the password for it cannot automatically be rolled over every 30 days. If an attacker compromises this account, they can generate Ticket Granting Service (TGS) request to Entra ID and impersonate any user in the Entra tenant that is synchronized from Active Directory.</p>\n<p>An attacker can use this to move laterally from Active Directory into Entra ID.</p>\n<h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sso-faq\" target=\"_blank\">Microsoft Entra Connect SSO FAQ - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sso\" target=\"_blank\">Microsoft Entra Connect: Seamless single sign-on - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_password_change_msa_no_change_90\" target=\"_blank\">Managed service accounts with passwords unchanged for more than 90 days | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln2_password_change_server_no_change_90"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "2.0",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [
+    {
+      "Name": "IntervalInDays",
+      "Type": "Integer",
+      "Description": "Password Inactividy Analysis interval (in days). Default: 90"
+    }
+  ],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "PasswordLastSet",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DaysSinceLastSet",
+      "Type": "Integer",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD",
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "The computer account used for Azure SSO has not changed in the last {1} days.",
+  "Remediation": "<p>The Kerberos decryption key used for Entra Seamless Single Sign-On must be rolled.</p><br /><p>For details on the process of rolling the key, refer to the Microsoft reference article.</p>\n      <p>Organizations should also investigate the necessity for Entra Seamless SSO. If devices are configured for hybrid join, Seamless SSO is not used. Refer to the reference Microsoft article for more information about SSO with a primary refresh token (PRT) vs. the Seamless SSO system.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

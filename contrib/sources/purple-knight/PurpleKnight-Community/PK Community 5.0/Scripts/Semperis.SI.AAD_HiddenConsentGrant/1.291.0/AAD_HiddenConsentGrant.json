@@ -1,0 +1,89 @@
+﻿{
+  "Id": 231,
+  "UUID": "a512f590-9e40-4c80-b448-ccb7086da504",
+  "Version": "1.291.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Entra tenant is susceptible to Hidden Consent Grant attack",
+  "ScriptName": "AAD_HiddenConsentGrant",
+  "ShortName": "SI000231",
+  "Description": "<p>This indicator checks app permissions and settings to determine if the Entra tenant is susceptible to Hidden Consent Grant attacks.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Directory.Read.All</li>\n        <li>Policy.Read.All</li>\n      </ul>",
+  "CategoryId": "6",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>A Hidden Consent Grant attack is a type of phishing attack where a malicious actor who controls an application with Directory.ReadWrite.All permissions gains access to an application and exploits granted permissions to escalate his privileges.</p>\n      <p>The Entra tenant contains applications with different permission requirements. That is, some applications require more permissive permissions, but other applications may have misconfigured permissions or are using default permissions that may not be required. If a malicious actor gets control of an application that allows them to create an app with a redirect to a URL pointing to a controlled endpoint (a pre-requirement of the attack), they may escalate their privileges within the Entra tenant.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.semperis.com/blog/app-consent-attack-hidden-consent-grant/\" target=\"_blank\">A New App Consent Attack: Hidden Consent Grant | Semperis blog</p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/delegate-app-roles#restrict-who-can-create-applications\" target=\"_blank\">Delegate application management administrator permissions - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/fundamentals/users-default-permissions#restrict-member-users-default-permissions\" target=\"_blank\">Default user permissions - Microsoft Entra | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MaxVersion": "3.0",
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DirectoryReadWriteAllApps",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ReplyURLConfiguredApps",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UsersCanRegisterApps",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Directory.Read.All",
+    "AAD.GraphAPI/Policy.Read.All"
+  ],
+  "ResultMessage": "Found {0} scenarios of IOE that may lead to hidden consent grant attack.",
+  "Remediation": "<p>Review apps with AppRoleAssignment.ReadWrite.All, DelegatedPermissionGrant.ReadWrite.All or Directory.ReadWrite.All application permissions and remove any unnecessary app privileges. Monitor and revoke any unauthorized OAuth consent grants.</p>\n      <p>In addition, consider disabling the Users can register applications setting in the Entra tenant, which is enabled by default.</p>\n      <p>To disable this settings:</p>\n      <p>Open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/%7E/UserSettings/menuId/UserSettings\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>Users</b>, and select <b>User settings</b>.</p>\n      <p>In the blade on the right, toggle <b>Users can register applications</b> to <b>no</b>.</p>\n      <p>Select <b>Save</b> at the bottom of the blade.</p>\n      <p>Organizations should understand how this change impacts their users and communicate the change out according to defined business processes.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

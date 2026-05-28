@@ -1,0 +1,112 @@
+﻿{
+  "Id": 16,
+  "UUID": "5d5d5b9c-5685-4786-b3a4-eb2ab1480a69",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Computer or user accounts with SPN that have unconstrained delegation",
+  "ScriptName": "ComputerUserWithSPNUnconstrainedDelegation",
+  "ShortName": "SI000016",
+  "Description": "This indicator looks for computer or user accounts with SPN that are trusted for unconstrained Kerberos delegation. These accounts store users' Kerberos TGT locally to authenticate to other systems on their behalf. Computers and users trusted with unconstrained delegation are good targets for Kerberos-based attacks.",
+  "CategoryId": "5",
+  "Weight": 4,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>Attackers who control a service or user trusted for unconstrained delegation can dump local credentials and uncover cached TGT. These credentials could belong to users that accessed the service and who may be privileged.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/audit-user-account-management\" target=\"_blank\">audit-user-account-management of Microsoft</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_delegation_t4d\" target=\"_blank\">Unconstrained authentication delegation | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Defense Evasion",
+        "Lateral Movement"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Detect - Domain Account Monitoring"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln2_delegation_t4d"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "DisplayName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UserAccountControl",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ServicePrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} objects configured with unconstrained Kerberos delegation.",
+  "Remediation": "Accounts that require Kerberos delegation should be set to constrain that delegation to the particular service or services that require delegation. Attempts should be made to have Kerberos-enabled accounts not be privileged accounts.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

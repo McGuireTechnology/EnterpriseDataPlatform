@@ -1,0 +1,92 @@
+﻿{
+  "Id": 33,
+  "UUID": "c4218bf3-aca4-4d17-90a3-9ba3f4ec42e7",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Recent privileged account creation activity",
+  "ScriptName": "NewPrivilegedUsers",
+  "ShortName": "SI000033",
+  "Description": "This indicator looks for any users or groups that were created within the last month. Privileged accounts and groups are defined by having their adminCount attribute set to 1.",
+  "CategoryId": "2",
+  "Weight": 3,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 3,
+  "LikelihoodOfCompromise": "<p>In most environments, creation of privileged accounts and groups is tightly controlled and audited. This indicator provides a fast method to create a list of new privileged accounts (where adminCount = 1) for investigation and review.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/audit-user-account-management\" target=\"_blank\">audit-user-account-management of Microsoft</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Persistence"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Detect - Domain Account Monitoring"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} objects that were created in the last {1} days and are members of a privileged group.",
+  "Remediation": "Review the list and verify that all privileged accounts and groups that were recently created are valid. Ideally, all privileged account creation goes through an approval-based workflow and gets periodic attestation.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

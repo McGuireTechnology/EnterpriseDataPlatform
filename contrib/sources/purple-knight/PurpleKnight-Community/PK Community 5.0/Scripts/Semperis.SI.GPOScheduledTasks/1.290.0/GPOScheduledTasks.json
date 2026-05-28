@@ -1,0 +1,142 @@
+﻿{
+  "Id": 316,
+  "UUID": "20cacac3-f001-41ca-8a96-3dd02e429f37",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "GPO with Scheduled Tasks configured",
+  "ScriptName": "GPOScheduledTasks",
+  "ShortName": "SI000316",
+  "Description": "When a scheduled task launches an executable, it checks to see if low-privilege users have permissions to modify GPOs.",
+  "CategoryId": "4",
+  "Weight": 2,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 2,
+  "LikelihoodOfCompromise": "Scheduled tasks configured through group policies can be risky if not set up correctly.\n      They can cause unintended problems and potential security vulnerabilities in the following situations:\n      <ul>\n      <li><b>Missing path specification for executable files launched by the Task Scheduler:</b> When setting up a scheduled task, it's important to provide the complete path to the executable file. This helps reduce the risk of path manipulation attacks. Path manipulation involves manipulating the search path or taking advantage of vulnerabilities in the path resolution mechanism to execute a malicious program. By explicitly specifying the complete path, you minimize the reliance on potentially vulnerable search path resolution mechanisms and decrease the chances of path manipulation exploits.</li>\n      <li><b>Executables located in unsecure locations:</b> If scheduled tasks are configured to launch executables from locations where standard users have write access, it poses a potential risk. Standard users having write access to these directories can replace the intended program with a malicious one. This can lead to privilege escalation, where the malicious program gains higher privileges than it should have, resulting in security breaches and compromising the system's security.</li></ul>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Lateral Movement"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Detect - Script Execution Analysis",
+        "Detect - File Creation Analysis"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "2.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "GpoName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "GPOFilePath",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ScheduledTaskName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UserContext",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Executable",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "RunLevel",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "TaskType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UsersWithPrivOnFile",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UsersWithPrivOnFolder",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Result",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LinkedOUs",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} GPO set with Scheduled Tasks",
+  "Remediation": "It is crucial to properly configure group policies with scheduled tasks and grant appropriate levels of access to users and groups in order to inhibit misuse and abuse.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

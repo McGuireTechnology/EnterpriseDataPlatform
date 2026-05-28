@@ -1,0 +1,87 @@
+﻿{
+  "Id": 25,
+  "UUID": "40499bf5-9087-4d55-9db3-2cb641a47ac8",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Privileged objects with unprivileged owners",
+  "ScriptName": "UnprivilegedOwner",
+  "ShortName": "SI000025",
+  "Description": "If a privileged object (as determined by adminCount=1) is owned by an account that is unprivileged, then any compromise of that unprivileged account could result in those privileged objects' delegation being modified, since owners can override any delegation on an object, if only temporarily.",
+  "CategoryId": "1",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>Most privileged objects are owned by privileged groups or users. But if a privileged object were to be owned by an unprivileged account, it could be easily taken over. And even though SDProp might correct any delegation done by an attacker who has compromised an owner, the attacker could have up to 1 hour to perform any changes on the privileged object (e.g. group membership changes or password changes) before SDProp corrects it.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_permissions_adminsdholder\" target=\"_blank\">Dangerous permissions on the adminSDHolder object | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln1_permissions_adminsdholder",
+        "vuln2_permissions_adminsdholder"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Owner",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} privileged objects with unprivileged owner.",
+  "Remediation": "Remove unprivileged owner from privileged objects.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

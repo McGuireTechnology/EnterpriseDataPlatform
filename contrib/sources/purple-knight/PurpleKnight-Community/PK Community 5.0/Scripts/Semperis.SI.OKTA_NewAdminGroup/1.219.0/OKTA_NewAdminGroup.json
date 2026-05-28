@@ -1,0 +1,94 @@
+﻿{
+  "Id": 300,
+  "UUID": "4cc1d625-2fa7-40e0-bbc3-09cac81ecd2d",
+  "Version": "1.219.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "New permission has been granted to a group",
+  "ScriptName": "OKTA_NewAdminGroup",
+  "ShortName": "SI000300",
+  "Description": "In the last 7 days, permission was given to a group.",
+  "CategoryId": "8",
+  "Weight": 2,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 2,
+  "LikelihoodOfCompromise": "Members of a group with high privileges can perform significant actions in Okta, it is important to know which groups grant strong privileges.",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Persistence"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - User Account Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "10",
+      "Name": "PK",
+      "MinVersion": "4.0",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ]
+    }
+  ],
+  "DataSources": [
+    "Okta.OktaAPI"
+  ],
+  "OutputFields": [
+    {
+      "Name": "Operation",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Groups",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PrivilegeGranted",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ActorID",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ActorName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "Okta"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} events granting permissions to groups in the last week.",
+  "Remediation": "Make sure that the permissions given to the group are indeed necessary and were done legitimately.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

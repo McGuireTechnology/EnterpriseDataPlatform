@@ -1,0 +1,87 @@
+﻿{
+  "Id": 153,
+  "UUID": "4fe825ed-07fb-4b06-913a-be5c9542ca54",
+  "Version": "1.310.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "LDAP signing is not required on Domain Controllers",
+  "ScriptName": "LdapSigningIsNotRequired",
+  "ShortName": "SI000153",
+  "Description": "<p>This indicator checks for domain controllers where LDAP signing is not required.</p>",
+  "CategoryId": "3",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>Unsigned network traffic is exposed to MiTM attacks, where attackers alter packets and forward them to the LDAP server, causing the server to make decisions based on forged requests from the LDAP client.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/domain-controller-ldap-server-signing-requirements\" target=\"_blank\">Domain controller LDAP server signing requirements - Windows 10 | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/network-security-ldap-client-signing-requirements\" target=\"_blank\">Network security LDAP client signing requirements - Windows 10 | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation",
+        "Credential Access"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.5"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.4"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "HostName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "State",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} DCs that do not require LDAP Signing.",
+  "Remediation": "<p>To remediate follow the steps below:</p>\n      <p><b>If the steps are not followed in order, disruption to Active Directory may occur.</b></p>\n      <ol>\n        <li>Configure clients to request LDAP signing. Group policy: <b>Network security:LDAP client signing requirements</b>, select <b>Negotiate signing</b>.</li>\n        <li>When all clients request signing, configure domain controllers to require LDAP signing. Group policy: <b>Domain Controller:LDAP server signing requirements</b>, select <b>Require signing</b>.</li>\n        <li>Configure clients to require LDAP signing. Group policy: <b>Network security:LDAP client signing requirements</b>, select <b>Require signing</b>.</li>\n        <li>For full details on the process please see the reference articles.</li>\n      </ol>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

@@ -1,0 +1,69 @@
+﻿{
+  "Id": 161,
+  "UUID": "7ecf71a0-20e0-4485-89e9-17b7e97095cf",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Guest users are not restricted",
+  "ScriptName": "AAD_GuestUsersAreNotRestricted",
+  "ShortName": "SI000161",
+  "Description": "<p>This indicator checks if guest users are restricted in the Entra tenant.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Policy.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 4,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 0,
+  "LikelihoodOfCompromise": "<p>Guests are a feature of Entra ID that allows for business-to-business (B2B) collaboration with users external to your organization. Commonly used for Microsoft 365 and application sharing with partners, vendors, contractors, and other users who collaborate with the organization but are not employees, a guest user will be represented in the organizations Entra tenant. Guest users are not members of the organization, have a different risk profile, and are considered less trusted due to the organization not having full control over and insight into the user object and the devices they come from. Under majority circumstances, guests should be restricted in what kind of directory data they can read in the Entra tenant.</p><p>An attacker may target a guest account for compromise, and then use the compromised guest to enumerate users and other objects in Entra ID.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/users/users-restrict-guest-permissions\" target=\"_blank\">Restrict guest user access permissions - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Reconnaissance"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All"
+  ],
+  "ResultMessage": "Guest users are not restricted in this tenant.",
+  "Remediation": "<p>Change <b>guest user access restrictions</b> to <b>Guest user access is restricted to properties and memberships of their own directory objects (most restrictive)</b>.</p>\n      <p>To change, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/CompanyRelationshipsMenuBlade/%7E/Settings/menuId/Settings\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>External Identities</b>, and select <b>External collaboration settings</b>.</p>\n      <p>In the blade on the right, change the radio dial selection under <b>Guest user access restrictions</b> to <b>Guest user access is restricted to properties and memberships of their own directory objects (most restrictive)</b>. Select <b>Save</b> at the top of the blade.</p>\n      <p><b>Organizations should understand that this will change behavior for guest users in the Entra tenant, and that the changes should be verified and tested, as well as communicated out to impacted users as needed</b>.</p>",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

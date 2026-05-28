@@ -1,0 +1,93 @@
+﻿{
+  "Id": 193,
+  "UUID": "5e0a22b9-2da5-4fde-9de6-e3a77961d6e6",
+  "Version": "1.309.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "OU permissions enabling BadSuccessor dMSA escalation",
+  "ScriptName": "DMSABadSuccessor",
+  "ShortName": "SI000193",
+  "Description": "<p>This indicator checks for excessive permissions to create delegated Managed Service Accounts (dMSAs) within Active Directory organizational units (OU) or NC head (NC Head is the top-level object of a Naming Context (NC) in Active Directory) across domains that contain Windows Server 2025 domain controllers. The indicator identifies non-privileged identities that have been granted CreateChild, GenericAll, WriteDACL, or WriteOwner permissions on OUs or NC head, which could enable the execution of the \"BadSuccessor\" Privilege Escalation attack. The \"BadSuccessor\" attack is a technique which exploits vulnerabilities in Microsoft's Active Directory and enables domain takeover. The attack leverages a feature called Delegated Managed Service Accounts (dMSA), which was introduced in Windows Server 2025.</p>",
+  "CategoryId": "2",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>Excessive OU-level permissions, such as CreateChild on an OU or write rights on a dMSA object, can be abused to elevate privileges. In particular, the \"BadSuccessor\" attack simulates a completed dMSA migration to inherit a target account's security context. In environments with weak OU/NC head ACLs, the risk is moderate to high, although enhanced controls in Windows Server 2025 domains can reduce exposure.</p><h3>References</h3><p><a href=\"https://www.akamai.com/blog/security-research/abusing-dmsa-for-privilege-escalation-in-active-directory\" target=\"_blank\">BadSuccessor: Abusing dMSA to Escalate Privileges in Active Directory</a></p><p><a href=\"https://support.microsoft.com/en-us/topic/kb5008383-active-directory-permissions-updates-cve-2021-42291-536d5555-ffba-4248-a60e-d6cbc849cde1\" target=\"_blank\">KB5008383 — Active Directory permissions updates (CVE-2021-42291)</a></p><p><a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/delegated-managed-service-accounts/delegated-managed-service-accounts-set-up-dmsa\" target=\"_blank\">Setting up delegated Managed Service Accounts</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Model - Access Modeling"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "User",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Permission",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} OUs with excessive permissions.",
+  "Remediation": "<p>Limit the ability to create delegated Managed Service Accounts (dMSAs) by applying the principle of least privilege. Ensure only highly privileged and appropriately monitored administrative accounts should have permissions to create dMSAs across the domain. To modify OU or NC head permissions, open Active Directory Users and Computers (ADUC), right-click the relevant object, select \"Security,\" and remove the vulnerable permissions from the affected users. Enumerate all non-default principals with dMSA creation permissions and identify the organizational units or NC head where these permissions are granted. Thoroughly review the output to determine if each identity requires this level of access and remove unnecessary permissions from the corresponding OU Access Control Lists (ACLs).</p><p>Before implementing any permission changes, test modifications in a controlled environment to ensure proper functionality of existing services and avoid unintended disruptions to domain operations.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

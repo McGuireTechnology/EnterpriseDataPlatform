@@ -1,0 +1,79 @@
+﻿{
+  "Name": "PK",
+  "License": "Community",
+  "Version": "4.0.380469",
+  "Categories": [
+    {
+      "Id": 1,
+      "UniqueId": "1a5a23fb-794a-4596-b02e-a5c07605c4d5",
+      "Name": "AD Delegation",
+      "Description": "AD delegation is a critical part of security and compliance. By delegating control over Active Directory, you can grant users or groups permissions without adding users to privileged groups.",
+      "Weight": 3,
+      "ModifiedAt": "2025-06-10T07:49:03.0164232+00:00"
+    },
+    {
+      "Id": 2,
+      "UniqueId": "47636d89-dbea-41d3-9cc1-6b6ad1c9585d",
+      "Name": "Account Security",
+      "Description": "Account Security indicators pertain to security weaknesses on individual accounts--built-in or otherwise, within Active Directory.",
+      "Weight": 6,
+      "ModifiedAt": "2025-06-10T07:49:03.0263325+00:00"
+    },
+    {
+      "Id": 3,
+      "UniqueId": "6ad53fe9-10af-4bd4-a2de-7265b87c6aad",
+      "Name": "AD Infrastructure Security",
+      "Description": "AD Infrastructure Security indicators pertain to the security configuration of core parts of AD's own infrastructure configuration.",
+      "Weight": 7,
+      "ModifiedAt": "2025-06-10T07:49:03.0266437+00:00"
+    },
+    {
+      "Id": 4,
+      "UniqueId": "045ce47c-0c11-4001-949b-b9c7410ec762",
+      "Name": "Group Policy Security",
+      "Description": "Group Policy Security indicators pertain to the security configuration of GPOs and their deployment within AD.",
+      "Weight": 5,
+      "ModifiedAt": "2025-06-10T07:49:03.0268468+00:00"
+    },
+    {
+      "Id": 5,
+      "UniqueId": "a1ee51b2-0c01-4aa6-b651-c84b560abb61",
+      "Name": "Kerberos Security",
+      "Description": "Kerberos Security indicators pertain to the configuration of Kerberos capabilities on computer and user accounts within AD.",
+      "Weight": 8,
+      "ModifiedAt": "2025-06-10T07:49:03.0270476+00:00"
+    },
+    {
+      "Id": 6,
+      "UniqueId": "c7ec2c08-e9f1-4ed9-9d5b-6d18b4299587",
+      "Name": "Entra ID",
+      "Description": "Entra ID indicators look for common attack vectors that threat actors use to gain access to Entra tenants.",
+      "Weight": 7,
+      "ModifiedAt": "2025-06-10T07:49:03.02724+00:00"
+    },
+    {
+      "Id": 7,
+      "UniqueId": "1fe71b17-2f7f-4f96-a220-2a8a5ae6d53e",
+      "Name": "Hybrid",
+      "Description": "Hybrid indicators help you understand and mitigate the risks associated with a hybrid identity environment. Active Directory is a perimeter point for Entra and a popular attack vendor. Understanding where the Active Directory perimeter is connecting to Entra provides clarity for how to secure the Active Directory entry point.",
+      "Weight": 7,
+      "ModifiedAt": "2025-06-10T07:49:03.0274348+00:00"
+    },
+    {
+      "Id": 8,
+      "UniqueId": "de1239ce-c1e5-49a4-9126-9f8c07881f7e",
+      "Name": "Okta",
+      "Description": "Okta indicators are designed to detect and analyze activities that may indicate unauthorized access attempts, suspicious behavior, or potential threats within the Okta infrastructure",
+      "Weight": 7,
+      "ModifiedAt": "2025-06-10T07:49:03.0276241+00:00"
+    },
+    {
+      "Id": 10,
+      "UniqueId": "82cfc436-0bfe-11ed-861d-0242ac120002",
+      "Name": "Custom Indicators",
+      "Description": "Custom security indicators.",
+      "Weight": 0,
+      "ModifiedAt": "2025-06-10T07:49:03.0278151+00:00"
+    }
+  ]
+}

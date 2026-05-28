@@ -1,0 +1,95 @@
+﻿{
+  "Id": 24,
+  "UUID": "e79191aa-b68f-4983-8420-b2ca25bca6ea",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Unprivileged principals as DNS Admins",
+  "ScriptName": "UnprivilegedDNSAdmin",
+  "ShortName": "SI000024",
+  "Description": "This indicator looks for any member of the DnsAdmins group that is not a privileged user. DnsAdmins itself is not considered a privileged group and is not protected by the AdminSDHolder SDProp mechanism. However as some research has shown, a member of this group can remotely load a DLL onto a domain controller running DNS and execute code as SYSTEM.",
+  "CategoryId": "2",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>Administration of DNS is often delegated to non-AD administrators (i.e., administrators with job responsibilities in networking, DNS, DHCP, etc.). These administration accounts may not have the same security controls as the AD administrator accounts, making them prime targets for compromise.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.semperis.com/blog/dnsadmins-revisited/\" target=\"_blank\">How Potential Attackers Can Achieve Privileged Persistence on a DC through DnsAdmins | Semperis blog</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_permissions_msdns\" target=\"_blank\">Dangerous ACLs expose MicrosoftDNS server objects (attack path) | ANSSI</a></p>\n       <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_dnsadmins\" target=\"_blank\">Dangerous permissions on the DnsAdmins group | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Execution",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln1_permissions_msdns",
+        "vuln1_dnsadmins"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DomainName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} objects which are not privileged but are members of the DNS Admins group.",
+  "Remediation": "Remove unprivileged principals that are a member of the DNS Admins group.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

@@ -1,0 +1,70 @@
+﻿{
+  "Id": 227,
+  "UUID": "0cf1fcb7-9867-4f09-8644-49daaf2eb228",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Self-service password reset enabled for privileged roles",
+  "ScriptName": "AAD_SSPRForAdmins",
+  "ShortName": "SI000227",
+  "Description": "<p>This indicator checks whether users in privileged roles in Entra ID can use self-service password reset.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Policy.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>Self-service password reset (SSPR) is beneficial in organizations for end users but has security trade-offs for privileged accounts. For details on the full list of privileged roles impacted by this, see the reference article.</p>\n      <p>Attackers can and will target privileged users for compromise. Not all methods available for SSPR are phishing-resistant, and an attacker can leverage this to gain access to a privileged users account.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/authentication/concept-sspr-policy\" target=\"_blank\">Self-service password reset policies - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/graph/api/resources/authorizationpolicy?view=graph-rest-1.0\" target=\"_blank\">authorizationPolicy resource type - Microsoft Graph v1.0 | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Initial access"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All"
+  ],
+  "ResultMessage": "SSPR is enabled for privileged roles.",
+  "Remediation": "<p>Disable SSPR for privileged roles.</p>\n      <p>To disable SSPR for privileged roles, you cannot use the Entra admin center. Organizations must use either the Microsoft Graph API or the Microsoft Graph PowerShell SDK to disable SSPR for privileged roles. See the reference articles for details on how to disable. The policy setting <b>AllowedToUseSSPR</b> should be set to false.</p>\n      <p>Organizations must ensure that disabling SSPR for privileged roles does not negatively impact their ability to administer their Entra tenant, and should ensure their break-glass accounts are working and maintained prior to disabling.</p>",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

@@ -1,0 +1,111 @@
+﻿{
+  "Id": 157,
+  "UUID": "790e1c72-5786-4907-83cd-9f310db70f1b",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Certificate templates that allow requesters to specify a subjectAltName",
+  "ScriptName": "CertificateTemplatesWithSANAllowed",
+  "ShortName": "SI000157",
+  "Description": "This indicator checks if certificate templates are enabling requesters to specify a subjectAltName in the CSR.",
+  "CategoryId": "3",
+  "Weight": 8,
+  "Severity": "Critical",
+  "Schedule": "1h",
+  "Impact": 8,
+  "LikelihoodOfCompromise": "<p>When certificate templates allow requesters to specify a subjectAltName in the CSR, the result is that they can request a certificate as anyone. For example, a domain admin. When that is combined with an authentication EKU present in the certificate template it can become extremely dangerous.</p>\n         <h3>References</h3>\n        <p><a href=\"https://www.nccoe.nist.gov/sites/default/files/legacy-files/tls-serv-cert-mgt-nist-sp1800-16b-final.pdf\" target=\"_blank\">NIST-SP1800-16B</a></p>\n        <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_adcs_template_auth_enroll_with_name\" target=\"_blank\">Dangerous enrollment permission on authentication certificate templates | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Detect - Certificate Analysis"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln1_adcs_template_auth_enroll_with_name"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "CertificateTemplateName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "SANEnabled",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "CertificateCanBeUsedForAuthentication",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Published",
+      "Type": "Boolean",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} certificate templates that allow SAN",
+  "Remediation": "<p>Ensure that when a SAN is allowed on a certificate template it is absolutely required on the template, so that the certificate must specify a subjectAltName. If not absolutely required, it should be disabled. This configuration can be viewed under the &quot;Supply in request&quot; option in the &quot;Subject Name&quot; tab in certtmpl.msc. When an authentication EKU is also present on the certificate template this becomes very dangerous and action should be taken to disable SAN on it.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

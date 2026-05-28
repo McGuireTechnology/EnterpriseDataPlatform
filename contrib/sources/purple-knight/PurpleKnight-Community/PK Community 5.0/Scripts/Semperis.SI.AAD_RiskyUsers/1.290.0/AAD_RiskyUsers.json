@@ -1,0 +1,95 @@
+﻿{
+  "Id": 218,
+  "UUID": "931ddace-2ed0-4f70-998d-04e213e03f71",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "List of Risky users (medium or high level)",
+  "ScriptName": "AAD_RiskyUsers",
+  "ShortName": "SI000218",
+  "Description": "<p>This indicator checks for risky users in the tenant with medium or high level of risk.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>IdentityRiskyUser.Read.All</li> \n        <li>Organization.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 4,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>Risky users are individuals or accounts exhibiting behaviors increasing the likelihood of security incidents or breaches, such as weak authentication practices, susceptibility to phishing, unusual activity patterns, accessing resources from unsecured devices or networks, or holding elevated privileges. These users pose significant risks, potentially leading to credential compromises, data breaches, or insider threats.</p>\n      <p>Risky users pose a significant threat in enterprise identity (Entra ID) systems due to their potential to compromise sensitive data, systems, and resources. These users may exhibit behaviors such as using weak passwords, falling victim to phishing attacks, accessing resources from unsecured devices or networks, or exhibiting anomalous activity patterns. Their actions can lead to unauthorized access, data breaches, system disruptions, and other security incidents, posing substantial risks to the confidentiality, integrity, and availability of enterprise resources. Moreover, compromised user accounts can serve as footholds for attackers to escalate privileges, move laterally within the network, and carry out further malicious activities, amplifying the impact of security breaches. </p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Initial Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "DisplayName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "TenantId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Risk",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/IdentityRiskyUser.Read.All",
+    "AAD.GraphAPI/Organization.Read.All"
+  ],
+  "ResultMessage": "Found {0} risky users with high or medium risk.",
+  "Remediation": "<p>Remediating risky users in enterprise identity (Entra ID) systems involves implementing a multi-faceted approach that includes comprehensive risk assessment, user education and training on security best practices, enforcement of strong authentication measures such as multi-factor authentication, regular review and adjustment of user access privileges to adhere to the principle of least privilege, continuous monitoring and anomaly detection for early identification of suspicious activities, establishment of an effective incident response plan for prompt containment and remediation of security incidents, and collaboration with security partners and regulatory bodies to stay abreast of emerging threats and best practices. By implementing these measures, organizations can mitigate the risks associated with risky users and enhance the overall security posture of their Entra ID systems.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

@@ -1,0 +1,110 @@
+﻿{
+  "Id": 62,
+  "UUID": "dc8f6889-7df9-4414-9bf5-865f1e3e9e83",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Admins with old passwords",
+  "ScriptName": "OldPwdLastSetAdmin",
+  "ShortName": "SI000062",
+  "Description": "This indicator looks for admin accounts whose password has not changed in over 180 days. This could make these accounts ripe for password guessing attacks.",
+  "CategoryId": "2",
+  "Weight": 2,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 2,
+  "LikelihoodOfCompromise": "<p>An administrator account whose password hasn't changed in a while could be a target for attackers looking for privileged accounts that can provide elevated access to the environment.</p>\n      <h3>References</h3>\n        <p><a href=\"https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63-3.pdf\" target=\"_blank\">NIST.SP.800-63-3</a></p>\n        <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_password_change_priv\" target=\"_blank\">Privileged account passwords age too old | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Discovery"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Strong Password Policy"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln1_password_change_priv"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PasswordLastSet",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DaysSinceLastSet",
+      "Type": "Integer",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ReplicationMetadata",
+      "Type": "Integer",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "The following {0} users were returned. Note the following: users with DaysSinceLastSet and ReplicationMetadata higher than {1} days have not changed passwords in over {1} days. Users with PwdLastSet over {1} days and ReplicationMetadata is N/A - permission was denied to read these users' metadata. These users may be using smartcard for interactive logon instead of passwords - in which case it is ok that their passwords have not changed.",
+  "Remediation": "Ensure that users change their password at least once every 6 months.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

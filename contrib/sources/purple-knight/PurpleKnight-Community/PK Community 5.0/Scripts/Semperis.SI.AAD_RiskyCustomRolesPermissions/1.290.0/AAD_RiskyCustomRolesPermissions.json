@@ -1,0 +1,88 @@
+﻿{
+  "Id": 232,
+  "UUID": "d80e37b8-8d8a-4964-88ac-5c51af1b0f3b",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Entra custom Roles with risky permissions",
+  "ScriptName": "AAD_RiskyCustomRolesPermissions",
+  "ShortName": "SI000232",
+  "Description": "<p>This indicator checks if a custom role contains risky permissions</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>RoleManagement.Read.Directory</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>Custom roles with risky permissions can be abused by attackers in various ways depending on the specific permission that was granted. Potentially, custom roles can be used to gain access to sensitive information or perform malicious actions. More details on this attack can be found in the reference Semperis article.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.semperis.com/resources/custom-roles-permissions-security-indicator/\" target=\"_blank\">Custom Roles Permissions - Semperis</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "RoleName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "RoleId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DangerousPermissions",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/RoleManagement.Read.Directory"
+  ],
+  "ResultMessage": "Found {0} custom roles with risky permissions.",
+  "Remediation": "<p>Review the permissions assigned to the custom role.</p>\n      <p>Organizations should determine if risky permissions cna be removed from the role. If not, use of the role should be limited as needed.</p>\n      <p>To review and manage role assignments, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/RolesManagementMenuBlade/%7E/AllRoles\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, select <b>Show more</b>, expand <b>Roles &amp; admins</b>, and select <b>Roles &amp; admins</b>.</p>\n      <p>In the blade on the right, find the custom role. Select the role. A new blade will open with the role settings. Under <b>Manage</b> in this blade, select <b>Description</b>.</p>\n      <p>From this view you can review role permissions. To remove permissions, select <b>Edit</b>.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

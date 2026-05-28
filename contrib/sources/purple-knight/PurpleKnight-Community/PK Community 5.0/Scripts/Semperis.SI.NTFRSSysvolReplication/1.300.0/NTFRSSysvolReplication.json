@@ -1,0 +1,80 @@
+﻿{
+  "Id": 97,
+  "UUID": "ef678af3-8766-45f0-b4f7-7c3582bfea1a",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "NTFRS SYSVOL Replication",
+  "ScriptName": "NTFRSSysvolReplication",
+  "ShortName": "SI000097",
+  "Description": "This indicator looks for indication of usage of FRS for sysvol replication. Domain Controllers are configured to use the NTFRS replication protocol (especially for SYSVOL replication). This protocol is obsolete and unnecessarily adds administrative interfaces to domain controllers. In addition, this protocol is no longer supported by the latest versions of Windows Server, which prevents migration to the latest versions.",
+  "CategoryId": "3",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "NTFRS is an older protocol that has been replaced by DFSR. Attackers that can manipulate NTFRS vulnerabilities to compromise SYSVOL can potentially change GPOs and logon scripts to propagate malware and move laterally across the environment.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/windows-server/storage/dfs-replication/migrate-sysvol-to-dfsr\">Migrate SYSVOL replication to DFS Replication | Microsoft Learn</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_sysvol_ntfrs\">SYSVOL replication through NTFRS | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Lateral Movement"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln2_sysvol_ntfrs"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DomainName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} domains that are suspected to use NTFRS for SYSVOL replication.",
+  "Remediation": "This protocol is obsolete since Windows Server 2008.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

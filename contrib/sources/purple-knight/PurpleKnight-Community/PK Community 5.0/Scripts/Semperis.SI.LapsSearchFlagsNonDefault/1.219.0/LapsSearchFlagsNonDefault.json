@@ -1,0 +1,85 @@
+﻿{
+  "Id": 18,
+  "UUID": "9ff5d86a-7523-423d-b657-ec28b36c904d",
+  "Version": "1.219.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Non default value on ms-Mcs-AdmPwd SearchFlags",
+  "ScriptName": "LapsSearchFlagsNonDefault",
+  "ShortName": "SI000018",
+  "Description": "Some flags on the ms-Mcs-AdmPwd schema may inadvertently cause passwords to be visible to users allowing an attacker to use it as stealthy backdoor. This indicator looks for any changes to default searchFlags, which may create an exposure. Detection of changes to the default will result in a score of 80 for this indicator, signifying that a review should be conducted. Any removal of the default flags will result in a score of 0 due to their importance to security.",
+  "CategoryId": "1",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "Even though schema changes are not common, a targeted schema change like this can leave the administrator passwords of 100s or 1000s of computers vulnerable to non-privileged users.",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Name": "HYD",
+      "MinVersion": "1.0",
+      "Licenses": [
+        "Cloud"
+      ]
+    },
+    {
+      "MaxVersion": "10",
+      "Name": "DSP",
+      "MinVersion": "3.5",
+      "Licenses": [
+        "DSP-I"
+      ]
+    },
+    {
+      "MaxVersion": "10",
+      "Name": "PK",
+      "MinVersion": "1.4",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ]
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Flags",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found non default flags on the mc-Mcs-AdmPwd searchFlags.",
+  "Remediation": "Investigate the change of the mc-Mcs-AdmPwd attribute searchFlags and change it back to the default (904).",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

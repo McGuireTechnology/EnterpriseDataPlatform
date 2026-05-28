@@ -1,0 +1,94 @@
+﻿{
+  "Id": 305,
+  "UUID": "4e25afc3-f7e1-4c1f-b092-eb7287c0f2d1",
+  "Version": "1.219.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "New Super Admin permission has been granted to a user",
+  "ScriptName": "OKTA_NewSuperadminUser",
+  "ShortName": "SI000305",
+  "Description": "This indicator checks if the \"Super Admin\" permission was given to a user in the last 7 days.",
+  "CategoryId": "8",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "Granting the \"Super Admin\" permission to a user grants them extensive privileges and control over critical aspects of the Okta environment. This includes managing user accounts, configuring security settings, and accessing sensitive information. Unauthorized or excessive granting of the \"Super Admin\" permission can significantly increase the risk of compromise and unauthorized access to Okta.",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Persistence"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - User Account Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "10",
+      "Name": "PK",
+      "MinVersion": "4.0",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ]
+    }
+  ],
+  "DataSources": [
+    "Okta.OktaAPI"
+  ],
+  "OutputFields": [
+    {
+      "Name": "Operation",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Users",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PrivilegeGranted",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ActorID",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ActorName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "Okta"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} events granting \"Super Admin\" permissions to users in the last week.",
+  "Remediation": "Regularly review and audit the assignment of the \"Super Admin\" permission to ensure it is granted only when necessary and to authorized individuals. Implement strong access controls, such as multi-factor authentication and least privilege principles, to limit the impact of a compromised super admin account. Monitor and analyze user permission changes, and promptly investigate and address any unauthorized or suspicious activities related to the \"Super Admin\" permission.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

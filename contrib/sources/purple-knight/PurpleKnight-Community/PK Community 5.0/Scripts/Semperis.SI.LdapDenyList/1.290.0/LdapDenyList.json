@@ -1,0 +1,86 @@
+﻿{
+  "Id": 217,
+  "UUID": "9e2e34e4-a367-40a7-b8ea-f4b32e99d74f",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Query policies that have the attribute of LDAP deny list set",
+  "ScriptName": "LdapDenyList",
+  "ShortName": "SI000217",
+  "Description": "This security indicator is designed to check for LDAP IP deny lists across multiple domains in an Active Directory environment. For each available domain, it query the Active Directory for \"query policies\" associated with that domain, specifically looking for LDAP IP deny lists (ldapipdenylist attribute).",
+  "CategoryId": "3",
+  "Weight": 5,
+  "Severity": "Informational",
+  "Schedule": "7d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "Unauthorized or unexpected entries in the LDAP IP deny list could suggest a security breach or an attempt to limit access to critical resources maliciously. The likelihood of compromise depends on the following factors:\n      <ol>\n        <li>Unexpected Changes: Unauthorized modifications to the LDAP IP deny list.</li>\n        <li>Unknown IP Addresses: Presence of IP addresses that are not recognized or authorized by the network administration team.</li>\n        <li>Security Policy Violations: Entries that violate the organization's established security policies.</li>\n        </ol></a>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Impact"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "DomainName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LdapDenyList",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} query policies with ldap deny list set.",
+  "Remediation": "To mitigate potential security risks associated with the LDAP IP deny list, the following steps are recommended:<ol><li>Regular Audits: Conduct regular reviews of the LDAP IP deny list to ensure all entries are authorized and legitimate.</li><li>Change Management: Implement strict change management procedures for modifications to the LDAP IP deny list. (Semperis DSP for example).</li><li>Security Policy Violations: Entries that violate the organization's established security policies.</li><li>Security Monitoring: Utilize security information and event management (SIEM) tools to monitor for unauthorized changes or access attempts blocked by the deny list.</li></ol></a>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

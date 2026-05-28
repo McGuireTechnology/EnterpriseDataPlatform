@@ -1,0 +1,74 @@
+﻿{
+  "Id": 84,
+  "UUID": "93402830-3bdf-4086-8629-7bdc654651f9",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "gMSA not in use",
+  "ScriptName": "GMSANotInUse",
+  "ShortName": "SI000084",
+  "Description": "This indicator checks if there are enabled group Managed Service Account (gMSA) objects in the domain.",
+  "CategoryId": "1",
+  "Weight": 4,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>The group Managed Service Account (gMSA) feature in Windows Server 2016 allows automatic rotation of passwords for service accounts, making them much more difficult for attackers to compromise. The feature should be used whenever possible for service accounts.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/group-managed-service-accounts/group-managed-service-accounts/getting-started-with-group-managed-service-accounts\" target=\"_blank\">Get started with Group Managed Service Accounts</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DomainName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} domains with no gMSA objects enabled.",
+  "Remediation": "Group Managed Service Accounts should be used to protect service accounts. See description for more information.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

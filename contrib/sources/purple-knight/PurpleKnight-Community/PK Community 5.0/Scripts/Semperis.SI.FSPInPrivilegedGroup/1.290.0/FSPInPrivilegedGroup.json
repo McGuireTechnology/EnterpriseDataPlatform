@@ -1,0 +1,94 @@
+﻿{
+  "Id": 124,
+  "UUID": "3bcaff82-ae70-4646-bc66-f7997be54e5e",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Foreign Security Principals in Privileged Group",
+  "ScriptName": "FSPInPrivilegedGroup",
+  "ShortName": "SI000124",
+  "Description": "This indicator looks for members of privileged groups which are Foreign Security Principals. Special care should be taken when including accounts from other domains as members of privileged groups.",
+  "CategoryId": "1",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>While not immediately indicative of an attack, privileged users that are not clearly marked as such (adminCount =1) represent an exposure in that they may be used nefariously without being detected. Since Foreign Security Principals do not have the adminCount attribute, they could miss being detected by some security auditing tools. Additionally, an attacker may add a privileged account and attempt to hide it using this method.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/audit-user-account-management\" target=\"_blank\">audit-user-account-management of Microsoft</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Defense Evasion",
+        "Persistence"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Detect - Domain Account Monitoring"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "GroupDistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} Foreign Security Principals as members of privileged groups.",
+  "Remediation": "Validate whether this member should be a member of the privileged group.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

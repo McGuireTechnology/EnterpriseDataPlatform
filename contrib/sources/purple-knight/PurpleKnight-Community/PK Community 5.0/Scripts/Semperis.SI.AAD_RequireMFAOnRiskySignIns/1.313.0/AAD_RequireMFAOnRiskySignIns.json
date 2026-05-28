@@ -1,0 +1,69 @@
+﻿{
+  "Id": 173,
+  "UUID": "84a90bda-81bf-4aa3-96e9-75a2fe0409ac",
+  "Version": "1.313.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Conditional Access Policy that does not require MFA when sign-in risk has been identified",
+  "ScriptName": "AAD_RequireMFAOnRiskySignIns",
+  "ShortName": "SI000173",
+  "Description": "<p>This indicator checks whether a Conditional Access policy exists that requires MFA if the authentication request risk is medium or high as determined by Entra ID Protection.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Policy.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 4,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 0,
+  "LikelihoodOfCompromise": "<p>Entra ID Protection uses several signals to determine the risk level when a user authenticates to Entra ID. This risk level on sign-in can be used to evaluate whether the authentication event occurring is genuine or malicious. </p>\n      <p>An attacker may compromise a user account in different ways, either by trying to authenticate as the user with a stolen password, or perform actions such as token replay. These attacks can generate a risk level in Entra ID Protection, that can be used in Conditional Access to force a request for MFA, which can prevent the user from leveraging the stolen credentials to access organizational resources.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/id-protection/concept-identity-protection-risks\" target=\"_blank\">What are risks in Microsoft Entra ID Protection - Microsoft Entra ID Protection | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Credential Access"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.6"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.5"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All"
+  ],
+  "ResultMessage": "There are no Conditional Access Policies configured to require MFA if sign-in risk is detected to be medium or high.",
+  "Remediation": "<p>Deploy a Conditional Access policy requiring MFA for risky sign-ins.</p>\n      <p>Microsoft provides both a Conditional Access policy template, as well as step-by-step instructions for creating a Conditional Access Policy requiring MFA for risky sign-ins.</p>\n      <p><b>Implementing changes to Conditional Access policies can negatively impact users if not properly tested. Organizations need to verify all policy and security changes and communicate them out accordingly</b>.</p>",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

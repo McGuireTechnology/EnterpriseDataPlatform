@@ -1,0 +1,88 @@
+﻿{
+  "Id": 56,
+  "UUID": "ec4a80dc-bec8-4557-b19f-cc3d15ed5517",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Enterprise Key Admins with full access to domain",
+  "ScriptName": "EnterpriseKeyAdminsFullControl",
+  "ShortName": "SI000056",
+  "Description": "This indicator looks for evidence of a bug in certain versions of Windows Server 2016 Adprep that granted undue access to the Enterprise Key Admins group.",
+  "CategoryId": "1",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>This issue was corrected in a subsequent release of Server 2016 and may not exist in your environment, but checking for it is definitely warranted, since it grants this group the ability to replicate all changes from AD (DCSync Attack).</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_adupdate_bad\">Bad Active Directory versions | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access",
+        "Lateral Movement",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - User Account Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln2_adupdate_bad"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} domains where the Enterprise Key Admins group has full access.",
+  "Remediation": "Ensure that users don't have unnecessary permissions.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

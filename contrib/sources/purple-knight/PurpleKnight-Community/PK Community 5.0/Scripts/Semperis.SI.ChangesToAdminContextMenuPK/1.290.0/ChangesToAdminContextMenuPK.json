@@ -1,0 +1,73 @@
+﻿{
+  "Id": 82,
+  "UUID": "4483e0c7-5ebe-4ee6-8845-731b2a1f9e06",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Changes to AD Display Specifiers in the past 90 days",
+  "ScriptName": "ChangesToAdminContextMenuPK",
+  "ShortName": "SI000082",
+  "Description": "This indicator looks for changes made in the past 90 days to the adminContextMenu attribute on AD display specifiers. This attribute controls the right-click menus presented to users in the domain using MMC tools such as AD Users and Computers. Modifying these attributes can potentially allow attackers to get users to run arbitrary code if those menu options are clicked.",
+  "CategoryId": "1",
+  "Weight": 3,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 3,
+  "LikelihoodOfCompromise": "<p>Attackers may utilize context menus as a stealthy way of getting various users in a domain to execute code. Modifying this attribute requires special permissions granted by default only to Domain Admins and Enterprise Admins and also requires the user to click on the illicit context menu item. See the this blog post for additional information.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.semperis.com/blog/active-directory-security-abusing-display-specifiers/\" target=\"_blank\">Semperis blog | Active Directory Security: Abusing Display Specifiers</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Execution",
+        "Defense Evasion"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Attribute",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} changes to Admin Context Menu on Display Specifier in the last {1} days.",
+  "Remediation": "Review the changes and ensure they are legitimate. It is also recommended to revert write permissions on Display Specifiers to default state (only privileged users have write permissions).",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

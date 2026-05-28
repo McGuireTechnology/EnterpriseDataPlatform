@@ -1,0 +1,99 @@
+﻿{
+  "Id": 103,
+  "UUID": "88725ad5-1a8c-43f7-a11f-a52b6eb3b601",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "FGPP not applied to Global group",
+  "ScriptName": "FGPPNotAppliedToAGroup",
+  "ShortName": "SI000103",
+  "Description": "This indicator looks for FGPP targeted to a Universal or Domain Local group.",
+  "CategoryId": "2",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>Changing a group's scope settings from Global group to Universal or Domain Local group, will result in FGPP settings no longer applying to that group, and decreasing its password security controls.</p>\n      <h3>References</h3>\n      <p><a href=\"https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63-3.pdf\" target=\"_blank\">NIST.SP.800-63-3</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Persistence",
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Strong Password Policy"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "GroupType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "AppliedFGGPPolicies",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} Group(s) with no FGPP applied to them.",
+  "Remediation": "Confirm that the following groups should be Universal or Domain Local, otherwise change their scope settings to Global for FGPP to apply to them.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

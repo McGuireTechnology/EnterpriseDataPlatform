@@ -1,0 +1,47 @@
+{
+  "exclude": {
+    "Object": {
+      "Attribute": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      },
+      "LastChanged": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      },
+      "EventTimestamp": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      },
+      "DistinguishedName": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      }
+    }
+  },
+  "param": null
+}

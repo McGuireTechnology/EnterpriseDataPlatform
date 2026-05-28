@@ -1,0 +1,92 @@
+﻿{
+  "Id": 72,
+  "UUID": "a7813b26-5472-4fbd-a6a4-1c93bfeb2784",
+  "Version": "1.240.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "gMSA objects with old passwords",
+  "ScriptName": "GMSAOldPwdLastSet",
+  "ShortName": "SI000072",
+  "Description": "This indicator looks for group managed service accounts that have not automatically rotated their passwords. These passwords should be changed automatically every 30 days by default.",
+  "CategoryId": "3",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "gMSA accounts should automatically rotate their passwords every 30 days. Objects that are not doing this could show evidence of tampering.",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Credential Access"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MinVersion": "1.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MaxVersion": "3.0"
+    },
+    {
+      "MinVersion": "3.5",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MaxVersion": "10"
+    },
+    {
+      "MinVersion": "1.4",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MaxVersion": "10"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "PasswordLastSet",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DaysSinceLastSet",
+      "Type": "Integer",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Active",
+      "Type": "Boolean",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} Group Managed Service Account objects whose password has not changed in the last {1} days.",
+  "Remediation": "Managed Service Accounts' passwords should be changed every 30 days. This is also the default setting. The returned accounts should be investigated for why their passwords were not changed. Note: The 'Active' column shows if the account was active in the past 45 days.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

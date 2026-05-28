@@ -1,0 +1,103 @@
+﻿{
+  "Id": 158,
+  "UUID": "c117b6a5-00c8-4e77-93d2-e291e36b462a",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Entra ID privileged users that are also privileged in AD",
+  "ScriptName": "AAD_PrivilegedOnPremiseAndAAD",
+  "ShortName": "SI000158",
+  "Description": "<p>This indicator checks for Entra ID privileged users that are also privileged in on-premise AD.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>RoleManagement.Read.Directory</li>\n        <li>RoleManagement.Read.All</li>\n        <li>Directory.Read.All</li>\n        </ul>",
+  "CategoryId": "7",
+  "Weight": 9,
+  "Severity": "Critical",
+  "Schedule": "1h",
+  "Impact": 9,
+  "LikelihoodOfCompromise": "<p>It is common in organizations that the people who manage Active Directory also manage Entra ID, and potentially M365 and Azure as well. In these scenarios users may require privileged credentials in all of these environments. It is critical for organizations to separate the privileged credentials out between the different identity stores, so that one user is not privileged in multiple directory systems.</p>\n      <p>If a user holds privileges in Active Directory and Entra ID, and the account becomes compromised by an attacker, an attacker can move laterally between the two directory systems, easily compromising both and the resources attached to them. If the user holds highly privileged roles such as Domain Administrator and Global Administrator, attack damage from compromise can be severe.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/best-practices#9-use-cloud-native-accounts-for-microsoft-entra-roles\" target=\"_blank\">Best practices for Microsoft Entra roles - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/security-planning\" target=\"_blank\">Secure access practices for administrators in Microsoft Entra ID - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI",
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "UserId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "State",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "RoleDefinitionId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Notes",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD",
+    "AD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/RoleManagement.Read.Directory",
+    "AAD.GraphAPI/Directory.Read.All",
+    "AAD.GraphAPI/RoleManagement.Read.All"
+  ],
+  "ResultMessage": "Found {0} Privileged Entra ID users that are also privileged in AD.",
+  "Remediation": "<p>Review the users identified as holding privileges in both Active Directory and Entra ID, and device a plan for separating out the privileged roles into multiple credentials.</p>\n      <p>Separation of privileges is usually handled on a case-by-case basis, formulated by the level of privileges the role holds, as well as determining which identity system will be easier to create a new set of privileged credentials for the user in.</p>\n      <p>A common practice for privilege separation into new sets of privileges users, is to create a new user in the target system that holds the same roles, and start using that user in the target system, validating that role functionality continues as needed. Then, the privileges are removed from the existing user that are no longer needed.</p>\n      <p>If a privileged user from Active Directory was holding privileges in Entra ID and those privileges have been removed from Entra ID, the organization should also consider if they still need to synchronize the user from Active Directory. This is to defend the user account from potential attacks that target moving laterally between the two directory systems.</p>\n      <p>If a new privileged user is created in Entra ID, the user should be created as a cloud-only account that is not synchronized from Active Directory, even if it has no privileges in Active Directory. This is to defend the user account from potential attacks that target moving laterally between the two directory systems.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

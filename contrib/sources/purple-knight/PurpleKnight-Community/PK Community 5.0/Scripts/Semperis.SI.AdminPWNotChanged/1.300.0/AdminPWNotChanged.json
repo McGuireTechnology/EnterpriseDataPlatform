@@ -1,0 +1,110 @@
+﻿{
+  "Id": 49,
+  "UUID": "82901792-3b6e-4b3f-94d7-64d4743273fb",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Built-in domain Administrator account with old password (180 days)",
+  "ScriptName": "AdminPWNotChanged",
+  "ShortName": "SI000049",
+  "Description": "<p>This indicator checks if the password of the built-in Domain Administrator account is older than 180 days.</p>",
+  "CategoryId": "2",
+  "Weight": 4,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>The built-in Domain Administrator account is a well-known SID that is easily discoverable, regardless of attempts to obfuscate the account, such as renaming it.</p>\n      <p>It is recommended that this account is not used for administration of Active Directory, but due to lack of use, this account in many organizations also goes unmonitored. Attackers may target this account for brute force password attacks.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/understand-security-identifiers\" target=\"_blank\">Security identifiers | Microsoft Learn</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_password_change_priv\" target=\"_blank\">Privileged account passwords age too old | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Strong Password Policy"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln1_password_change_priv"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastChanged",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PasswordLastSet",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DaysSinceLastSet",
+      "Type": "Integer",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} domains whose administrator's password has not changed in the last {1} days.",
+  "Remediation": "<p>It is recommended to rotate the password on the built-in Administrator account every 180 days, or whenever there is the possibility that the password has become known or compromised.</p>\n      <p>The built-in Domain Administrator account is a well-known SID that is easily discoverable, regardless of attempts to obfuscate the account, such as renaming it.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

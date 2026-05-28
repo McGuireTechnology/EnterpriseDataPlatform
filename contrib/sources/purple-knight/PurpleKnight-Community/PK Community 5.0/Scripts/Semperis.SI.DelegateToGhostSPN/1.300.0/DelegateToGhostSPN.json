@@ -1,0 +1,92 @@
+﻿{
+  "Id": 100,
+  "UUID": "55f8f10b-deef-4f24-8567-1da71161340c",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Accounts with Constrained Delegation configured to ghost SPN",
+  "ScriptName": "DelegateToGhostSPN",
+  "ShortName": "SI000100",
+  "Description": "When computers are decommissioned, delegation configuration to them is often not cleaned up. Such a delegation could allow an attacker that has the privileges to write to the ServicePrincipalName attribute of another service account, to escalate privileges on those services. This could result in escalating privileges by moving laterally across the infrastructure. This indicator looks for accounts that have Constrained Delegation configured to ghost SPNs.",
+  "CategoryId": "5",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>This type of attack should be easy to spot as the configured SPN within the msds-allowedtodelegateto attribute will not exist on the domain. However, if they are found, they would represent a significant risk and should be mitigated quickly.</p>\n         <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_delegation_a2d2\" target=\"_blank\">Constrained authentication delegation to a domain controller service | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln1_delegation_a2d2"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "DomainName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ServicePrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} account(s) with Constrained Delegation configured to ghost SPN(s).",
+  "Remediation": "Remove any Kerberos delegations to ghost SPN(s).",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

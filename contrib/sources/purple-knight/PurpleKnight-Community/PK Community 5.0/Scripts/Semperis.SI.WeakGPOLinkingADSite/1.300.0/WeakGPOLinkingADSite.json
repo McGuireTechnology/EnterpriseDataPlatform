@@ -1,0 +1,93 @@
+﻿{
+  "Id": 41,
+  "UUID": "eab117be-3114-494c-b3d8-dbdecaf9a050",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "GPO linking delegation at the AD Site level",
+  "ScriptName": "WeakGPOLinkingADSite",
+  "ShortName": "SI000041",
+  "Description": "When non-privileged users can link GPOs at the AD Site level, they have the ability to effect change on domain controllers as well as potentially elevate access and change domain-wide security posture. This indicator looks for non-default principals who have write permissions on the GPLink attribute or Write DACL/Write Owner on the object.",
+  "CategoryId": "4",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>Just being able to link GPOs doesn't provide the whole picture. An attacker would need to find or edit a GPO that contains the instructions they want to achieve. However, if an attacker can find an existing GPO that meets their needs, then having this write permission gives them the keys to the kingdom.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_permissions_gpo_priv\" target=\"_blank\">Dangerous ACLs expose GPOs applied to privileged group members (attack path) | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Execution"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln1_permissions_gpo_priv"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Identity",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Access",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} objects with write permissions on the GPLink attribute at the AD Site level.",
+  "Remediation": "Unprivileged users should not be able to link GPOs at the AD Site Level. Doing so essentially gives them the ability to escalate their access, change domain-level security posture, and use GPOs to effect all systems and users in AD. Remove unnecessary permissions from the AD Site.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

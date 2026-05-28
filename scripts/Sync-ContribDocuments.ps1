@@ -1,6 +1,6 @@
 param(
     [string]$SourceRoot = $env:EDP_CONTRIB_SOURCE_ROOT,
-    [string]$DestinationRoot = (Join-Path $PSScriptRoot "..\contrib"),
+    [string]$DestinationRoot = (Join-Path $PSScriptRoot "..\contrib\sources"),
     [string[]]$Collections = @("CIS Controls"),
     [switch]$Clean
 )

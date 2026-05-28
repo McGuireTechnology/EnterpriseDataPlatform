@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/SecurityAssessmentTool.ConfigManager">
+	<!-- Note: First level params should be listed alphabetically -->
+	<AttackWindowDefaultNumOfDays>30</AttackWindowDefaultNumOfDays>
+	<AttackWindowMaxNumOfDays>365</AttackWindowMaxNumOfDays>
+	<LogLevel>
+		<VerboseLog>false</VerboseLog>
+		<DebugLog>false</DebugLog>
+		<InformationLog>true</InformationLog>
+		<WarningLog>false</WarningLog>
+		<ErrorLog>true</ErrorLog>
+	</LogLevel>
+	<MaxNumAppendixResultsInReport>30</MaxNumAppendixResultsInReport>
+	<MaxNumScriptResultsInReport>10</MaxNumScriptResultsInReport>
+	<!--0 - default (ProcessorCount)-->
+	<MaxRunspacePoolSize>0</MaxRunspacePoolSize>
+	<UpdatabilityServiceUrl>https://update-service.api.semperis.net/</UpdatabilityServiceUrl>
+</Settings>

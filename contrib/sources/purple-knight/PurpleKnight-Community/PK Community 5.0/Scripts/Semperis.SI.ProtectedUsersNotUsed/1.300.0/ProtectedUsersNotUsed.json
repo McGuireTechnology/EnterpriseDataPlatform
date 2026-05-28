@@ -1,0 +1,93 @@
+﻿{
+  "Id": 20,
+  "UUID": "b4ee6e7c-5b7c-4e63-82cd-668d3d0b3354",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Protected Users group not in use",
+  "ScriptName": "ProtectedUsersNotUsed",
+  "ShortName": "SI000020",
+  "Description": "<p>This indicator checks if privileged users are in the Protected Users security group.</p>",
+  "CategoryId": "2",
+  "Weight": 1,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 1,
+  "LikelihoodOfCompromise": "<p>The Protected Users security group was introduced in Server 2012 R2 Active Directory to minimize credential exposure for privileged accounts. As a defense in depth measure privileged accounts, such as Domain Admins, should be added to the Protected Users security group.</p>\n      <p>Attackers targeting privileged accounts in Active Directory will find a much higher level of friction in certain types of attempts to compromise the accounts due to the protections offered.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/windows-server/security/credentials-protection-and-management/protected-users-security-group\" target=\"_blank\">Protected Users Security Group | Microsoft Learn</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_protected_users\" target=\"_blank\">Privileged accounts outside of the Protected Users group | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln3_protected_users"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Enabled",
+      "Type": "Boolean",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} privileged users that are not members of the Protected Users group.",
+  "Remediation": "<p>It is recommended to ensure that all privileged users are members of the Protected Users security group.</p>\n      <p>If the organization is already using the Protected Users security group functionality, it is recommended to add the identified privileged users.</p>\n      <p>If the Active Directory schema is pre Server 2012 R2, this functionality does not exist, and it is recommended to upgrade the schema.</p>\n      <p>For full details on the protections offered and the implementation of the Protected Users security group, please refer to the reference article.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

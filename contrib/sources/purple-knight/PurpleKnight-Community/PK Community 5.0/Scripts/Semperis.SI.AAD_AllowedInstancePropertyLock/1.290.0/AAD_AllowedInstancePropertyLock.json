@@ -1,0 +1,102 @@
+﻿{
+  "Id": 223,
+  "UUID": "445677dc-509f-4cc2-809d-a2aa850e1d7f",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Application instance property lock disabled",
+  "ScriptName": "AAD_AllowedInstancePropertyLock",
+  "ShortName": "SI000223",
+  "Description": "<p>This indicator checks for applications that have app instance property lock disabled.</p>\n     <h3>Required permissions</h3>\n     <ul>\n     <li>Application.Read.All</li>\n     </ul>",
+  "CategoryId": "6",
+  "Weight": 4,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>Application instance property lock is a feature in Entra ID that restricts the ability to add or modify sensitive properties on service principals.</p>\n      <p>Attackers can look for privileged service principals, and attempt to use them to move laterally, including by adding credentials onto the existing service principal, if they gain access to a user with the ability to do so. App instance property lock can prevent this.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity-platform/howto-configure-app-instance-property-locks\" target=\"_blank\">How to configure app instance property lock in your applications - Microsoft identity platform | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Lateral Movement",
+        "Impact",
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Application Configuration Hardening"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "2.1",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DisplayName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Id",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Status",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Volume",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Application.Read.All"
+  ],
+  "ResultMessage": "Found {0} applications that have a sensitive property lock disabled.",
+  "Remediation": "<p>Enable the application instance lock feature and all of its properties for app registrations.</p>\n      <p>To enable the instance property lock of an application, Sign in to <a href=\"https://entra.microsoft.com/\" target=\"_blank\"> Microsoft Entra admin center</a> as at least a Cloud Application Administrator. In the <b>Applications</b> tab, click on <b>App Registrations</b> and select the application to be configured. Select <b>Authentication</b>, and then select <b>Configure</b> under the App instance property lock section. In the App instance property lock pane, enter the settings for the lock.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

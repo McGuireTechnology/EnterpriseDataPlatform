@@ -1,0 +1,57 @@
+{
+  "exclude": {
+    "Object": {
+      "LastLogonTimestamp": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      },
+      "DaysSinceLastSet": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      },
+      "Active": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      },
+      "PasswordLastSet": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      },
+      "DistinguishedName": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      }
+    }
+  },
+  "param": null
+}

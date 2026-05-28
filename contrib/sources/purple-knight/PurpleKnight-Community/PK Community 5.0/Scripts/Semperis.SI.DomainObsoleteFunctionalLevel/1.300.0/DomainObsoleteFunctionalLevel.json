@@ -1,0 +1,100 @@
+﻿{
+  "Id": 51,
+  "UUID": "ff50af43-c9c8-41c6-987f-eaaaedbca25c",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Domains with obsolete functional levels",
+  "ScriptName": "DomainObsoleteFunctionalLevel",
+  "ShortName": "SI000051",
+  "Description": "This indicator looks for AD domains that have a domain functional level set to Windows Server 2012 R2 or lower. These lower functional levels mean that newer security features available in AD cannot be leveraged. If the OS version of your domain controllers supports it, you should update to a newer domain functional level to take full advantage of security advancements in AD.",
+  "CategoryId": "3",
+  "Weight": 3,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 3,
+  "LikelihoodOfCompromise": "<p>While domain functional level is not a weakness in and of itself, an attacker with knowledge of functional levels can adjust their approach to take advantage of lack of security features in AD.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/active-directory-functional-levels\"> Forest and Domain Functional Levels</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_functional_level\"> Insufficient forest and domains functional levels | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Reconnaissance"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Software Update"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln1_functional_level",
+        "vuln3_functional_level",
+        "vuln4_functional_level"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DomainName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "FunctionalLevel",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "FunctionalLevelInfo",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} domains with low domain functionality level.",
+  "Remediation": "Ensure that your AD domains are running at the highest functional level available for your OS version to ensure access to the latest security improvements. Also, consider upgrading the OS to 2016 or above, as new functional levels are available.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

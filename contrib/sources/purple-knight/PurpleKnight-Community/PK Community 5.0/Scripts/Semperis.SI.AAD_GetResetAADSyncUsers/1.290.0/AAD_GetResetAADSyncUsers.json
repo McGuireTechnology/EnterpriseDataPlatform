@@ -1,0 +1,115 @@
+﻿{
+  "Id": 135,
+  "UUID": "4f964cc3-7ce9-4b44-b6d0-799622027adc",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Entra Connect sync account password reset",
+  "ScriptName": "AAD_GetResetAADSyncUsers",
+  "ShortName": "SI000135",
+  "Description": "<p>This indicator checks if there have been any password resets against Entra Connect sync <em>Sync_</em> accounts not logged on in the past three days, which are considered stale.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>AuditLog.Read.All</li>\n        <li>Directory.Read.All</li> \n        <li>User.Read.All</il>\n        <li>RoleManagement.Read.Directory</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 4,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>Entra Connect uses a special user account in Entra ID as a service account for synchronization of users from Active Directory. These accounts hold a highly-privileged role in Entra ID, which can be used by an attacker for lateral movement, privilege escalation, and other forms of compromise is Entra ID.</p>\n      <p>Entra Connect accounts should have continual authentication traffic, as sync cycles occur every 30 minutes. An account that has not been logged into over three days could be considered stale. Unused accounts have a higher chance of going unnoticed if compromised.</p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "PasswordLastSet",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PasswordResetBy",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "AADConnectServer",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastSignIn",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastNonInteractiveSignIn",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DirectorySynchronizationAccountsMember",
+      "Type": "Boolean",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/AuditLog.Read.All",
+    "AAD.GraphAPI/Directory.Read.All",
+    "AAD.GraphAPI/User.Read.All",
+    "AAD.GraphAPI/RoleManagement.Read.Directory"
+  ],
+  "ResultMessage": "There have been {0} password change(s) on Azure AD Connect synchronization accounts which have not logged on within the past 3 days.",
+  "Remediation": "<p>Review the accounts listed in the results of this indicator.</p>\n      <p>If the Entra Connect server was offline for known reasons and the password was recently changed by the organization running a password rotation on the account, then this result might be expected.</p>\n      <p>If the account listed is associated with a no longer used Entra Connect server, it should be deleted from Entra ID.</p>\n      <p>If this account is believed to be suspicious, the Audit logs for the account activity can be viewed in Entra ID.</p>\n      <p>To view the audit logs, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/%7E/AllUsers/menuId/\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>Users</b>, and select <b>All users</b>.</p>\n      <p>In the blade on the right, search for the user indicated in the results. Select the user account.</p>\n      <p>In the user blade that opens, select <b>Audit logs</b>. The audit log details of changes made will be shown.</p>\n      <p><b>If the account is believed to be compromised, organizations must perform a thorough audit analysis of the user account</b></p>\n      <p><b>Removing an active Entra Connect synchronization user account will break synchronization</b></p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

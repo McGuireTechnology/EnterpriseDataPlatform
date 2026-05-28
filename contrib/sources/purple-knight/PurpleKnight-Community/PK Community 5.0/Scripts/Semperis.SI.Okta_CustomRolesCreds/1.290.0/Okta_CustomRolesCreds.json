@@ -1,0 +1,77 @@
+﻿{
+  "Id": 311,
+  "UUID": "9f09273e-cbef-43c0-877f-020ad9503089",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "High-privileged custom roles",
+  "ScriptName": "Okta_CustomRolesCreds",
+  "ShortName": "SI000311",
+  "Description": "Custom roles were found that allow a user to perform actions on users' passwords. These custom roles grant elevated privileges and potentially pose a significant security risk if not properly managed.",
+  "CategoryId": "8",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "Users with this role can perform operations on other users' passwords and MFA. Therefore, these are very strong permissions that can lead to compromising a user and taking complete control of the environment. An attacker who gains access to a user account with these high privileges can potentially manipulate or exploit sensitive user information.",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Persistence"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - User Account Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "4.0",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "Okta.OktaAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "RoleId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "RoleName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "CredentialsPermissions",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "Okta"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} custom roles that allow a user to perform actions on users' passwords.",
+  "Remediation": "To mitigate the risks associated with high privilege custom roles, it is recommended to take the following actions:\n      <ul>\n        <li>Review and assess the necessity of the custom role. Ensure that the role is essential for specific business requirements and that it is not overly permissive.</li>\n        <li>Limit the assignment of the custom role to only those users who genuinely require these high privileges to perform their duties.</li>\n        <li>Regularly review and audit the membership of the custom role to ensure that it remains appropriate and necessary.</li>\n        <li>Implement the principle of least privilege by granting users only the minimum privileges necessary to perform their assigned tasks.</li>\n        <li>Monitor and log activities performed by users with high privilege roles to detect any suspicious or unauthorized actions.</li>\n        </ul>\n        By following these remediation steps, you can help reduce the potential risks associated with high privilege custom roles and enhance the security of your Okta environment.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

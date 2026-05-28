@@ -1,0 +1,96 @@
+﻿{
+  "Id": 55,
+  "UUID": "39293315-4817-44f6-be2d-e76daeaf8208",
+  "Version": "1.316.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Permission changes on AdminSDHolder object",
+  "ScriptName": "AdminSDHolderPermissionChange",
+  "ShortName": "SI000055",
+  "Description": "<p>This indicator checks for modifications on the access control list (ACL) of the AdminSDHolder object.</p>",
+  "CategoryId": "1",
+  "Weight": 10,
+  "Severity": "Critical",
+  "Schedule": "1h",
+  "Impact": 10,
+  "LikelihoodOfCompromise": "<p>The AdminSDHolder object in Active Directory holds the permissions that will be applied to privileged groups and users, including Domain Admins. By default, permissions on privileged users are more restrictive to protect them from compromise. If an organization adjusts the permissions on the AdminSDHolder object, they may weaken the security of these privileged users.</p>\n      <p>An attacker may discover these weaker permissions on privileged users and groups, and with a greater surface area, an attacker has a stronger chance of formulating attack paths to compromise users such as a Domain Admin, and then compromising Active Directory.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.semperis.com/resources/improving-your-active-directory-security-posture-adminsdholderto-the-rescue/\" target=\"_blank\">AdminSDHolder to improve Active Directory Security | Semperis</a></p>\n      <p><a href=\"https://www.semperis.com/blog/7-active-directory-misconfigurations-to-find-and-fix-now/\" target=\"_blank\">7 Active Directory Misconfigurations to Find and Fix-Now - Semperis</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory\" target=\"_blank\">Appendix C - Protected Accounts and Groups in Active Directory | Microsoft Learn</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_permissions_adminsdholder\" target=\"_blank\">Dangerous permissions on the adminSDHolder object | ANSSI</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_delegation_a2d2\" target=\"_blank\">Constrained authentication delegation to a domain controller service | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Defense Evasion",
+        "Privilege Escalation"
+      ]
+    },
+    {
+      "Name": "ANSSI",
+      "Tags": [
+        "vuln1_permissions_adminsdholder",
+        "vuln2_permissions_adminsdholder",
+        "vuln1_privileged_members_perm",
+        "vuln2_privileged_members_perm"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.5"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.4"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Attribute",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} domains with AdminSDHolder container permission changes in the last 6 months.",
+  "Remediation": "<p>Organizations should investigate the permissions on the AdminSDHolder object if modified, and use attack path analysis software, such as Forest Druid, to analyze attack paths to privileged users in Active Directory.</p><p>Organizations, if changing the permissions on AdminSDHolder, should have an established process in place for awareness.</p>\n      <p>Unplanned changes to AdminSDHolder should be considered <b>highly suspicious</b> and <b>must</b> be investigated further. Unplanned changes to AdminSDHolder are a <b>very strong indicator</b> of compromise of Active Directory.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

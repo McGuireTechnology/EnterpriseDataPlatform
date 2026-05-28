@@ -1,0 +1,130 @@
+﻿{
+  "Id": 304,
+  "UUID": "e999201f-84ab-4893-a207-8aac7f09df3f",
+  "Version": "1.240.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Dangerous GPO logon script path",
+  "ScriptName": "GPOLogonScripts",
+  "ShortName": "SI000304",
+  "Description": "This indicator searches for logon script paths where the script does not exist and where a low-privilege user has permissions on the parent folder. Additionally, it checks for logon script paths where the script exists but low-privilege users have permissions to modify them.",
+  "CategoryId": "4",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "By inserting a new logon script or changing an existing one using normal user that has the permissions to do so, an attacker can remotely run code on a larger part of the network without special privileges.",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation",
+        "Lateral Movement"
+      ]
+    },
+    {
+      "Name": "MITRE D3FEND",
+      "Tags": [
+        "Detect - Script Execution Analysis",
+        "Detect - File Creation Analysis"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MinVersion": "1.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MaxVersion": "3.0"
+    },
+    {
+      "MinVersion": "3.5",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MaxVersion": "10"
+    },
+    {
+      "MinVersion": "2.5",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MaxVersion": "10"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "Script",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Scripttype",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Result",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UsersWithPrivOnFile",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UsersWithPrivOnFolder",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Policy",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "policyName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "PolicyStatus",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LinkedOUs",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} dangerous logon scripts paths.",
+  "Remediation": "Ensure that the GPO logon script exists, and that the logon script path does not provide normal users with permissions to change the script file or access to their parent folder.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

@@ -1,0 +1,106 @@
+﻿{
+  "Id": 156,
+  "UUID": "d64cab17-754c-4643-872b-a9113fbb7808",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Certificate templates with 3 or more insecure configurations",
+  "ScriptName": "CertificateTemplatesAreVulnerable",
+  "ShortName": "SI000156",
+  "Description": "This indicator checks if certificate templates in the forest have a minimum of three insecure configurations - Manager approval is disabled, No authorized signatures are required, SAN enabled, Authentication EKU present.",
+  "CategoryId": "3",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "The following configurations of a certificate template can be exploited by adversaries:\n      <ol>\n        <li>Manager approval is disabled - new certificates are automatically approved if the user has the correct enrollment rights.</li>\n        <li>No authorized signatures are required - CSRs (Certificate Signing Requests) are not signed by any existing authorized certificate.</li>\n        <li>SAN (Subject Alternative Name) Enabled - Allowing the creator of a certificate template to specify the subjectAltName in the CSR, thus they can make the request as anyone, even a domain admin.</li>\n        <li>Authentication EKU (Enhanced Key Usage) present - if present, the EKU created from the certificate template will allow the user to authenticate with it.</li>\n        </ol>\n        <h3>References</h3>\n        <p><a href=\"https://www.nccoe.nist.gov/sites/default/files/legacy-files/tls-serv-cert-mgt-nist-sp1800-16b-final.pdf\" target=\"_blank\">NIST-SP1800-16B</a></p>\n        <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_adcs_template_auth_enroll_with_name\" target=\"_blank\">Dangerous enrollment permission on authentication certificate templates | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Detect - Certificate Analysis"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln1_adcs_template_auth_enroll_with_name"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "CertificateTemplateName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PotentialAbusableProblems",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Published",
+      "Type": "Boolean",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} certificate templates that can potentially be abused.",
+  "Remediation": "Multiple actions can be taken to ensure certificate templates will be less vulnerable:\n      <ol>\n        <li>Enable manager approval - make sure manager approval is enabled and required on the certificate, and approve each request manually after inspecting it.</li>\n        <li>No authorized signatures are required - it is recommended to set it to 1 so that each request will have to be signed by an authorized certificate.</li>\n        <li>SAN Enabled - evaluate if the certificate needs to specify a subjectAltName, if not disable this option.</li>\n        <li>Authentication EKU present - make sure the certificate template is being used for authentication only.<br> For example, a certificate that is solely used for code signing should not also be used for authentication.</li>\n        </ol>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

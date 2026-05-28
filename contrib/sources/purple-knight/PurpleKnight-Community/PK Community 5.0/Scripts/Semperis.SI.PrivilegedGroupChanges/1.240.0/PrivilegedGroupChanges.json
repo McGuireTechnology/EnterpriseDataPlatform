@@ -1,0 +1,99 @@
+﻿{
+  "Id": 43,
+  "UUID": "3abeddaa-cdc0-4357-8834-3662c68cf073",
+  "Version": "1.240.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Changes to privileged group membership in the last 7 days",
+  "ScriptName": "PrivilegedGroupChanges",
+  "ShortName": "SI000043",
+  "Description": "This indicator looks for changes to the built-in privileged groups within the last 7 days, which could indicate attempts to escalate privilege.",
+  "CategoryId": "2",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "Recent additions or deletions to privileged group members could be normal operational changes or could indicate attempts at persistence or cleaning up of tracks after an attack (e.g. detection of temporary group membership changes).",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation",
+        "Persistence"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MinVersion": "1.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MaxVersion": "3.0"
+    },
+    {
+      "MinVersion": "3.5",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MaxVersion": "10"
+    },
+    {
+      "MinVersion": "1.4",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MaxVersion": "10"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "MemberDistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "MemberSamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Operation",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} changes on privileged groups' membership.",
+  "Remediation": "Confirm that any additions/removals from privileged groups are valid and properly accounted for.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

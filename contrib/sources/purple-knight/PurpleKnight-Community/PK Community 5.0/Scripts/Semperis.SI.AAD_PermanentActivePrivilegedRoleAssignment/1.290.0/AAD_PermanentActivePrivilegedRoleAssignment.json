@@ -1,0 +1,112 @@
+﻿{
+  "Id": 229,
+  "UUID": "4c280de7-6abd-4093-8773-277dbf166698",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Permanent Active Privileged Role Assignment",
+  "ScriptName": "AAD_PermanentActivePrivilegedRoleAssignment",
+  "ShortName": "SI000229",
+  "Description": "<p>This indicator checks for the presence of permanent active privileged role Assignments.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>RoleManagement.Read.Directory</li>\n        <li>Directory.Read.All</li>\n        <li>Application.Read.All</li>\n        <li>GroupMember.Read.All</li> \n        <li>User.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>Privileged roles in Microsoft Entra Privileged Identity Management (PIM) that are assigned as \"permanently active\" pose significant security risks. According to Microsoft Learn, \"Privileged role administrators can make users active for Microsoft Entra admin roles. An active administrator can activate the role when they need it, and then their permissions expire once they're done.\" However, allowing principals to have permanent active for privileged roles is not the most secure practice, as it provides continuous access to elevated permissions.</p>\n      <p>If an administrator intends to grant a user the ability to perform privileged actions, it is advisable to provide a limited time window for activity rather than indefinite access. Longer periods of activity increase the risk of privilege escalation and potential misuse.</p>\n      <p>The likelihood of compromise increases significantly when privileged roles in PIM are assigned as permanently active. This configuration allows users continuous access to elevated permissions, increasing the risk of privilege escalation and potential exploitation.</p>\n<h3>References</h3>\n<p><a href=\"https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-how-to-add-role-to-user\" target=\"_blank\">Assign Microsoft Entra roles in Privileged Identity Management | Microsoft Learn</a></p>\n<p><a href=\"https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-resource-roles-assign-roles\" target=\"_blank\">Assign Azure resource roles in Privileged Identity Management | Microsoft Learn</a></p>\n<p><a href=\"https://github.com/cisagov/ScubaGear/blob/main/PowerShell/ScubaGear/baselines/aad.md#msaad74v1\" target=\"_blank\">CISA MS.AAD.7.4v1</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Model - Access Modeling"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DisplayName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "PrincipalId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "IdentityType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "RoleDefinitionName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "AssignmentType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/RoleManagement.Read.Directory",
+    "AAD.GraphAPI/RoleEligibilitySchedule.Read.Directory",
+    "AAD.GraphAPI/Directory.Read.All",
+    "AAD.GraphAPI/Application.Read.All",
+    "AAD.GraphAPI/GroupMember.Read.All",
+    "AAD.GraphAPI/User.Read.All"
+  ],
+  "ResultMessage": "Found {0} Permanent Active Privileged Role Assignments in Azure AD",
+  "Remediation": "<p>Limit the duration of activity for privileged roles in PIM to a reasonable timeframe (e.g., up to 90 days) based on the user's role and necessity.</p>\n<p>To configure activity durations, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_Azure_PIMCommon/ResourceMenuBlade/~/members/resourceId//resourceType/tenant/provider/aadroles\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, select, expand <b>Identity governance</b>, and select <b>Privileged Identity Managemnet</b>.</p>\n<p>In the blade on the right, select the specific privileged role you wish to configure. Adjust the activity settings to ensure they are time-bound.</p>\n<p>Conduct regular reviews of all privileged roles to ensure that only necessary users have active access, and that this access is appropriately time-bound.</p>\n<p>Educate administrators and users about the risks of permanently active roles and the importance of maintaining strict access controls.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

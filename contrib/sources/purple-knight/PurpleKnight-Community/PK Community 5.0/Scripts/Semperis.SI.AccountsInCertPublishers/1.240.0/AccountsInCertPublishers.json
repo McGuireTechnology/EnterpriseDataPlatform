@@ -1,0 +1,94 @@
+﻿{
+  "Id": 314,
+  "UUID": "c4a19ff8-3bfd-46f9-b215-2b6c0179b0aa",
+  "Version": "1.240.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Unexpected accounts in Cert Publishers Group",
+  "ScriptName": "AccountsInCertPublishers",
+  "ShortName": "SI000314",
+  "Description": "This indicator checks to see if the Cert Publishers Group contains members that aren't expected to be there.",
+  "CategoryId": "3",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "Individuals belonging to Cert Publishers Group have the ability to introduce a potentially harmful Certificate Authority (CA) within an ADCS environment, that will be trusted by all clients. Although certificates issued by this CA may not receive automatic trust for client authentication via PKINIT or SChannel, they remain susceptible to exploitation for other malicious purposes. The combination of Cert Publishers membership and write access to NTAuthcertificates poses the greatest risk in such situations, allowing the forging and solicitation of certificates for client authentication against any user in the domain.",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation",
+        "Credential Access"
+      ]
+    },
+    {
+      "Name": "MITRE D3FEND",
+      "Tags": [
+        "Harden - User Account Permissions"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MinVersion": "1.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MaxVersion": "3.0"
+    },
+    {
+      "MinVersion": "3.5",
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MaxVersion": "10"
+    },
+    {
+      "MinVersion": "1.5",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MaxVersion": "10"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "DomainName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "GroupDistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} unexpected members in Cert Publishers Group",
+  "Remediation": "After careful investigation, remove any accounts that do not belong from the Cert Publishers Group.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

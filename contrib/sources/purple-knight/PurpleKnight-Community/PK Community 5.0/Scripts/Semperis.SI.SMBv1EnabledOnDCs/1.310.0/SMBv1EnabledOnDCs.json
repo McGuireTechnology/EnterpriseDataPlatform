@@ -1,0 +1,87 @@
+﻿{
+  "Id": 155,
+  "UUID": "66ee675e-4b5d-47a9-a364-a4477c1e73e5",
+  "Version": "1.310.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "SMBv1 is enabled on Domain Controllers",
+  "ScriptName": "SMBv1EnabledOnDCs",
+  "ShortName": "SI000155",
+  "Description": "This indicator looks for domain controllers where SMBv1 protocol is enabled.",
+  "CategoryId": "3",
+  "Weight": 8,
+  "Severity": "Critical",
+  "Schedule": "1h",
+  "Impact": 8,
+  "LikelihoodOfCompromise": "<p>SMBv1 is an old protocol, considered unsafe and susceptible to all kinds of attacks. It was publicly deprecated by Microsoft in 2014.</p> \n      <h3>References</h3>\n      <p><a href=\"https://techcommunity.microsoft.com/blog/filecab/configure-smb-signing-with-confidence/2418102\" target=\"_blank\">Configure SMB Signing with Confidence</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation",
+        "Credential Access"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.5"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.4"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "HostName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "State",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} DCs with SMBv1 Enabled.",
+  "Remediation": "Microsoft recommends to disable SMBv1 whenever possible on both client and server side. Do note, before disabling SMBv1 and to avoid additional errors, make sure best practices are followed regarding the usage of deprecated OS (Windows 2000, 2003, XP, CE), network printers using SMBv1 scan2shares functionalities, or software accessing Windows share with a custom implementation relying on SMBv1.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

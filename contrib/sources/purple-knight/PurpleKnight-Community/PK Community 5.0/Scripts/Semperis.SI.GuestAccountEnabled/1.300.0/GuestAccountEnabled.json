@@ -1,0 +1,105 @@
+﻿{
+  "Id": 12,
+  "UUID": "d14af45f-009c-4840-8e35-36a97c979a8c",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Built-in guest account is enabled",
+  "ScriptName": "GuestAccountEnabled",
+  "ShortName": "SI000012",
+  "Description": "This indicator checks if the built-in Active Directory \"guest\" account is enabled. The guest account allows for accounts with no password access to the domain and is disabled in most AD environments.",
+  "CategoryId": "1",
+  "Weight": 2,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 10,
+  "LikelihoodOfCompromise": "<p>Attackers can take advantage of a guest account to enumerate open shares that are accessible to the \"Everyone\" setting, as is often the case. Additionally, attackers may utilize the limited access these accounts provide to conduct additional scanning for vulnerable users, shares and other network resources.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_guest\" target=\"_blank\">Guest account enabled | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Discovery",
+        "Reconnaissance"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Evict - Account Locking"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln2_guest"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "UserAccountControl",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastChanged",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} domains in which guest account is enabled.",
+  "Remediation": "The guest account should be disabled to prevent the associated security risks.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

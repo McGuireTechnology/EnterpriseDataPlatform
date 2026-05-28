@@ -1,0 +1,98 @@
+﻿{
+  "Id": 42,
+  "UUID": "868c36af-b784-465b-a15c-291bd3c66d47",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Users with SPN defined",
+  "ScriptName": "PrimaryUsersWithSPN",
+  "ShortName": "SI000042",
+  "Description": "This indicator provides a way to visually inventory all users accounts that have SPNs defined. Generally SPNs are only defined for \"Kerberized\" services, so if you see an account with an SPN that should not have one, this could be cause for concern.",
+  "CategoryId": "5",
+  "Weight": 3,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 3,
+  "LikelihoodOfCompromise": "<p>SPNs are generally only defined for service accounts or other services that use Kerberos. If you see SPNs on other accounts, they are worth investigating to determine if they are just an administrative error.<p>\n        <h3>References</h3>\n        <p><a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/audit-user-account-management\" target=\"_blank\">Audit User Account Management</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Detect - Domain Account Monitoring"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ServicePrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "AESEnabled",
+      "Type": "Boolean",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} users with associated SPN.",
+  "Remediation": "If possible use Group Managed Service Accounts instead of regular users or ensure that all users that have an SPN are not primary users and considered as service accounts.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

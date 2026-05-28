@@ -1,0 +1,354 @@
+Semperis Purple Knight Community 5.0 Release Notes
+Copyright (c) 2025 Semperis. All rights reserved.
+
+
+Version 5.0
+
+TOOL BUG FIXES AND IMPROVEMENTS
+===============================
+
+ * 5-severity level posture scoring
+ * Directory name re-added in report file name
+ * Report file names adjusted to ISO 8601 date format
+ * Removed HTML tags from descriptions
+
+
+Version 4.3
+
+TOOL BUG FIXES AND IMPROVEMENTS
+===============================
+
+ * Bug fix related to security indicator updates
+ * Update of system pre-requisites to .NET Framework 4.7.2
+ * Rebranding of "Azure AD" to "Entra ID"
+
+
+
+
+
+Version 4.2
+
+TOOL BUG FIXES AND IMPROVEMENTS
+===============================
+
+ * New and improved security posture scoring algorithm
+ * New letter grading system for security posture scoring
+ * Added permission requirements for Azure AD (Entra ID) indicators
+ * Enhanced error messages
+
+
+
+
+Version 4.1
+
+TOOL BUG FIXES AND IMPROVEMENTS
+===============================
+
+ * Fixed: import-module failures resulting in indicators failed to run
+ * Updated system requirements: Powershell 5.0 or later
+
+
+
+
+Version 4.0
+
+TOOL BUG FIXES AND IMPROVEMENTS
+===============================
+
+ * New: Okta security indicators
+ * Hybrid indicators are only available for connected environments
+ * Improvement to security indicator update process
+ * New XLS output structure
+ * Updated EULA
+ * Fixed: long start time
+
+
+
+
+Version 3.0
+
+TOOL BUG FIXES AND IMPROVEMENTS
+===============================
+
+ * Add support for in-tool indicator updates
+ * New scoring method introduced for security indicators
+ * Updated EULA
+ * HTML report generated in single file
+ * Hybrid Category field in XLS/CSV output mentions the environment it belongs to
+ * Uniform date format in XLS/CSV outputs 
+ * Indicator Short Name added and used in XLS/CSV outputs
+ * Tool version and edition saved in XLS/CSV outputs
+ * Warning message added before execution of Erase_PK_output file
+ * Fixed: scan failed despite Powershell version 4.0
+ * Fixed: inconsistency in Canceled state counter
+ 
+ 
+
+NEW INDICATORS - AAD
+===================
+ * Conditional Access policies contain private IP addresses
+ * Number Matching Enabled in MFA
+
+
+NEW INDICATORS - AD
+===================
+  * Dangerous GPO logon script path
+  * Dangerous user rights granted by GPO
+
+
+
+
+Version 2.2
+
+TOOL BUG FIXES AND IMPROVEMENTS
+===============================
+
+ * Added new security indicator category - Hybrid
+ * Added script to auto-erase outputs left by PK runs
+ * General bug fixes
+
+NEW INDICATORS - AAD
+===================
+ * AAD Connect sync account password reset 
+ * Conditional Access policy with Continuous Access Evaluation disabled 
+ * Guest accounts that were inactive for more than 30 days 
+
+NEW INDICATORS - AD
+===================
+ * Privileged user credentials cached on RODC 
+ * Resource Based Constrained Delegation applied to AZUREADSSOACC account 
+
+
+
+
+
+
+
+
+
+Version 2.1.1
+
+TOOL BUG FIXES AND IMPROVEMENTS
+===============================
+
+ * Minor bug fixes
+
+
+Version 2.1
+
+TOOL BUG FIXES AND IMPROVEMENTS
+===============================
+
+ * User can edit intro text in HTML and PDF reports
+ * User can select Critical in Indicator Selection Screen to run only critical indicators
+ * Fixed memory usage issues in large environments
+ * Fixed issues with partner branding and logo
+ * HTML and PDF report styling fixes
+
+
+NEW INDICATORS - AD
+===================
+
+ * Accounts with Constrained Delegation configured to ghost SPN
+ * SMBv1 is enabled on Domain Controllers
+ * Accounts with altSecurityIdentities configured
+
+NEW INDICATORS - AAD
+====================
+
+ * AD privileged users that are synced to AAD
+ * Check for users with weak or no MFA
+ * SSO computer account with password last set over 90 days ago
+ * Non-synced AAD user that is eligible for a privileged role
+ * Conditional Access Policy that does not require a password change from high risk users
+ * Conditional Access Policy that does not require MFA when sign-in risk has been identified
+ * Conditional Access Policy that disable admin token persistence
+ * Conditional Access Policy does not require MFA on privileged accounts
+ * More than 5 Global Administrators exist
+ * Guest invites not accepted in last 30 day
+
+
+Version 2.0
+
+TOOL BUG FIXES AND IMPROVEMENTS
+===============================
+
+ * New splashscreen
+ * Improve loading process
+ * HTML and PDF report styling fixes
+
+
+NEW INDICATORS - AD
+===================
+
+ * Primary users with SPN not supporting AES encryption on Kerberos
+ 
+
+NEW INDICATORS - AAD
+====================
+
+ * Guest users are not restircted (permissions: AAD.GraphAPI/Policy.Read.All)
+
+
+Version 1.5
+
+TOOL BUG FIXES AND IMPROVEMENTS
+===============================
+
+ * Support for scanning Azure AD indicators
+ * Added AAD results to summary screen and reports
+ * Added mapping to MITRE D3FEND framework
+ * Added navigation pane to HTML report
+ * Added a Notes section to PDF report
+ * Performance optimization for large environments
+ * Multiple styling fixes to the HTML and PDF reports
+
+
+NEW INDICATORS - AD
+===================
+
+ * Accounts with Constrained Delegation configured to krbtgt
+ * Certificate templates that allow requesters to specify a subjectAltName
+ * Certificate templates with three or more insecure configurations
+ * FGPP not applied to group
+ * LDAP signing is not required on Domain Controllers
+ * Operator Groups that are not empty
+ * RC4 encryption type is supported by Domain Controllers
+
+NEW INDICATORS - AAD
+====================
+
+ * AAD privileged users that are also privileged in AD
+ * Administrative units are not being used
+ * Check for guests having permissions to invite other guests
+ * Check for risky API permissions granted to application service principals
+ * Check if legacy authentication is allowed
+ * MFA not configured for privileged accounts
+ * Non-admin users can register custom applications
+ * Privileged groups contain guest accounts
+ * Security defaults not enabled
+ * Unrestricted user consent allowed
+
+
+Version 1.4
+
+TOOL BUG FIXES AND IMPROVEMENTS
+===============================
+
+ * Scan results are automatically saved to an Excel file
+ * Option to save results to multiple CSV files
+ * Added ANSSI report to community edition
+ * Added "New Scan" button to scan summary to start a new scan
+ * Added version and contact information to kebab menu (Click "More")
+ * Added report logo and application header customization option to community edition (see User Guide)
+ * Fixed Bug - Report pie chart is cut off
+ * Fixed Bug - Sorting in ANSSI report
+ * Fixed Bug - Wrong Windows version in log files
+ * Multiple typos fixed
+ * Multiple issues for non-English languages fixed
+
+NEW INDICATORS
+==============
+
+ * Abnormal Password Refresh
+ * Dangerous Trust Attribute Set
+ * Ephemeral Admins 
+ * gMSA not used
+ * Users with permissions to set Server Trust Account
+ * Users and computers without readable PGID
+ * Changes to Pre-Windows 2000 Compatible Access Group membership
+ * Write access to RBCD on DC
+ * Write access to RBCD on krbtgt account
+ * SYSVOL Executable Changes
+ * Foreign Security Principals in Privileged Group
+
+
+
+Version 1.3.1
+
+TOOL BUG FIXES AND IMPROVEMENTS
+===============================
+
+ * Sorting of Indicators in ANSSI Appendix by severity (Partner edition)
+ * Improved error message when ZIP file has not been unblocked
+ * Fixed error message when running from a non-domain-joined endpoint
+
+
+INDICATOR BUG FIXES AND IMPROVEMENTS
+====================================
+
+ * Fixed False Positives in Evidence of Mimikatz DCShadow attack
+ * Fixed False Positives in User accounts with password not required
+ * Fixed False Positives and improved output in AD Certificate Authority with Web Enrollment ("PetitPotam", "ESC8")
+ * Fixed False Positives in GPO linking delegation at the domain level
+ * Metadata changes in several indicators
+ * New indicators added:
+	- Changes to AD Display Specifiers in the past 90 days
+	- Non-privileged users with access to gMSA passwords
+	- Privileged users with weak password policy
+	- NTFRS SYSVOL replication
+	- Inheritance enabled on AdminSDHolder object
+	
+
+
+Version: 1.3
+
+TOOL BUG FIXES AND IMPROVEMENTS
+===============================
+
+ * Added: Purple Knight on-line update check:
+   - After accepting the EULA, there will be a "Check for updates" link at the bottom of the screen
+   - Purple Knight *will not* reach out to the internet and update servers unless this link is clicked and approved by the user 
+   - After user approval, Purple Knight will check connectivity to the update server and if there is a new version available
+   - If a new version is available, a link will be presented to the user for download. Purple Knight *does not* auto-download and install
+ * Added: ANSSI framework tags on relevant indicators:
+   - Added to Indicator selection screen
+   - Changed report "Security Frameworks" sections to include MITRE and ANSSI for each indicator
+   - Added relevant columns to Excel (Partner edition) and CSV outputs
+ * Added (Partner edition only): ANSSI scorecard report section (Appendix 3)
+ * Added (Partner edition only): If Excel spreadsheet cannot be generated, fallback to CSV output
+ * Added: Sensitive info have been removed from the logs:
+   - PurpleKnight.log will not contain returned scores and calculated grades
+   - Scores and grades will be logged in PurpleKnight_Results.log
+ * Fixed: HTML report creation errors in multiple environments
+ * Fixed: Links serialization in many indicators' metadata
+ * Fixed: Bug that would not serialize links in Likelihood of Compromise report text
+ * Fixed: Bug that would crash the tool if regional settings were not defined as English
+
+
+INDICATOR BUG FIXES AND IMPROVEMENTS
+====================================
+
+ * Fixed: Multiple indicators false positives and metadata
+ * Added indicators:
+   - Print spooler service is enabled on a DC
+   - Non-standard schema permissions
+   - Unsecured DNS configuration
+   - Weak certificate encryption
+   - Domain trust to a third-party domain without quarantine
+   - Outbound forest trust with SID History enabled
+   - Dangerous control paths expose certificate templates
+   - Dangerous control paths expose certificate containers
+   - Non-default access to DPAPI key
+   - Non-default access to gMSA root key
+   - AD Certificate Authority with Web Enrollment ("PetitPotam", "ESC8")
+
+
+
+
+KNOWN ISSUES
+============
+
+ * Inconsistencies in count of “Evaluated” indicators
+ * Excel report creation may crash for very large (100K+ objects) environments
+ * Memory usage issues when scanning very large (100K+ objects) environments
+ * We have received several reports of the tool freezing on the initial splash screen
+ * Error message when creating the PDF report:
+	- This may be caused by Applocker being enabled. The following two files must be whitelisted for the PDF generation to succeed:
+		OPENHTMLTOPDF.WKHTMLTOPDF.EXE 
+		WKHTMLTOX.DLL
+ * Launching Purple Knight with .NET before 4.6.2 may generate an error before the pre-requisite check
+ * Several indicators will fail to run (show as "Fail to Run" and not affect the scoring) under certain AD configurations. These are being fixed:
+	- Objects or their OUs whose ACLs do not allow read access to the domain user running the tool - the result message in the report will include "The object does not exist"
+	- Indicator "Unprivileged principals as DNS Admins" running in an environment that uses external DNS management and has removed the DNS Admins group
+ * Indicator "AD Certificate Authority with Web Enrollment ("PetitPotam", "ESC8")" will return a fail when there are CA Enrollment endpoints even if mitigations are in place (e.g. EPA). This is also described in the indicator metadata

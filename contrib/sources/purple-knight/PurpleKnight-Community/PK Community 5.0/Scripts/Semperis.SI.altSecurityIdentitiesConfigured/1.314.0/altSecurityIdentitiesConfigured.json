@@ -1,0 +1,110 @@
+﻿{
+  "Id": 102,
+  "UUID": "59551a78-1f84-42fe-ad13-d38413d1c882",
+  "Version": "1.314.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Accounts with altSecurityIdentities configured",
+  "ScriptName": "altSecurityIdentitiesConfigured",
+  "ShortName": "SI000102",
+  "Description": "It is possible to add values to the altSecurityIdentities attribute and essentially impersonate that account. The altSecurityIdentities attribute is a multi-valued attribute used to create mappings for X.509 certificates and external Kerberos accounts. This indicator checks for accounts with the altSecurityIdentities attribute configured.",
+  "CategoryId": "5",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>This type of attack may be easy to spot as it is rarely configured during normal operations. However, it is possible for this attribute to be configured genuinely.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_delegation_a2d2\" target=\"_blank\">Constrained authentication delegation to a domain controller service | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation"
+      ]
+    },
+    {
+      "Name": "ANSSI",
+      "Tags": [
+        "vuln1_delegation_a2d2"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.5"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.4"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "AltCertificates",
+      "Type": "String",
+      "IsCollection": true,
+      "IsKey": false
+    },
+    {
+      "Name": "AltExternal",
+      "Type": "String",
+      "IsCollection": true,
+      "IsKey": false
+    },
+    {
+      "Name": "AltUnknown",
+      "Type": "String",
+      "IsCollection": true,
+      "IsKey": false
+    },
+    {
+      "Name": "DomainName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} account(s) with altSecurityIdentities configured.",
+  "Remediation": "Remove any entries in altSecurityIdentities attributes that are not explicitly required.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

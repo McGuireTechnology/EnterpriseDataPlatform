@@ -1,0 +1,115 @@
+﻿{
+  "Id": 226,
+  "UUID": "e231380a-a77e-481f-ab03-6310b7b5cdfa",
+  "Version": "1.294.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Prohibited Entra ID Roles Assigned",
+  "ScriptName": "AAD_ProhibitedPrivilegedRoles",
+  "ShortName": "SI000226",
+  "Description": "<p>This indicator checks for the assignment of roles in Entra ID that are deprecated or prohibited from use.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>RoleManagement.Read.Directory</li>\n        <li>RoleManagement.Read.All</li>\n        <li>Directory.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 3,
+  "LikelihoodOfCompromise": "<p>Deprecated roles and roles marked as \"never use\" can pose significant security risks if assigned. These roles may have unintended permissions or may not be properly maintained, potentially leading to security vulnerabilities.</p>\n<p>An attacker who gains access to an account with these roles could potentially exploit outdated or overly broad permissions, leading to unauthorized access, data breaches, or further privilege escalation within the Entra ID environment.</p>\n<h3>References</h3>\n<p><a href=\"https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/best-practices#5-limit-the-number-of-global-administrators-to-less-than-5\" target=\"_blank\">Best practices for Microsoft Entra roles - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation",
+        "Persistence"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MaxVersion": "3.0",
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "PrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "PrincipalId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PrincipalType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "RoleName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "RoleType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "AssignmentType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ObjectResolved",
+      "Type": "Boolean",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/RoleManagement.Read.Directory",
+    "AAD.GraphAPI/RoleManagement.Read.All",
+    "AAD.GraphAPI/Directory.Read.All"
+  ],
+  "ResultMessage": "Found {0} principals with prohibited roles assigned. {1} 'Deprecated' roles and {2} 'Prohibited' roles detected.",
+  "Remediation": "<p>Review all principals with prohibited role assignments and remove these assignments immediately.</p>\n      <p>To review and manage role assignments, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/RolesManagementMenuBlade/~/AllRoles\" target=\"_blank\">Microsoft Entra admin center</a>, go to Identity > Roles and admins.</p>\n      <p>For each prohibited role:</p>\n      <ol>\n        <li>Identify alternative, supported roles that provide the necessary permissions.</li>\n        <li>Remove the prohibited role assignment.</li>\n        <li>Assign the appropriate alternative role.</li>\n        <li>Verify that the principal can still perform their required tasks with the new role assignment.</li>\n      </ol>\n    <p>For deprecated roles, consult Microsoft documentation to find the recommended replacement roles.</p>\n    <p>For \"prohibited\" roles, revoke all assignments and reassess the need for those permissions.</p>\n    <p><b>Caution: Ensure that removing these role assignments does not disrupt critical operations. Always test changes in a non-production environment first.</b></p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

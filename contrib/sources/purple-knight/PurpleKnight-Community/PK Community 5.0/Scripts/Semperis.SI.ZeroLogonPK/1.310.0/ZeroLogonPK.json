@@ -1,0 +1,58 @@
+﻿{
+  "Id": 36,
+  "UUID": "9c6bb8f6-7950-4d87-8e49-87fc89bf6ba6",
+  "Version": "1.310.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Zerologon vulnerability",
+  "ScriptName": "ZeroLogonPK",
+  "ShortName": "SI000036",
+  "Description": "<p>This indicator checks for security vulnerability CVE-202-1472.</p>",
+  "CategoryId": "3",
+  "Weight": 10,
+  "Severity": "Critical",
+  "Schedule": "1d",
+  "Impact": 10,
+  "LikelihoodOfCompromise": "<p>Commonly referred to as <b>Zerologon</b>, CVE-2020-1472, is a vulnerability an attacker can use to gain Domain Administrator access against an unpatched domain controller. This vulnerability is considered critical because the attacker can perform the attack unauthenticated against Active Directory.</p>\n      <h3>References</h3>\n      <p><a href=\"https://msrc.microsoft.com/update-guide/vulnerability/CVE-2020-1472\" target=\"_blank\">CVE-2020-1472 - Security Update Guide - Microsoft - Netlogon Elevation of Privilege Vulnerability</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.4"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "HostName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} DCs that are vulnerable to ZeroLogon.",
+  "Remediation": "<p>It is critical to ensure that the indicated domain controllers are patched for CVE-2020-1472, and have been restarted after the patch has been applied.</p>",
+  "IgnoreListSupport": true,
+  "Selected": false
+}

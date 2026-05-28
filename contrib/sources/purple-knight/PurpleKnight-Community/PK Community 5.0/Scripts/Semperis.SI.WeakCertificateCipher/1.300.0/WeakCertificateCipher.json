@@ -1,0 +1,104 @@
+﻿{
+  "Id": 86,
+  "UUID": "966491f1-e550-48ae-aae5-2fc1b0ae4a60",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Weak certificate cipher",
+  "ScriptName": "WeakCertificateCipher",
+  "ShortName": "SI000086",
+  "Description": "This indicator looks for  certificates stored in active directory with keysize smaller than 2048 bits or utilize DSA encryption.",
+  "CategoryId": "3",
+  "Weight": 8,
+  "Severity": "Critical",
+  "Schedule": "1h",
+  "Impact": 8,
+  "LikelihoodOfCompromise": "<p>Weak certificates can be abused by attackers to gain access to systems who use certificate authentication.</p>\n       <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_certificates_vuln\" target=\"_blank\">Weak or vulnerable certificates | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Certificate-based Authentication"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln1_certificates_vuln"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "SubjectName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SignatureAlgorithmOID",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "KeyLength",
+      "Type": "Integer",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ValidTo",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} certificates with weak configuration.",
+  "Remediation": "Problematic certificates need to be revoked and re-issued. Children certificates must also be re-issued. Expired certificates should also be purged from trusted certificates stores. When issuing certificates, the following requirements should be met: Use RSA or ECDSA for certificate signature (don't use DSA), RSA key length is equal to or greater than 2048 and an up-to-date library is used to generate the RSA key.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

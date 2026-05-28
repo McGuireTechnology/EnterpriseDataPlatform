@@ -1,0 +1,98 @@
+﻿{
+  "Id": 88,
+  "UUID": "13b327cf-1283-4362-8815-6c1acb24f4de",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Outbound forest trust with SID History enabled",
+  "ScriptName": "OutboundForestTrustWithSIDHistory",
+  "ShortName": "SI000088",
+  "Description": "<p>This indicator checks for outbound forest trusts that have the TRUST_ATTRIBUTE_TREAT_AS_EXTERNAL flag set to true.</p>",
+  "CategoryId": "3",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>If TRUST_ATTRIBUTE_TREAT_AS_EXTERNAL is set to true, the security of a cross-forest trust is relaxed and trusts are treated as equivalent to external trusts.</p>\n      <p>An attacker that compromises the remote Active Directory forest, with this set to true, can spoof most users and computers in the local Active Directory forest. This would allow the attacker to act as local users or computers and access resources they have privileges in. An attacker can also use this for privilege elevation and compromise the local forest.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.semperis.com/blog/active-directory-security/active-directory-security-best-practices-checklist/\" target=\"_blank\">Active Directory Security Best Practices | Semperis</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_trusts_forest_sidhistory\" target=\"_blank\">Outbound forest trust relationships with sID History enabled | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Lateral Movement"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Domain Trust Policy"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln1_trusts_forest_sidhistory"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "TrustedForest",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "TrustAttributes",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} outbound trusts where SIDHistory is enabled.",
+  "Remediation": "<p>Unless a forest migration is currently in process, SID filtering should be enabled on the trust.</p>\n      <p>Organizations should understand the risk of leaving this enabled for an extended period of time.</p>\n      <p>The following command can be run to enable: <code>NETDOM TRUST <ForestName> /domain:<TrustedForest> /EnableSIDHistory no</code></p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

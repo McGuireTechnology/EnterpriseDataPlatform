@@ -1,0 +1,99 @@
+﻿{
+  "Id": 63,
+  "UUID": "bd287262-50dd-4e99-9daa-7754eb27cddb",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Domain Controllers with old passwords",
+  "ScriptName": "CompOldPwdLastSetDC",
+  "ShortName": "SI000063",
+  "Description": "This indicator looks for domain controller machine accounts whose password has not been reset in over 45 days. By default, machine accounts including DCs, automatically reset their passwords every 30 days. Any machine accounts with passwords older than that could indicate a DC that is no longer functioning in the domain.",
+  "CategoryId": "3",
+  "Weight": 3,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 3,
+  "LikelihoodOfCompromise": "<p>A DC that is not updating its machine account password regularly could be more easily taken over. From an operational standpoint, it could also indicate a communication problem with the rest of the domain.</p>\n      <h3>References</h3>\n      <p><a href=\"https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63-3.pdf\" target=\"_blank\">NIST.SP.800-63-3</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_password_change_dc_no_change\" target=\"_blank\">Domain controllers with passwords unchanged for more than 45 days | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Resource Development"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Strong Password Policy"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln1_password_change_dc_no_change"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "PasswordLastSet",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DaysSinceLastSet",
+      "Type": "Integer",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} Domain Controllers whose password has not changed in the last {1} days.",
+  "Remediation": "Ensure that any DCs found by this indicator have a valid trust relationship with the domain and are properly replicating to partner domain controllers. Use repadmin /showrepl to test replication and run nltest /sc_verify to check for a secure channel connection to the domain.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

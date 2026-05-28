@@ -1,0 +1,99 @@
+﻿{
+  "Id": 21,
+  "UUID": "bcb85336-3507-4565-91a2-9c1360c5a5f1",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Non-default principals with DC Sync rights on the domain",
+  "ScriptName": "ReplicationPermissions",
+  "ShortName": "SI000021",
+  "Description": "Any security principals with Replicate Changes All and Replicate Directory Changes permissions on the domain naming context object can potentially retrieve password hashes for any and all users in an AD domain (\"DCSync\" attack). Additionally, Write DACL / Owner also allows assignment of these privileges. This can then lead to all kinds of credential-theft based attacks, including Golden and Silver Ticket attacks.",
+  "CategoryId": "1",
+  "Weight": 8,
+  "Severity": "Critical",
+  "Schedule": "1h",
+  "Impact": 8,
+  "LikelihoodOfCompromise": "<p>DCSync is an attack for accessing credentials through this method. If an attacker gets ahold of these privileges, it is straight-forward to retrieve credential material using tools like Mimikatz, for any user in a domain.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_permissions_naming_context\" target=\"_blank\">Dangerous ACLs expose a naming context root (attack path) | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln1_permissions_naming_context",
+        "vuln2_permissions_naming_context"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Identity",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Access",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Enabled",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} objects with replication permissions.",
+  "Remediation": "Ensure that there are no unnecessary replication permissions and investigate suspicious permissions. Under certain situations (e.g. Microsoft PAM Tiering), an empty group may appear in the results - this is normal but keep in mind that this is a highly privileged group.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

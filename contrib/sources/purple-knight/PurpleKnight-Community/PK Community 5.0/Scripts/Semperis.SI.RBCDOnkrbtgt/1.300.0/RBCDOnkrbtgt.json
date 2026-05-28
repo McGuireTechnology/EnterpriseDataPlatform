@@ -1,0 +1,92 @@
+﻿{
+  "Id": 71,
+  "UUID": "3aaa510c-74ef-404e-a5e8-03ddbc89e4c7",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "krbtgt account with Resource-Based Constrained Delegation (RBCD) enabled",
+  "ScriptName": "RBCDOnkrbtgt",
+  "ShortName": "SI000071",
+  "Description": "<p>This indicator checks if the KRBTGT account has resource-based constrained delegation (RBCD) defined.</p>",
+  "CategoryId": "5",
+  "Weight": 9,
+  "Severity": "Critical",
+  "Schedule": "1h",
+  "Impact": 9,
+  "LikelihoodOfCompromise": "<p>In Active Directory it is possible to create a resource-based constrained delegation on the KRBTGT account.</p>\n      <p>An attacker may attempt to leverage this type of delegation to generate ticket granting service (TGS) requests to the KRBTGT account as any user. This particular type of attack is similar to a Golden Ticket attack.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.semperis.com/blog/ad-security-101-resource-based-constraint-delegation/\" target=\"_blank\">Resource-Based Constrained Delegation: Semperis AD 101</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_delegation_a2d2\" target=\"_blank\">Constrained authentication delegation to a domain controller service | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln1_delegation_a2d2"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "PrincipalsAllowedToDelegate",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} domains with Resource Based Constrained Delegation configured on krbtgt account.",
+  "Remediation": "<p>It is recommended to remove the identified resource-based constrained delegation on the KRBTGT account.</p>\n      <p>Some organizations may configure this without malicious intent, however, there is no valid reason in Active Directory to have this delegation configured.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

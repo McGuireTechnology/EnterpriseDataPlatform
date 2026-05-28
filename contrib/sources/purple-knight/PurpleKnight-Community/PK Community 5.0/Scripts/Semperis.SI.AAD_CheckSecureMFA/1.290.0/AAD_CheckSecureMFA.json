@@ -1,0 +1,89 @@
+﻿{
+  "Id": 132,
+  "UUID": "831e6ae8-64da-4f0a-970d-7deaaae1d96f",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Check for users with weak or no MFA",
+  "ScriptName": "AAD_CheckSecureMFA",
+  "ShortName": "SI000132",
+  "Description": "<p>This indicator checks all users for their registered MFA types.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Reports.Read.All</li>\n        <ul>",
+  "CategoryId": "6",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>With the rise of sophisticated phishing attacks, organizations should strive to move users towards strong MFA mechanisms. Modern attacker-in-the-middle (AiTM) phishing systems can defeat SMS text and voice call methods of MFA. While less common, phone numbers are susceptible to SIM swapping attacks, allowing an attacker to takeover a users phone number, and then receive the MFA call or text on the malicious phone.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/authentication/howto-authentication-methods-activity\" target=\"_blank\">Authentication Methods Activity - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-registration-campaign\" target=\"_blank\">How to run a registration campaign to set up Microsoft Authenticator - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Initial Access",
+        "Lateral Movement"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "2.0",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "MFARegistered",
+      "Type": "Boolean",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "AuthMethods",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Reports.Read.All"
+  ],
+  "ResultMessage": "There are Entra users which are not MFA registered or who have only weaker authentication methods configured.",
+  "Remediation": "<p>Examine the feasibility of requiring users to use a strong form of MFA.</p>\n      <p>The <b>Authentication methods activity</b> report in Entra ID can provide usage details on MFA methods for users in the Entra tenant.</p>\n      <p>To view, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/%7E/AuthMethodsActivity/menuId/AuthMethodsActivity\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>Show more</b>, expand <b>Monitoring &amp; health</b>, select <b>Usage &amp; insights</b>. In the right blade, select <b>Authentication methods activity</b>.</p>\n      <p>Users may have weaker forms of MFA registered, but are not actively using them, and should be evaluated to remove them. A registration campaign can help users in the organization enroll in the Microsoft Authenticator App for MFA.</p>\n      <p>To configure a registration campaign, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/%7E/RegistrationCampaign/fromNav/\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Protection</b>, select <b>Authentication methods</b>. In the right blade, select <b>Registration campaign.</b></p>\n      <p>Organizations need to understand the risk of users not having MFA enabled on their accounts. If MFA is not feasible, organizations should determine if other compensating controls can be put in place, such as network or device compliance restrictions through Conditional Access policies.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

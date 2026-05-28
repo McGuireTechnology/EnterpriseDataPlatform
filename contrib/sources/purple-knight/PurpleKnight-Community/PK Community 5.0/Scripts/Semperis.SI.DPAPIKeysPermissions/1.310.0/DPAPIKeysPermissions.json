@@ -1,0 +1,93 @@
+﻿{
+  "Id": 92,
+  "UUID": "4d30c9d8-375e-48cc-8244-0073107f29a4",
+  "Version": "1.310.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Non-default access to DPAPI key",
+  "ScriptName": "DPAPIKeysPermissions",
+  "ShortName": "SI000092",
+  "Description": "This indicator uses API calls to check whether each DC has non-default principals permitted to retrieve the domain DPAPI backup key (using LsaRetrievePrivateData).",
+  "CategoryId": "1",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>An attacker could recover all domain data encrypted via DPAPI, if they gain access to such data.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_permissions_dpapi\"> Dangerous ACLs expose DPAPI key objects (attack path)\n | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Credential Access"
+      ]
+    },
+    {
+      "Name": "MITRE D3FEND",
+      "Tags": [
+        "Harden - User Account Permissions"
+      ]
+    },
+    {
+      "Name": "ANSSI",
+      "Tags": [
+        "vuln1_permissions_dpapi",
+        "vuln2_permissions_dpapi"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.5"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.4"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "HostName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "AllowedPrincipals",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} DCs that allows non default principals to read private data from the LSA policy database.",
+  "Remediation": "These permissions allow a principal to use LsaRetrievePrivateData to retrieve the domain DPAPI backup keys. Review these principals, investigate and remove any unneeded permissions using adsiedit.msc or the ldp utility.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

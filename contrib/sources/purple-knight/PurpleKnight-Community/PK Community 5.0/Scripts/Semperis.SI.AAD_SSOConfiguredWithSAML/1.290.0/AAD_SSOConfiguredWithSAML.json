@@ -1,0 +1,95 @@
+﻿{
+  "Id": 215,
+  "UUID": "746e2299-10c9-4610-868d-349db02aa65d",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Enterprise applications using SAML for SSO",
+  "ScriptName": "AAD_SSOConfiguredWithSAML",
+  "ShortName": "SI000215",
+  "Description": "<p>This indicator checks for enterprise applications (service principals) in Entra ID configured to use SAML for SSO.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Application.Read.All</li>",
+  "CategoryId": "6",
+  "Weight": 2,
+  "Severity": "Informational",
+  "Schedule": "1d",
+  "Impact": 2,
+  "LikelihoodOfCompromise": "<p>When an enterprise application is configured for SAML authentication, either a Microsoft Entra generated self-signed certificate can be used for response signing, or alternatively, an externally generated certificate can be imported.</p>\n      <p>Applications using SAML can be prone to Silver SAML, a type of SAML response forging, if an attacker is able to obtain the signing certificate used by Entra ID. Externally generated signing certificates create an unnecessary attack surface for an attacker to be able to obtain the signing certificate. It is recommended that organizations use the generated self-signed certificates from Microsoft, as the private key cannot be exported from Entra ID, preventing the ability to perform a Silver SAML attack.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.semperis.com/blog/meet-silver-saml/\" target=\"_blank\">Meet Silver SAML: Golden SAML in the cloud (semperis.com)</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Initial Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "ApplicationDisplayName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ApplicationID",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PreferredSingleSignOnMode",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "CertificatesDisplayNames",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Application.Read.All"
+  ],
+  "ResultMessage": "Found {0} service principals configured to use SAML.",
+  "Remediation": "<p>Verify that the certificate assigned to the application is a Microsoft generated self-signed certificate.</p>\n      <p>To review the certificate, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/%7E/UserSettings/menuId/UserSettings\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>Applications</b>, and select <b>Enterprise applications</b>.</p>\n      <p>In the blade on the right, search for the application, and select it.</p>\n      <p>In the new blade, under <b>Manage</b> select <b>Single sign-on</b>. Under <b>SAML Certificates</b>, you can select <b>Download</b> to download a copy of the current signing certificate, and then review the details of the certificate.</p>\n      <p>If the certificate is self-signed, it will contain <b>CN = Microsoft Azure Federated SSO Certificate</b> as the issuer and subject. Note, however, that an externally generated certificate could be produced with the same issuer and subject name, so organizations should be aware of any certificate rotations.</p>\n      <p><b>Organizations must coordinate certificate rotations with the application owner, as a certificate rotation must occur in both the Service Provider (SP) and Entra ID, or else authentication for the application will stop working</b>.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

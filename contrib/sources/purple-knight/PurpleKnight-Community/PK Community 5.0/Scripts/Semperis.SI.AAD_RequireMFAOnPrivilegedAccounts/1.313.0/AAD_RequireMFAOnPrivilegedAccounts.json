@@ -1,0 +1,76 @@
+﻿{
+  "Id": 134,
+  "UUID": "22739cb9-e1f1-4789-88b4-b7c6c3c9cc0f",
+  "Version": "1.313.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Conditional Access Policy does not require MFA on privileged accounts",
+  "ScriptName": "AAD_RequireMFAOnPrivilegedAccounts",
+  "ShortName": "SI000134",
+  "Description": "<p>This indicator checks whether Conditional Access policies require mutli-factor authentication (MFA) for privileged accounts.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li><p>Policy.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 4,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>Users that hold privileged roles in Entra ID are high-value targets for an attacker. It is critical for organizations to require MFA for all users holding privileged roles.</p>\n      <p>The risk associated with compromise of a privileged user is equal to the permissions and rights held within the role assigned to the user.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/azure/security/fundamentals/steps-secure-identity#before-you-begin-protect-privileged-accounts-with-mfa\" target=\"_blank\">Secure your Microsoft Entra identity infrastructure - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-old-require-mfa-admin\" target=\"_blank\">Require MFA for administrators with Conditional Access - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Credential Access"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.6"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.5"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "MissingMFARole",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All"
+  ],
+  "ResultMessage": "Conditional Access policies do not require all privileged roles to use MFA",
+  "Remediation": "<p>Users identified as impacted must have a Conditional Access policy applied enforcing MFA.</p>\n      <p><b>Break-glass accounts may be an exception to MFA requirements, and can be added to an ignore list for this indicator. Organizations need to monitor their break-glass accounts to ensure that the accounts are not used without awareness</b>.</p>\n      <p>Microsoft provides both a Conditional Access policy template, as well as step-by-step instructions for creating a Conditional Access Policy requiring MFA for administrators.</p>\n      <p>If a Conditional Access policy already exists for privileged users, the identified users or roles can be added to that policy instead.</p>\n      <p>The policy implemented should implement MFA for the following roles:</p>\n      <p>Application administrator, Application Developer, Authentication administrator, Authentication Extensibility Administrator, Authentication Policy Administrator, B2C IEF Keyset Administrator, Billing administrator, Cloud application administrator, Cloud Device Administrator, Conditional Access administrator, Directory Synchronization Accounts, Directory Writers, Domain Name Administrator, Exchange administrator, External Identity Provider Administrator, Global administrator, Global Reader, Helpdesk administrator, Hybrid Identity Administrator, Intune Administrator, Lifecycle Workflows Administrator, Partner Tier1 Support, Partner Tier2 Support, Password administrator, Privileged authentication administrator, Privileged Role Administrator, Security administrator, Security Operator, Security Reader, SharePoint administrator, User administrator.</p>\n      <p>Additional privileged roles can be added if desired.</p>\n      <p><b>Implementing changes to Conditional Access policies and enabling Security Defaults can both negatively impact users if not properly tested. Organizations need to verify all policy and security changes and communicate them out accordingly</b>.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

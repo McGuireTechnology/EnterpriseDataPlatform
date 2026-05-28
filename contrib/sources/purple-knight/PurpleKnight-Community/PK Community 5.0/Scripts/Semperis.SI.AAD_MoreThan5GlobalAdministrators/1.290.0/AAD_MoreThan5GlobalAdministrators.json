@@ -1,0 +1,91 @@
+﻿{
+  "Id": 163,
+  "UUID": "62386a3a-9d27-4969-af4e-a3528763ba59",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "More than 5 Global Administrators exist",
+  "ScriptName": "AAD_MoreThan5GlobalAdministrators",
+  "ShortName": "SI000163",
+  "Description": "<p>This indicator checks for the presence of 5 or more Global Administrators. Please note:  If a given user has <b>both</b> an active and eligible assignment for a given role, the user will appear twice in the results.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>RoleManagement.Read.Directory</li>\n        <li>RoleManagement.Read.All</li>\n        <li>Directory.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 2,
+  "LikelihoodOfCompromise": "<p>Users that hold the Global Administrator role are the most privileged users in Entra ID. Organizations should limit the number of Global Administrators to less than five.</p>\n      <p>An attacker will find users with the Global Administrator role as high-value, and a compromised Global Administrator can lead to several attacks against the organization, that can include data exfiltration, lateral movement into other systems in Azure, multi-cloud, and on-premise systems, and can result in complete tenant compromise where an organization becomes locked out of their Entra tenant by the attacker.</p>\n      <h3>References</h3\n      ><p><a href=\"https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-create-roles-and-resource-roles-review\" target=\"_blank\">Create an access review of Azure resource and Microsoft Entra roles in PIM - Microsoft Entra ID Governance | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/best-practices#5-limit-the-number-of-global-administrators-to-less-than-5\" target=\"_blank\">Best practices for Microsoft Entra roles - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/security-emergency-access\" target=\"_blank\">Manage emergency access admin accounts - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "UserId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "AssignmentType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/RoleManagement.Read.Directory",
+    "AAD.GraphAPI/RoleManagement.Read.All",
+    "AAD.GraphAPI/Directory.Read.All"
+  ],
+  "ResultMessage": "Found {0} Global Administrators in Azure AD.",
+  "Remediation": "<p>Review the users assigned the Global Administrator role, and determine if the role assignment can be removed.</p><br /><p>To review and manage role assignments, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/%7E/UserSettings/menuId/UserSettings\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, select <b>Show more</b>, expand <b>Roles &amp; admins</b>, and select <b>Roles &amp; admins</b>.</p>\n      <p>In the blade on the right, find the <b>Global Administrator</b> role. Select the role.</p>\n      <p>From this view you can remove users as necessary from the role. Organizations that have Entra ID P2 licensing available should use access reviews to manage the lifecycle of privileged users.</p>\n      <p><b>Organizations must ensure that any removal of the Global Administrator role does not impact the ability to manage their Entra tenant</b>.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

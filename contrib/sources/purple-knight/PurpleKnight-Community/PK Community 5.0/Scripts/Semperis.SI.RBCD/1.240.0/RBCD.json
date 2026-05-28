@@ -1,0 +1,89 @@
+﻿{
+  "Id": 31,
+  "UUID": "88040bb0-ce23-48a8-850f-277edaafbac7",
+  "Version": "1.240.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Computer account takeover through Kerberos Resource-Based Constrained Delegation (RBCD)",
+  "ScriptName": "RBCD",
+  "ShortName": "SI000031",
+  "Description": "With sufficient permissions on a computer account and the ability to create another user or computer security principal, it is possible to compromise resources on that computer account using Kerberos resource-based constrained delegation (RBCD). This indicator looks for the msDS-AllowedToActOnBehalfOfOtherIdentity attribute on computer objects.",
+  "CategoryId": "5",
+  "Weight": 5,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "Attackers may utilize Kerberos RBCD configuration to escalate privileges through a computer they control if that computer has delegation to the target service.",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Credential Access",
+        "Lateral Movement",
+        "Privilege Escalation"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MinVersion": "1.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MaxVersion": "3.0"
+    },
+    {
+      "MinVersion": "3.5",
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MaxVersion": "10"
+    },
+    {
+      "MinVersion": "1.4",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MaxVersion": "10"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "PrincipalsAllowedToDelegate",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} objects with Resource Based Constrained Delegation configured.",
+  "Remediation": "Validate Kerberos resource-based constrained delegation (RBCD) use requirements and ensure that any credential delegation observed is legitimate and expected.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

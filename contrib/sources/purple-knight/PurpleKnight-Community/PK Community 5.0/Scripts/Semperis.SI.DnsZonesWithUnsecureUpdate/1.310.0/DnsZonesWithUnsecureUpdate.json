@@ -1,0 +1,87 @@
+﻿{
+  "Id": 85,
+  "UUID": "3a1e0f73-4c81-4192-87f7-38465dd18ce0",
+  "Version": "1.310.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Unsecured DNS configuration",
+  "ScriptName": "DnsZonesWithUnsecureUpdate",
+  "ShortName": "SI000085",
+  "Description": "This indicator looks for DNS zones configured with ZONE_UPDATE_UNSECURE, which allows updating a DNS record anonymously.",
+  "CategoryId": "3",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "An attacker could leverage this exposure to arbitrarily add a new DNS record or replace an existing record to spoof a management interface, then wait for incoming connections in order to steal credentials.",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation"
+      ]
+    },
+    {
+      "Name": "ANSSI",
+      "Tags": [
+        "vuln1_dnszone_bad_prop",
+        "vuln3_dnszone_bad_prop"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.5"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.4"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ZoneName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} DNS zones configured with ZONE_UPDATE_UNSECURE.",
+  "Remediation": "<p>Reconfigure DNS zones to only allow secure updates using the following command: dnscmd <servername> /Config <zone> /AllowUpdate 2</p>\n      <h3>References</h3>\n     <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_dnszone_bad_prop\" target=\"_blank\">Misconfigured DNS zones | ANSSI</a></p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

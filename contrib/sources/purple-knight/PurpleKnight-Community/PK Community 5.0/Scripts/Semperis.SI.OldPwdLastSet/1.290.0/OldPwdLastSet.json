@@ -1,0 +1,99 @@
+﻿{
+  "Id": 37,
+  "UUID": "4ef13866-3af9-477a-84d4-d2d7e39f3c0f",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Users with old passwords",
+  "ScriptName": "OldPwdLastSet",
+  "ShortName": "SI000037",
+  "Description": "This indicator looks for user accounts whose password has not changed in over 180 days. This could make these account ripe for password guessing attacks.",
+  "CategoryId": "2",
+  "Weight": 2,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 2,
+  "LikelihoodOfCompromise": "Stale passwords that aren't changed over a long period of time and are not supported by multi-factor authentication are ripe targets for attackers. These present opportunities for attackers to move laterally through the environment or elevate privileges.</p>\n      <h3>References</h3>\n      <p><a href=\"https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63-3.pdf\" target=\"_blank\">NIST.SP.800-63-3</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access",
+        "Persistence"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Strong Password Policy"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PasswordLastSet",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DaysSinceLastSet",
+      "Type": "Integer",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "The following {0} users were returned. Note the following: users with DaysSinceLastSet and ReplicationMetadata higher than {1} days have not changed passwords in over {1} days. Users with PwdLastSet over {1} days and ReplicationMetadata is N/A - permission was denied to read these users' metadata. These users may be using smartcard for interactive logon instead of passwords - in which case it is ok that their passwords have not changed.",
+  "Remediation": "Ensure that users change their password at least once every 6 months.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

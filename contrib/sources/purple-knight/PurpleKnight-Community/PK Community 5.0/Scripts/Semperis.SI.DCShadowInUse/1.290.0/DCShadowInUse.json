@@ -1,0 +1,100 @@
+﻿{
+  "Id": 13,
+  "UUID": "fa5662bf-8e17-42c3-a998-3d252f73b505",
+  "Version": "1.290.0",
+  "Types": [
+    "IoC"
+  ],
+  "Name": "Evidence of Mimikatz DCShadow attack",
+  "ScriptName": "DCShadowInUse",
+  "ShortName": "SI000013",
+  "Description": "<p>This indicator checks for certain evidence of a DCShadow attack performed using Mimikatz.</p>",
+  "CategoryId": "3",
+  "Weight": 10,
+  "Severity": "Critical",
+  "Schedule": "1h",
+  "Impact": 10,
+  "LikelihoodOfCompromise": "<p>DCShadow attacks allow attackers that have achieved privileged domain access to inject arbitrary changes into AD by replicating from a &quot;fake&quot; domain controller. These changes bypass the security event log and can't be spotted using standard monitoring tools.</p>\n      <p>Mimikatz is a widely used tool used by both legitimate pen-testers as well as attackers. An attacker will use a DCShadow attack to establish persistence in Active Directory, creating backdoors to retain access even if the original privileged access compromise is resolved</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.semperis.com/blog/why-most-organizations-still-cant-defend-against-dcshadow/\" target=\"_blank\">Why Most Organizations Still Can't Defend against DCShadow - Semperis</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/audit-user-account-management\" target=\"_blank\">Audit User Account Management - Windows 10 | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Defense Evasion"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Isolate - Execution Isolation",
+        "Detect - Domain Account Monitoring"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Created",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ManagedBy",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} objects that indicate DCShadow may have been used to compromise your environment.",
+  "Remediation": "<p>If Active Directory is currently being penetration tested, it should be <b>immediately</b> verified with the team performing the testing that they have attempted a DCShadow attack against Active Directory.</p>\n      <p>If it has been detected that there are traces of a DCShadow attack, the organization should <b>immediately</b> take action to determine if Active Directory has been compromised.</p>\n      <p>Active Directory audit logs should be reviewed to determine the source of the attack, and the offending user or workstation should be taken offline or disabled to prevent further compromise. Further investigation may be required by an incident response team to determine if and what persistence has been implemented in Active Directory.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

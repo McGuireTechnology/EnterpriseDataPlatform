@@ -1,0 +1,101 @@
+﻿{
+  "Id": 130,
+  "UUID": "a5a1346f-978b-4272-a90c-731b3a9b3da4",
+  "Version": "1.295.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Check for risky API permissions granted to application service principals",
+  "ScriptName": "AAD_CheckRiskyRoles",
+  "ShortName": "SI000130",
+  "Description": "<p>This indicator checks if one of the following risky application permissions have been granted to a service principal in Microsoft Graph: RoleManagement.ReadWrite.Directory, AppRoleAssignment.ReadWrite.All</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Application.Read.All</li>\n        <li>AuditLog.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 8,
+  "Severity": "Critical",
+  "Schedule": "1h",
+  "Impact": 8,
+  "LikelihoodOfCompromise": "<p>Application permissions in Microsoft Graph allow a service principal, which is used by an application, to act on its own behalf. Credentials, either as secrets or certificates, can be assigned to a service principal, and used to authenticate as the application and interact with Microsoft Graph.</p>\n      <p>Certain application permissions in Entra ID are designed to allow for the bypass of normal permission consent processes that would require interaction from a highly privileged user. The permissions are <em>RoleManagement.ReadWrite.Directory</em> and <em>AppRoleAssignment.ReadWrite.All</em> can allow an application to promote itself to a highly privileged role, including Global Administrator.</p>\n      <p>An attacker can use these privileges for dangerous privilege escalation in Entra ID.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/manage-application-permissions\" target=\"_blank\">Review permissions granted to applications - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/security/operations/incident-response-playbook-app-consent#classifying-risky-permissions\" target=\"_blank\">App consent grant investigation | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "ServicePrincipalDisplayName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ServicePrincipalId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "RiskyAppRoleName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "RiskyAppRoleId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "RiskWarning",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Application.Read.All",
+    "AAD.GraphAPI/AuditLog.Read.All"
+  ],
+  "ResultMessage": "Risky permissions exist on a configured application.",
+  "Remediation": "<p>Review the indicated applications to determine if the risky permissions are necessary. If the permissions are determined unnecessary, they should be removed.</p>\n      <p>To review permissions on the application, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/StartboardApplicationsMenuBlade/%7E/AppAppsPreview\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>Applications</b>, and select <b>Enterprise Applications</b>.</p>\n      <p>In the blade on the right, search for the application by name. Select the application.</p>\n      <p>In the new blade that opens, under <b>Security</b> select <b>Permissions</b>. The permissions for the application will be shown on the blade. To revoke application permissions, select <b>Review permissions</b> at the top menu.</p>\n      <p><b>Removing consented application permissions on both single-tenant and multi-tenant service principals may result in degraded or broken functionality of the application. Organizations must understand the applications needs before removing.</b></p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

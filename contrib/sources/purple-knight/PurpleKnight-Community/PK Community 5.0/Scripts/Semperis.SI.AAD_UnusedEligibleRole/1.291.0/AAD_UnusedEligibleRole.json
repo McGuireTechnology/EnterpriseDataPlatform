@@ -1,0 +1,114 @@
+﻿{
+  "Id": 286,
+  "UUID": "7933368e-a218-4fdb-9f99-83882c677201",
+  "Version": "1.291.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Users are not using their privileged roles",
+  "ScriptName": "AAD_UnusedEligibleRole",
+  "ShortName": "SI000286",
+  "Description": "<p>This indicator checks for users who have not activated their a role assigned to them for over 30 days.</p>\n      <p><em>For users eligible via group membership, audit log retention in Entra ID may prevent gathering an accurate 'EligibleSince' date.</em></p>\n      <h3>Required permissions</h3>\n      <ul>\n      <li>RoleEligibilitySchedule.Read.Directory</li>\n      <li>GroupMember.Read.All</li>\n      <li>Directory.Read.All</li>\n      </ul>",
+  "CategoryId": "6",
+  "Weight": 2,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 2,
+  "LikelihoodOfCompromise": "<p>Users holding excessive privileges that are not used expands an organizations attack surface area. Attackers can use any privileges assigned to users for attacks, including lateral movement, privileges escalation, implementing persistence, data exfiltration, and others with a compromised user that has privileges assigned.</p>\n      <p>Access Reviews can be used in Entra Privileged Identity Management (PIM) to manage the lifecycle fo assigned privileges for users.</p>\n      <h3>References</h3>\n       <p><a href=\"https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-create-roles-and-resource-roles-review\" target=\"_blank\">Create an access review of Azure resource and Microsoft Entra roles in PIM - Microsoft Entra ID Governance | Microsoft Learn</a></p>\n       <p><a href=\"https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final\" target=\"_blank\">NIST SP 800-53 Rev 5 </a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation"
+      ]
+    },
+    {
+      "Name": "MITRE D3FEND",
+      "Tags": [
+        "Harden - User Account Permissions"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MaxVersion": "3.0",
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "DisplayName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UserId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "RoleName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Assignment",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EligibleSince",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/RoleEligibilitySchedule.Read.Directory",
+    "AAD.GraphAPI/GroupMember.Read.All",
+    "AAD.GraphAPI/Directory.Read.All"
+  ],
+  "ResultMessage": "Found {0} users eligible for highly privileged roles that have not activated their role in the past 30 days.",
+  "Remediation": "<p>Review the users identified and the unused roles they hold, and determine if they should continue to hold these unused roles. A privileged access strategy should follow a governance plan for assigning least privilege, such as that documented in NIST SP 800-53 Rev 5.</p>\n      <p>You can review existing role assignments in the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/RolesManagementMenuBlade/%7E/AllRoles\" target=\"_blank\">Microsoft Entra admin center</a> (direct link).</p>\n      <p>Organizations should use the Access Reviews feature of Entra Privileged Identity Management to help manage the lifecycle of privileged role assignments.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

@@ -1,0 +1,92 @@
+﻿{
+  "Id": 233,
+  "UUID": "fc2734ac-cb93-4673-b616-61df1e958ee4",
+  "Version": "1.313.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Detect MFA policy changes for groups and users",
+  "ScriptName": "AAD_MFAGroupChange",
+  "ShortName": "SI000233",
+  "Description": "<p>This indicator looks for changes (removal of users and groups) from MFA policies. It relates to events invoked more than 4 hours after the policy's creation.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>AuditLog.Read.All</li>\n        <li>Policy.Read.All</li>\n        <li>GroupMember.Read.All</li>\n        <li>Reports.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 4,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>MFA policies are considered as a sensitive asset in the identity security of the organization, in cases of changes in membership of users and groups in MFA policies, it may indicate on compromise of users (in case it is a malicious action).</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/monitoring-health/concept-audit-logs\" target=\"_blank\">What are Microsoft Entra audit logs?</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Persistence",
+        "Privilege Escalation"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.6"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "2.1"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "DisplayName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Status",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/AuditLog.Read.All",
+    "AAD.GraphAPI/Policy.Read.All",
+    "AAD.GraphAPI/GroupMember.Read.All",
+    "AAD.GraphAPI/Reports.Read.All"
+  ],
+  "ResultMessage": "Found {0} users/groups involved in MFA policy membership changes.",
+  "Remediation": "<p>Review the changes in the MFA policy in the audit log (with the Category of Policy and activity of \"Update policy\") and make sure they were made by a valid user.</p>",
+  "IgnoreListSupport": true,
+  "Selected": false
+}

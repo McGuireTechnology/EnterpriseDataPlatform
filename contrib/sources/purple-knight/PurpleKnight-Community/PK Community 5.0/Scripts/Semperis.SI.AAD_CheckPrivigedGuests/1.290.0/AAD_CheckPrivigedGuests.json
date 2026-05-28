@@ -1,0 +1,96 @@
+﻿{
+  "Id": 128,
+  "UUID": "5c8bd887-55ac-47d6-9835-6ed5370cda26",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Privileged group contains guest account",
+  "ScriptName": "AAD_CheckPrivigedGuests",
+  "ShortName": "SI000128",
+  "Description": "<p>This indicator checks whether any privileged roles have been assigned to guest accounts.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>User.Read.All</li>\n        <li>RoleManagement.Read.Directory</li>\n        <li>AuditLog.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>Guests are a feature of Entra ID that allows for business-to-business (B2B) collaboration with users external to your organization. Commonly used for Microsoft 365 and application sharing with partners, vendors, contractors, and other users who collaborate with the organization but are not employees, a guest user will be represented in the organizations Entra tenant. Guest users are not members of the organization, have a different risk profile, and are considered less trusted due to the organization not having full control over and insight into the user object and the devices they come from. Under majority circumstances, guests should not be allowed to invite other guests into the Entra tenant.</p>\n      <p>An attacker may target a guest account for compromise, and use the associated privileges to further compromise the Entra tenant and associated services. The attack surface is relative to the role assigned to the guest.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-create-roles-and-resource-roles-review\" target=\"_blank\">Create an access review of Azure resource and Microsoft Entra roles in PIM - Microsoft Entra ID Governance | Microsoft Learn</a></p>\n      <p><a href=\"https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final\" target=\"_blank\">NIST SP 800-53 Rev 5</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "UserId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "RoleName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "RoleTemplateId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/User.Read.All",
+    "AAD.GraphAPI/RoleManagement.Read.Directory",
+    "AAD.GraphAPI/AuditLog.Read.All"
+  ],
+  "ResultMessage": "{0} privileged user(s) found as members of privileged groups.",
+  "Remediation": "<p>Review the guest users identified and their assigned roles in the Entra tenant, and determine if they should continue to hold these unused roles. The organization should fully understand the associated risk involved with the guest holding the role assignment. A privileged access strategy should follow a governance plan for assigning least privilege, such as that documented in NIST SP 800-53 Rev 5.</p>\n      <p>You can review existing role assignments in the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/RolesManagementMenuBlade/%7E/AllRoles\" target=\"_blank\">Microsoft Entra admin center</a> (direct link).</p>\n      <p>Organizations should use the Access Reviews feature of Entra Privileged Identity Management to help manage the lifecycle of privileged role assignments.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

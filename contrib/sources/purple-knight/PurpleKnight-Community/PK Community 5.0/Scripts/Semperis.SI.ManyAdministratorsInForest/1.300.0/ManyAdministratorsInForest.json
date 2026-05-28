@@ -1,0 +1,88 @@
+﻿{
+  "Id": 64,
+  "UUID": "9c9bfa49-9431-4043-a073-0f90f3008b54",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Forest contains more than 50 privileged accounts",
+  "ScriptName": "ManyAdministratorsInForest",
+  "ShortName": "SI000064",
+  "Description": "This indicator counts the number of privileged user accounts defined in the forest, where 50 is deemed the upper limit for these types of accounts. A privileged account is defined as any user with the AdminCount attribute set to 1.",
+  "CategoryId": "2",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>In general, the more privileged accounts you have, the more opportunities there are for attackers to compromise one of those accounts. 50 is an arbitrary number, but the number should reflect the absolute maximum allowed. If business needs dictate many privileged accounts, consider implementing a tiered administration model to further isolate those privileged accounts and their potential impact from compromise.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/security/privileged-access-workstations/privileged-access-access-model\">Enterprise access model | Microsoft Learn</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_privileged_members\">Large privileged group member count | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Reconnaissance"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln1_privileged_members",
+        "vuln2_privileged_members"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} privileged accounts in the forest.",
+  "Remediation": "It's always best to keep the number of privileged accounts as low as possible. Consider using solutions that allow for Just-in-time administration or implement admin tiering to ensure that only certain accounts can access domain controller, workstation and server resources.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

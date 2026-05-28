@@ -1,0 +1,109 @@
+﻿{
+  "Id": 137,
+  "UUID": "ca3c2e9e-40bd-4090-868b-db2446fac627",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Global Administrators that signed in during the last 14 days",
+  "ScriptName": "AAD_GlobalAdministratorLastSignIn",
+  "ShortName": "SI000137",
+  "Description": "<p>This indicator looks for Global Administrators that have signed in during the past 14 days.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>RoleManagement.Read.All</li>\n        <li>User.Read.All</li>\n        <li>AuditLog.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 1,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 1,
+  "LikelihoodOfCompromise": "<p>Users that hold the Global Administrator role are the most privileged users in Entra ID. Organizations should work to limit the necessity of using a Global Administrator, such as using less permissive roles when possible.</p>\n      <p>An attacker will find users with the Global Administrator role as high-valued, and a compromised Global Administrator can lead to several attacks against the organization, that can include data exfiltration, lateral movement into other systems in Azure, multi-cloud, and on-premise systems, and can result in complete tenant compromise where an organization becomes locked out of their Entra tenant by the attacker.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/permissions-reference#global-administrator\" target=\"_blank\">Microsoft Entra built-in roles - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Detect - User Behavior Analysis"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "LastSignIn",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DaysFromLastSignin",
+      "Type": "Integer",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastNonInteractiveSignIn",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DaysFromNonInteractivelastSignIn",
+      "Type": "Integer",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/RoleManagement.Read.All",
+    "AAD.GraphAPI/User.Read.All",
+    "AAD.GraphAPI/AuditLog.Read.All"
+  ],
+  "ResultMessage": "Found {0} from {1} Global Administrators that signed in (interactive or non interactive) in the last 14 days.",
+  "Remediation": "<p>Review the Global Administrators listed in the results of this indicator.</p>\n      <p><b>If an organization believes that there is highly suspicious activity or a confirmed compromise of a Global Administrator, they must treat this as a critical security event.</b></p>\n      <p>If this account is believed to be suspicious, the Audit logs for the account activity can be viewed in Entra ID.</p>\n      <p>To view the audit logs, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/%7E/AllUsers/menuId/\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>Users</b>, and select <b>All users</b>.</p>\n      <p>In the blade on the right, search for the user indicated in the results. Select the user account.</p>\n      <p>In the user blade that opens, select <b>Audit logs</b>. The audit log details of changes made by the user will be shown.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

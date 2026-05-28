@@ -1,0 +1,94 @@
+﻿{
+  "Id": 355,
+  "UUID": "0e61db1b-b877-457e-9550-607330143d92",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Distributed COM Users group or Performance Log Users group are not empty",
+  "ScriptName": "NonEmptyDcomAndPerformanceLogGroups",
+  "ShortName": "SI000355",
+  "Description": "<p>This indicator checks if either the Distributed COM Users group and/or Performance Log Users group in Active Directory are populated.</p>",
+  "CategoryId": "2",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>Members of the Distributed COM Users or Performance Log Users Groups can remotely trigger actions and relay the authentication of users connected to the target server, including Domain Controllers.</p>\n      <h3>References</h3>\n      <p><a href=\"https://decoder.cloud/2024/04/24/hello-im-your-domain-admin-and-i-want-to-authenticate-against-you/\" target=\"_blank\">Hello: I'm your Domain Admin and I want to authenticate against you</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - User Account Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "GroupDistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DomainName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} members in Distributed COM Users and/or Performance Log Users groups",
+  "Remediation": "<p>Organizations should evaluate the use of these groups and restrict the membership of these groups to trusted users.</p>\n      <p>Organizations that are using these groups should implement an appropriate rights delegation to the necessary OUs in Active Directory as an alternative.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

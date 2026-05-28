@@ -1,0 +1,98 @@
+﻿{
+  "Id": 90,
+  "UUID": "a76ea884-afef-4d00-9820-b24117a12661",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Dangerous control paths expose certificate templates",
+  "ScriptName": "CertificateTemplatesPermissions",
+  "ShortName": "SI000090",
+  "Description": "This indicator looks for non-default principals with the ability to write properties on a certificate template.",
+  "CategoryId": "3",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "Controlling certificate templates allows one to have the certificate authority issue an arbitrary certificate. It becomes possible to obtain a smartcard authentication certificate for any user, thus stealing his identity.\n        <h3>References</h3>\n        <p><a href=\"https://www.nccoe.nist.gov/sites/default/files/legacy-files/tls-serv-cert-mgt-nist-sp1800-16b-final.pdf\" target=\"_blank\">NIST-SP1800-16B</a></p>\n        <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_adcs_template_control\" target=\"_blank\">Dangerous ACLs expose certificate template objects (attack path) | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln1_adcs_template_control"
+      ],
+      "Name": "ANSSI"
+    },
+    {
+      "Tags": [
+        "Detect - Certificate Analysis"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Identity",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Access",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} certificate templates on which unprivileged users can write properties.",
+  "Remediation": "<p>Unprivileged users should not be able to write properties on certificate templates. Doing so potentially gives them the ability to escalate their access and create vulnerable certificates to enroll. Remove unnecessary permissions from the certificate template.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

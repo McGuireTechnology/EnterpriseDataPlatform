@@ -1,0 +1,92 @@
+﻿{
+  "Id": 89,
+  "UUID": "a5174a20-4a4d-480c-99e3-da8017a10450",
+  "Version": "1.270.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Users with permissions to set Server Trust Account",
+  "ScriptName": "InstallReplicaPermissions",
+  "ShortName": "SI000089",
+  "Description": "Checks for permissions on the domain NC head that enables a user to set a UAC flag - Server_Trust_Account on computer objects. This flag gives that computer object special permissions similar to a domain controller.",
+  "CategoryId": "1",
+  "Weight": 8,
+  "Severity": "Critical",
+  "Schedule": "1h",
+  "Impact": 8,
+  "LikelihoodOfCompromise": "A persistence technique where an attacker with DS-Install-Replica permissions can manipulate the userAccountControl attribute to promote a compromised computer account to Domain Controller status. This enables privilege escalation through domain replication privileges, allowing attacks like DCSync to extract credentials.",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MinVersion": "1.0",
+      "Name": "HYD",
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ]
+    },
+    {
+      "MinVersion": "3.5",
+      "Name": "DSP",
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ]
+    },
+    {
+      "MinVersion": "1.4",
+      "Name": "PK",
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ]
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Identity",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Access",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Enabled",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} objects with install replica permissions.",
+  "Remediation": "Ensure that there are no unnecessary install replica permissions and investigate suspicious permissions.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

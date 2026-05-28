@@ -1,0 +1,92 @@
+﻿{
+  "Id": 65,
+  "UUID": "31dcc5f6-ceb0-4132-a698-95bae64fe7df",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Principals with constrained delegation using protocol transition enabled for a DC service",
+  "ScriptName": "ObjectsWithProtocolTransitionDC",
+  "ShortName": "SI000065",
+  "Description": "This indicator looks for principals (computers or users) that have constrained delegation using protocol transition defined against a service running on a DC.",
+  "CategoryId": "5",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>Protocol transition (also known as T2A4D) allows any user to authenticate to a delegated service using any protocol such as NTLM. This allows the delegated service to request a TGS from Kerberos for any user without any proof such as that user's corresponding TGT or TGS. If an attacker can create such a delegation for a service that they control or compromise an existing service, they can effectively gain a TGS for any user with privileges to the DC.</p>\n        <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_delegation_t2a4d\" target=\"_blank\">Constrained delegation with protocol transition to a privileged service | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln1_delegation_t2a4d"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "AllowedToDelegateTo",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} objects with protocol transition constrained delegation configured to Domain Controller.",
+  "Remediation": "Remove any delegations that are defined against remote DC services.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

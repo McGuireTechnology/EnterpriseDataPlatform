@@ -1,0 +1,69 @@
+﻿{
+  "Id": 140,
+  "UUID": "9a0da97a-9ae9-40f9-b7f3-dac25928cd3c",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Conditional Access Policy that disable admin token persistence",
+  "ScriptName": "AAD_DisableAdminTokenPersistence",
+  "ShortName": "SI000140",
+  "Description": "<p>This indicator looks for Conditional Access policies that disable token persistence for users with admin roles and have a sign-in frequency that is less than or equal to 9 hours.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Policy.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 4,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 0,
+  "LikelihoodOfCompromise": "<p>Sign-in frequency (SIF) is a Conditional Access policy setting that will invalidate the refresh tokens for a user after a defined period of time. While sign-in frequency can have negative impact on personas of enterprise users, it serves as a defense-in-depth tool for protecting privileged users.</p>\n      <p>Privileged users are high-value targets for attackers, and one modern attack mechanism is token theft and token replay, allowing an attacker to impersonate the user if their tokens are stolen from their device.</p>\n      <h3>References</h3>\n        <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/conditional-access/howto-conditional-access-session-lifetime#policy-1-sign-in-frequency-control\" target=\"_blank\">Configure authentication session management - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All"
+  ],
+  "ResultMessage": "No Conditional Access policies are configured to disable admin token persistence with a sign-in frequency set to 9 or less hours.",
+  "Remediation": "<p>Deploy a Conditional Access policy that enforces sign-in frequency for privileged users.</p>\n      <p>To create a Conditional Access policy, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_ConditionalAccess/ConditionalAccessBlade/%7E/Policies/fromNav/\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Protection</b> and select <b>Conditional Access</b>.</p>\n      <p>In the blade on the right, select <b>Policies</b>. Select <b>New Policy</b>. A new policy should be created that is scoped to privileged roles with a time interval of 9 hours or lower:</p>\n      <p>Application administrator, Application Developer, Authentication administrator, Authentication Extensibility Administrator, Authentication Policy Administrator, B2C IEF Keyset Administrator, Billing administrator, Cloud application administrator, Cloud Device Administrator, Conditional Access administrator, Directory Synchronization Accounts, Directory Writers, Domain Name Administrator, Exchange administrator, External Identity Provider Administrator, Global administrator, Global Reader, Helpdesk administrator, Hybrid Identity Administrator, Intune Administrator, Lifecycle Workflows Administrator, Partner Tier1 Support, Partner Tier2 Support, Password administrator, Privileged authentication administrator, Privileged Role Administrator, Security administrator, Security Operator, Security Reader, SharePoint administrator, User administrator.</p>\n      <p><b>Conditional Access policies can negatively impact user authentication, and organizations must verify their policies before deployment</b>.</p>",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

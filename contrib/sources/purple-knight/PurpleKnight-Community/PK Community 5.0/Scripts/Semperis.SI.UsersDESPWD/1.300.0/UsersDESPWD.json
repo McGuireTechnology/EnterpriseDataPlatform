@@ -1,0 +1,111 @@
+﻿{
+  "Id": 75,
+  "UUID": "ca67406b-a063-4aba-ba61-261be7f9ee96",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "User accounts that use DES encryption",
+  "ScriptName": "UsersDESPWD",
+  "ShortName": "SI000075",
+  "Description": "This indicator identifies user accounts with the \"Use Kerberos DES encryption types for this account\" flag set. DES is an older cipher with a 56-bit key length that is relatively easy to crack. The only legitimate use for this flag is to support older systems and environments that only support DES.",
+  "CategoryId": "2",
+  "Weight": 4,
+  "Severity": "Informational",
+  "Schedule": "3d",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>Attackers can easily crack DES passwords using widely available tools, making these accounts ripe for takeover.</p>\n       <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_kerberos_properties_deskey\" target=\"_blank\">Use of Kerberos with weak encryption | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln2_kerberos_properties_deskey"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UserAccountControl",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ManagedBy",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastChanged",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Created",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} users with USE_DES_KEY_ONLY flag set on their User Account Control value.",
+  "Remediation": "This flag represents a potential weakness in user accounts, which if left in place, could make these accounts targets of takeover attacks. It is strongly advised to move to AES-256 or AES-128. If the flag is required, ensure that these accounts have the least privileges possible and are closely monitored.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

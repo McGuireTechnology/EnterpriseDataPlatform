@@ -1,0 +1,93 @@
+﻿{
+  "Id": 221,
+  "UUID": "dbc58c9d-2df6-49cc-a732-ba370486211e",
+  "Version": "1.311.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Privileged accounts with mailbox",
+  "ScriptName": "AAD_privilegedAssociatedMailbox",
+  "ShortName": "SI000221",
+  "Description": "<p>This indicator searches for privileged accounts in the Entra tenant that have an associated mailbox.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>RoleManagement.Read.All</li>\n        <li>RoleManagement.Read.Directory</li>\n        <li>Directory.Read.All</li>\n        <li>MailboxSettings.Read</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 4,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>Privileged accounts in the tenant that have a mailbox may be a prime target to attackers. Attackers may try to use the mailbox address of privileged users to achieve tokens to gain access, obtain sensitive data, or move laterally through the environment.</p>\n      <h3>References</h3>\n<p><a href=\"https://learn.microsoft.com/en-us/entra/identity/authentication/howto-mfa-userstates\" target=\"_blank\">Enable per-user Microsoft Entra multifactor authentication to secure sign-in events</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Initial Access",
+        "Execution",
+        "Credential Access"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.6"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.5"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "UserDisplay",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Mail",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/RoleManagement.Read.All",
+    "AAD.GraphAPI/RoleManagement.Read.Directory",
+    "AAD.GraphAPI/Directory.Read.All",
+    "AAD.GraphAPI/MailboxSettings.Read"
+  ],
+  "ResultMessage": "Found {0} privileged Entra ID accounts that have mailboxes.",
+  "Remediation": "<p>Monitor the detected privileged users' mailboxes to ensure that they are not being used in a non-administrative way. In addition, use unified audit logs to investigate suspicious activity. Also regularly rotate passwords and avoid using default or easily guessable passwords. Furthermore, enforce strong password policies for administrative accounts and train administrators on security best practices, including identifying phishing attempts and avoiding suspicious links. Another important thing is to enable MFA for privileged accounts, to add an extra layer of security by requiring a second form of authentication.</p>\n<p>To enable MFA for a user:</p>\n<p>Sign in to the Microsoft Entra admin center as at least an Authentication Administrator. Browse to <b>Identity</b>, select <b>users</b> and then <b>All users</b>. Click on <b>Per-user MFA</b>. Find the privileged user you want to enable for per-user Microsoft Entra multifactor authentication. You might need to change the view at the top to users. Then Check the box next to the name(s) of the user(s) to change the state for. On the right-hand side, under quick steps and choose <b>Enable</b>.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

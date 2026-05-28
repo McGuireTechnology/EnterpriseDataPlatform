@@ -1,0 +1,95 @@
+﻿{
+  "Id": 151,
+  "UUID": "f8af8921-8901-466e-ba91-df970a56cc21",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "RC4 or DES encryption type are supported by Domain Controllers",
+  "ScriptName": "RC4EnabledOnDC",
+  "ShortName": "SI000151",
+  "Description": "This indicator checks if RC4 or DES encryption is supported by Domain Controllers",
+  "CategoryId": "5",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>RC4 and DES are considered an insecure form of encryption, susceptible to various cryptographic attacks. Multiple vulnerabilities in the RC4 and DES algorithms allow MitM and deciphering attacks.</p>\n      <h3>References</h3>\n      <p><a href=\"https://nvd.nist.gov/vuln/detail/CVE-2013-2566\" target=\"_blank\">CVE-2013-2566</a></p>\n      <p><a href=\"https://nvd.nist.gov/vuln/detail/CVE-2015-2808\" target=\"_blank\">CVE-2015-2808</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_dc_crypto\" target=\"_blank\">DC/RODC supported encryption algorithms | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln2_dc_crypto",
+        "vuln3_dc_crypto",
+        "vuln4_dc_crypto"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SupportedEncryptionTypes",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} Domain Controllers that support RC4 or DES encryption",
+  "Remediation": "It is best practice to disable support for RC4 and DES on domain controllers. Proceed with caution, as this can cause clients that request RC4 encrypted kerberos tickets by default to fail.\n        Disable it by adding the group policy Network security: Configure encryption types allowed for Kerberos and select only AES-128, AES-256 encryption types, to a GPO that affects the Domain Controllers container.\n        The group policy path is Computer Configuration\\Windows Settings\\Security Settings\\Local Policies\\Security Options.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

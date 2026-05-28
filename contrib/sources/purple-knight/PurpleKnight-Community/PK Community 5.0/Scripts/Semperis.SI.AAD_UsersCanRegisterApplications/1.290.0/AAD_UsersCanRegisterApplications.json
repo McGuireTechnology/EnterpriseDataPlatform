@@ -1,0 +1,70 @@
+﻿{
+  "Id": 160,
+  "UUID": "549cb64c-1995-47bf-98ac-6456e7f5662e",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Non-admin users can register custom applications",
+  "ScriptName": "AAD_UsersCanRegisterApplications",
+  "ShortName": "SI000160",
+  "Description": "<p>This indicator checks for an authorization policy that allows non-admin users to register applications in your Entra tenant.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Policy.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 0,
+  "LikelihoodOfCompromise": "<p>By default all users allowed to register applications in an Entra tenant. While app registrations themselves are not malicious, applications can be granted permissions to access user data with delegated permissions, and admin consent grants can provide the applications with broader sets of permissions.</p>\n      <p>An attacker may attempt to leverage a breached user account by registering an application, using the application for multiple purposes, such as attempting to move laterally, providing a mechanism for persistence, reconnaissance, and data exfiltration.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/delegate-app-roles#restrict-who-can-create-applications\" target=\"_blank\">Delegate application management administrator permissions - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/fundamentals/users-default-permissions#restrict-member-users-default-permissions\" target=\"_blank\">Default user permissions - Microsoft Entra | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Persistence",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All"
+  ],
+  "ResultMessage": "Every user can register an application.",
+  "Remediation": "<p>Disable <b>Users can register applications</b> in the Entra tenant.</p>\n      <p>To disable, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/%7E/UserSettings/menuId/UserSettings\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>Users</b>, and select <b>User settings</b>.</p>\n      <p>In the blade on the right, toggle <b>Users can register applications</b> to <b>no</b>.</p>\n      <p>Select <b>Save</b> at the bottom of the blade.</p>\n      <p>Organizations should understand how this change impacts their users and communicate the change out according to defined business processes.</p>",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

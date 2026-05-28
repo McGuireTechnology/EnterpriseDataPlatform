@@ -1,0 +1,77 @@
+﻿{
+  "Id": 162,
+  "UUID": "5f6540a9-f226-4438-9e64-387a98beda2b",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "AD privileged users that are synced to Entra ID",
+  "ScriptName": "AAD_PrivilegedOnPremiseSyncedToAAD",
+  "ShortName": "SI000162",
+  "Description": "<p>This indicator checks for AD privileged users that are synced to Entra ID.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>User.Read.All</li>\n        </ul>",
+  "CategoryId": "7",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>During deployments of Entra Connect or Entra Cloud Sync, organizations may intentionally or unintentionally synchronize privileged users from Active Directory to Entra ID. When this occurs, the attack surface is increased on these privileged users.</p>\n      <p>Organizations should not synchronize privileged users from Active Directory to Entra ID unless there is a specific and designed intention, and the organization understands the risk of the increased attack surface.</p>\n      <p>An attacker may attempt to compromise the user account in Entra ID, and then use that compromise to move laterally into Active Directory.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sync-configure-filtering#organizational-unitbased-filtering\" target=\"_blank\">Microsoft Entra Connect Sync: Configure filtering - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/hybrid/cloud-sync/how-to-configure#scope-provisioning-to-specific-users-and-groups\" target=\"_blank\">Microsoft Entra Cloud Sync new agent configuration - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI",
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "MemberOf",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD",
+    "AD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/User.Read.All"
+  ],
+  "ResultMessage": "Found {0} Privileged AD users that are synced to Entra ID.",
+  "Remediation": "<p>Review the users identified as holding privileges in Active Directory, and remove them from synchronization in Entra Connect or Entra cloud sync.</p>\n      <p>In Entra Connect, user filtering should be configured on an Organizational unit level. This requires modification of the filtering on the Entra Connect server, as well as any staging servers. Details on adjusting the OU filtering can be found in the reference Microsoft documentation.</p>\n      <p>In Entra cloud sync, user filtering is configured with scoping filters. Details on adjusting scoping filters can be found in the reference Microsoft documentation.</p>\n      <p><b>Organizations must ensure that changes to synchronized users are understood and verified that they will not negatively impact the target users, and any impacted users should have the changes communicated as needed</b>.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

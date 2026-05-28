@@ -1,0 +1,84 @@
+﻿{
+  "Id": 166,
+  "UUID": "adbb44d3-028b-4f24-bbdd-34dca7565400",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Conditional Access policy with Continuous Access Evaluation disabled",
+  "ScriptName": "AAD_CAEDisabled",
+  "ShortName": "SI000166",
+  "Description": "<p>This indicator checks for Conditional Access policies that have Continuous Access Evaluation disabled.</p>\n      <h3>Required permissions</h3>\n      <ul>\n      <li>Policy.Read.All</li>\n      </ul>",
+  "CategoryId": "6",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "Continuous Access Evaluation helps organizations respond quicker to condition changes on user objects, by providing certain policy and security event information from Entra ID to downstream applications. As an example, with CAE enabled, if a user account is disabled, Entra ID can notify Exchange Online and SharePoint Online of the event, causing the user to lose their existing session with those services. With CAE disabled, the applications rely on the lifetime of the access token before the user may lose access to these systems. CAE provides several benefits to both user and workload identities from a security perspective, and disabling will result in degraded fidelity to respond to events. \n      <h3>References</h3>\n  <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-continuous-access-evaluation\" target=\"_blank\">Continuous access evaluation in Microsoft Entra ID - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Persistence",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "PolicyName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "PolicyId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All",
+    "AAD.GraphAPI/AuditLog.Read.All"
+  ],
+  "ResultMessage": "Found {0} Conditional Access policies with Continuous Access Evaluation disabled.",
+  "Remediation": "Enable <b>Continuous Access Evaluation</b> on the indicated Conditional Access policies in Entra ID.<br /><br />To enable, browse to the impacted policies in the Conditional Access blade, <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_ConditionalAccess/ConditionalAccessBlade/~/Policies/fromNav/\" target=\"_blank\">Conditional Access - Microsoft Entra admin center</a> (direct link).<br /><br />To browse to the settings in the Microsoft Entra admin center, expand the <b>Protection</b> menu on the left, select <b>Conditional Access</b>. On the right you will want to select <b>Policies</b> and find the impacted policies in the list. Select the policy, which will open the settings for it. Under <b>Access controls</b> select the <b>Session</b> setting. In the window that opens on the right, uncheck the box for <b>Customize continuous access evaluation</b>.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

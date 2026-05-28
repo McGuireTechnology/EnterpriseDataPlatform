@@ -1,0 +1,108 @@
+﻿{
+  "Id": 216,
+  "UUID": "4e9faa14-dd01-4722-b1ed-dd7b5a2ecf45",
+  "Version": "1.317.0",
+  "Types": [
+    "IoC"
+  ],
+  "Name": "MFA bombing attack occurred in the past day",
+  "ScriptName": "AAD_MFABombingOnPrivilegedAccounts",
+  "ShortName": "SI000216",
+  "Description": "<p>This indicator detects MFA bombing attempts on privileged accounts by monitoring login activity to identify unusual patterns of login activity of more than 5 failed MFA attempts within the last day. Note that this indicator will not detect activity of users using passwordless authentication.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>AuditLog.Read.All</li>\n        <li>Directory.Read.All</li>\n        <li>RoleManagement.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "MFA bombing is a tactic where an attacker spams the user with MFA requests and the user unknowingly or unwillingly accepts the request. MFA bombing attacks can be successful in certain cases, particularly if the system's MFA protections are not configured properly or are not robust enough to withstand a high volume of login attempts.",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Initial Access"
+      ]
+    },
+    {
+      "Name": "MITRE D3FEND",
+      "Tags": [
+        "Harden - Multi-factor Authentication"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.6"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.5"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Created",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "CorrelationId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "FailedMFACount",
+      "Type": "Integer",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "IPAddress",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/AuditLog.Read.All",
+    "AAD.GraphAPI/Directory.Read.All",
+    "AAD.GraphAPI/RoleManagement.Read.All"
+  ],
+  "ResultMessage": "Found {0} suspected MFA bombing attempts.",
+  "Remediation": "<p>To mitigate the risk of MFA bombing attacks, consider implementing the following measures:</p>\n       <ol>\n        <li>Reset the MFA method for the affected accounts.</li>\n        <li>Set up MFA challenge policies that require users to complete additional authentication steps (e.g. answering security questions, entering a code sent to their phone) after a certain number of login failures.</li>\n        <li>Increase the rate limiting on MFA attempts. This will make it harder for an attacker to brute force MFA codes.</li>\n        <li>Use a hardware token for MFA. Hardware tokens are more secure than SMS or phone call-based MFA, as they cannot be easily intercepted or spoofed.</li>\n        <li>Use a trusted IP range for MFA. If you have a specific range of IP addresses that you trust (e.g. your office location), you can configure MFA to only be required when logging in from outside of that range.</li>\n      </ol>\n        Note: It is important to carefully consider the potential impact of these changes on your users before implementing them. Some of these measures may be more effective at preventing MFA bombing attacks, but they may also be more inconvenient for your users.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

@@ -1,0 +1,77 @@
+﻿{
+  "Id": 209,
+  "UUID": "356e37ca-c8eb-4c3a-bdfc-1b6b6f142338",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "User consent is allowed for risky applications",
+  "ScriptName": "AAD_AllowUserConsentForRiskyApps",
+  "ShortName": "SI000209",
+  "Description": "<p>This indicator checks for an Entra ID authorization policy that allows users to grant consent for risky applications.</p>\n      <h3>Required permissions</h3>\n      <ul>\n      <li>Policy.Read.All</li>\n      <ul>",
+  "CategoryId": "6",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>Risk-based step-up consent is a configuration setting in Entra ID that prevents users from consenting to delegated application permissions from applications that Entra ID may consider risky. When disabled, organizations are at a greater risk of users falling victim to OAuth consent phishing, also known as Illicit Consent Grants. Organizations should develop and implement a business process around the lifecycle of app registrations in their Entra tenant. Ensure that the added read permissions align with organizational policy. Organizations may want to consider using admin consent workflows as an additional defense against Illicit Consent Grants.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/configure-risk-based-step-up-consent\" target=\"_blank\">Configure risk-based step-up consent - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/graph/api/authorizationpolicy-update?view=graph-rest-beta&amp;tabs=http\" target=\"_blank\">Update authorizationpolicy - Microsoft Graph beta | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Initial Access",
+        "Persistence",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Model - Access Modeling"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All"
+  ],
+  "ResultMessage": "User consent for risky applications is allowed",
+  "Remediation": "<p>Enable <b>risk-based step-up consent</b> in Entra ID.</p>\n      <p>The configuration for enabling risk-based step-up consent is not exposed in the Entra admin center, and must be configured either through PowerShell or the Graph API.</p>",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

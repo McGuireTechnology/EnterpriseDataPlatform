@@ -1,0 +1,81 @@
+﻿{
+  "Id": 138,
+  "UUID": "5442096e-aee4-4fea-ab7d-a121ea528742",
+  "Version": "1.291.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Privileged user credentials cached on RODC",
+  "ScriptName": "RODCPrivilegedCreds",
+  "ShortName": "SI000138",
+  "Description": "<p>This indicator checks for privileged user credentials that are cached to RODCs.</p>",
+  "CategoryId": "3",
+  "Weight": 4,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>In many instances, read-only domain controllers (RODCs) are deployed in area where there is a lower level of physical security to the servers.</p>\n      <p>Attackers may try to target read-only domain controllers due to the lower level of security around these. While it is not a direct indicator of an attack, credentials for privileged users should not be cached on RODCs in the case the domain controller is compromised.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc753223(v=ws.10)\" target=\"_blank\">RODC Features | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Lateral Movement",
+        "Privilege Escalation"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MaxVersion": "3.0",
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "2.0",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "RODCName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} privileged users with credentials cached to an RODC.",
+  "Remediation": "<p>It is recommended to adjust the password replication policy on the RODC to deny replication of credentials for the identified privileged users.</p>\n      <p>You can review the current settings by opening <b>Active Directory Users and Computers</b>, locate the identified <b>RODC</b>, and then right-click and select <b>Properties</b>.</p>\n      <p>In the <b>Properties</b> of the RODC, select the <b>Password Replication Policy</b> tab.</p>\n      <p>Review the replication policies, identify the policy that is permitting replication of credentials, and adjust to ensure there is a deny policy for the privileged users.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

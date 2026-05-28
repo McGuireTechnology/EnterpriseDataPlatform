@@ -1,0 +1,110 @@
+﻿{
+  "Id": 59,
+  "UUID": "07362c0e-e675-4451-9d09-65ca46ab43a3",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Computers with password last set over 90 days ago",
+  "ScriptName": "CompOldPwdLastSet",
+  "ShortName": "SI000059",
+  "Description": "This indicator looks for computer accounts that have not rotated their passwords in the last 90 days. These passwords should be changed automatically every 30 days by default.",
+  "CategoryId": "3",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "Computer accounts should automatically rotate their passwords every 30 days as they are prime targets for attackers. Objects that are not doing this could show evidence of tampering.",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Strong Password Policy"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln2_password_change_server_no_change_90"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "LastLogonTimeStamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PasswordLastSet",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DaysSinceLastSet",
+      "Type": "Integer",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Active",
+      "Type": "Boolean",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} computers whose password has not changed in the last {1} days.",
+  "Remediation": "Computers should change their passwords every 30 days, it should be investigated why they did not. Here are some suggestions to do to prevent it in the future:\n      <ul>\n        <li>Password Rotation: For each affected computer, initiate a manual password rotation process. Ensure that the new passwords are strong and comply with your organization's password policy.</li>\n        <li>Automated Password Rotation: Implement an automated password rotation solution or policy that aligns with industry best practices. Passwords should ideally be rotated every 30 days or according to your organization's security policies.</li>\n        <li>Review Password Policies: Evaluate your organization's password policies to ensure they enforce regular password rotations. Adjust these policies as needed to meet your security requirements.</li>\n        </ul>\n        Note: The 'Active' column shows if the account was active in the past 45 days.\n        <h3>References</h3>\n        <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_password_change_msa_no_change_90\" target=\"_blank\">Managed service accounts with passwords unchanged for more than 90 days | ANSSI</a></p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

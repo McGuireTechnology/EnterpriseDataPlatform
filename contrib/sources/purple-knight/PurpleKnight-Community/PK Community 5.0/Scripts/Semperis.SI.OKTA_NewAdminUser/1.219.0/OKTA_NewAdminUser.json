@@ -1,0 +1,94 @@
+﻿{
+  "Id": 301,
+  "UUID": "21a15341-8d4e-47d7-a5e5-af541f4fe0b9",
+  "Version": "1.219.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "New permission has been granted to a user",
+  "ScriptName": "OKTA_NewAdminUser",
+  "ShortName": "SI000301",
+  "Description": "This indicator checks if any permissions have been granted to a user within the last 7 days.",
+  "CategoryId": "8",
+  "Weight": 2,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 2,
+  "LikelihoodOfCompromise": "Users with high privileges can perform significant actions in Okta. It is important to identify and monitor users who have been granted elevated privileges to mitigate the risk of unauthorized access and potential misuse of sensitive data.",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Persistence"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - User Account Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "10",
+      "Name": "PK",
+      "MinVersion": "4.0",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ]
+    }
+  ],
+  "DataSources": [
+    "Okta.OktaAPI"
+  ],
+  "OutputFields": [
+    {
+      "Name": "Operation",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Users",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PrivilegeGranted",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ActorID",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ActorName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "Okta"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} events granting permissions to users in the last week.",
+  "Remediation": "Regularly review and validate the permissions assigned to users. Ensure that the permissions granted are necessary for their roles and responsibilities. Remove any unnecessary or excessive permissions to minimize the attack surface and maintain least privilege access control.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

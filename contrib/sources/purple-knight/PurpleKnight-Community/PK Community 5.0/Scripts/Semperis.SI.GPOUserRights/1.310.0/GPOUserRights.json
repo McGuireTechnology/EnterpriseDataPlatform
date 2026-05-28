@@ -1,0 +1,111 @@
+﻿{
+  "Id": 302,
+  "UUID": "30a7fbd4-8ea3-42b2-b29d-41d27023c06a",
+  "Version": "1.310.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Dangerous user rights granted by GPO",
+  "ScriptName": "GPOUserRights",
+  "ShortName": "SI000302",
+  "Description": "Group Policy Objects (GPOs) are used to define security settings that apply to a group of users or computers in an Active Directory environment. GPOs can be used to grant dangerous user rights, such as the ability to bypass file system security, log on as a service, or even perform actions with elevated privileges. This indicator looks for non-privileged users who are granted elevated permissions through GPO.",
+  "CategoryId": "4",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>An attacker can potentially exploit the user rights granted by a GPO to gain access to systems, steal sensitive information, or cause other types of damage. If these dangerous user rights are granted to a user or a group of users, it increases the risk of an attacker being able to gain access to sensitive data, systems or even perform malicious actions.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/user-rights-assignment\">MS User Rights Assignment</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation"
+      ]
+    },
+    {
+      "Name": "MITRE D3FEND",
+      "Tags": [
+        "Detect - Local Account Monitoring",
+        "Harden - Strong Password Policy"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.5"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "2.5"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "User",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Privilege",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Policy",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PolicyName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Status",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LinkedOUs",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} non-privileged users with elevated permissions granted using GPO.",
+  "Remediation": "The remediation for this indicator involves identifying any dangerous user rights that have been granted through GPOs, and removing them wherever possible. This can involve reviewing existing GPO settings and modifying them to remove any unnecessary or excessive user rights, as well as implementing appropriate access controls to restrict access to GPOs and other critical Active Directory components. By taking these steps, organizations can reduce the risk of compromise and help protect their systems from potential attacks.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

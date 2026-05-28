@@ -1,0 +1,87 @@
+﻿{
+  "Id": 154,
+  "UUID": "0d9236c4-98a1-4763-913b-783fdfe1de4c",
+  "Version": "1.310.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "SMB Signing is not required on Domain Controllers",
+  "ScriptName": "SmbSigningIsNotRequired",
+  "ShortName": "SI000154",
+  "Description": "This indicator looks for domain controllers where SMB signing is not required.",
+  "CategoryId": "3",
+  "Weight": 8,
+  "Severity": "Critical",
+  "Schedule": "1h",
+  "Impact": 8,
+  "LikelihoodOfCompromise": "<p>Unsigned network traffic is susceptible to attacks abusing the NTLM challenge-response protocol. A common example of such attacks is SMB Relay, where an attacker is positioned between the client and the server in order to capture data packets transmitted between the two, thus gaining unauthorized access to the server or other servers on the network.</p>\n      <h3>References</h3>\n      <p><a href=\"https://techcommunity.microsoft.com/blog/filecab/configure-smb-signing-with-confidence/2418102\" target=\"_blank\">Configure SMB Signing with Confidence</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation",
+        "Credential Access"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.5"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.4"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "HostName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "State",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} DCs that do not require SMB Signing.",
+  "Remediation": "<p>The following Group Policies need to be enabled in order to enforce SMB Signing on DCs:</p>\n      <ol>\n        <li>Computer Configuration > Policies > Windows Settings > Security Settings > Local Policies > Security Options > Microsoft network server: Digitally sign communications (always): This policy controls whether the server providing SMB required signing. It determines if SMB signing will have to be negotiated prior to further communication.</li>\n        <li>Computer Configuration > Policies > Windows Settings > Security Settings > Local Policies > Security Options > Microsoft network server: Digitally sign communications (if client agrees): This policy determines if SMB server will negotiate SMB signing with clients that request it.</li></ol>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

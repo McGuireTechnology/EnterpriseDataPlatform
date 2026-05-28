@@ -1,0 +1,75 @@
+﻿{
+  "Id": 206,
+  "UUID": "bfdae692-a6bd-40c3-ac0d-17e9e1cd43a6",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Application name and geographic location additional contexts are disabled on MFA",
+  "ScriptName": "AAD_ApplicationNameAndGeographicLocationMFA",
+  "ShortName": "SI000206",
+  "Description": "<p>This indicator checks if the Microsoft Authenticator App settings are configured to display the name of the target application and geographical location of the request when a user receives a push notification.</p>\n      <h3>Required permissions</h3>\n      <ul>\n      <li>Policy.Read.All</li>\n      </ul>",
+  "CategoryId": "6",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 0,
+  "LikelihoodOfCompromise": "<p>Push notification bombing is a tactic where an attacker will spam a user with excessive push notifications; users who are enabled for passwordless through the Microsoft Authenticator App can receive these with just knowing their username. While number matching in Entra ID primarily prevents users from accepting malicious push notifications, users can have better insight into the requests with additional context. When additional context is enabled, a user will see the geographical location from where the request came, as well as the name of the requesting application. Users can use this to verify that the request is legitimate.</p> \n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-mfa-additional-context\" target=\"_blank\">Use additional context in Microsoft Authenticator notifications - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Initial Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Multi-factor Authentication"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All"
+  ],
+  "ResultMessage": "Application name and geographic location additional contexts on MFA are disabled.",
+  "Remediation": "Enable <b>Show application name in push and passwordless notifications</b> and <b>Show geographic location in push and passwordless notifications</b> in Entra ID. \n      <br></br>The configuration for additional context settings passwords can be found in <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/~/AdminAuthMethods\" target=\"_blank\">Authentication methods - Microsoft Entra admin center</a> (direct link).\n      <br></br>To browse to the settings in the Microsoft Entra admin center, expand the <b>Protection</b> menu on the left, select <b>Authentication methods</b>, and then <b>Policies</b>. Once in Authentication methods, select <b>Microsoft Authenticator</b> on the right blade. The <b>Microsoft Authenticator settings</b> blade will open, and from the top menu select <b>Configure</b>. In the list of settings the status for <b>Show application name in push and passwordless notifications</b> and <b>Show geographic location in push and passwordless notifications</b> should both be changed to <b>Enabled</b>. The <b>Target</b> for the settings should be <b>Include</b> and set to <b>All users</b>.",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

@@ -1,0 +1,37 @@
+{
+  "exclude": {
+    "Object": {
+      "GroupDistinguishedName": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      },
+      "DomainName": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      },
+      "DistinguishedName": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      }
+    }
+  },
+  "param": null
+}

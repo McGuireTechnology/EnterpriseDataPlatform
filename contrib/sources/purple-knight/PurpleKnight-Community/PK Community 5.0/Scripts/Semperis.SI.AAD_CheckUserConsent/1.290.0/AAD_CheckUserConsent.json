@@ -1,0 +1,71 @@
+﻿{
+  "Id": 122,
+  "UUID": "8766ebb0-f5ef-4511-ad60-5f2c79f2dac4",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Unrestricted user consent allowed",
+  "ScriptName": "AAD_CheckUserConsent",
+  "ShortName": "SI000122",
+  "Description": "<p>This indicator checks if users are allowed to add applications from unverified publishers to Entra ID.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Policy.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>Publisher verification is a process from Microsoft to verify the authenticity of applications from 3rd party developers and the developers organization.</p>\n      <p>Attackers use attacks such as Illicit Consent Grants, also known as OAuth consent phishing, to compromise user accounts. In these attacks, the attacker tricks a user to consent to a malicious application that is not verified by Microsoft.</p>\n      <h3>References</h3><p><a href=\"https://learn.microsoft.com/en-us/entra/identity/enterprise-apps/configure-user-consent\" target=\"_blank\">Configure how users consent to applications - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity-platform/publisher-verification-overview\" target=\"_blank\">Publisher verification overview - Microsoft identity platform | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Persistence",
+        "Lateral Movement"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All",
+    "AAD.GraphAPI/AuditLog.Read.All"
+  ],
+  "ResultMessage": "Users are allowed to consent to risky 3rd party apps.",
+  "Remediation": "<p>Do not allow users to consent to applications from unverified publishers.</p>\n      <p>To disable consent for all applications, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/ConsentPoliciesMenuBlade/%7E/UserSettings\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>Applications</b>, and select <b>Enterprise applications</b>.</p>\n      <p>In the blade on the right, under <b>Security</b> select <b>Consent and permissions</b>. In the new blade that opens, under <b>User consent settings</b> ensure that <b>Allow user consent for apps</b> is <b>not</b> selected.</p><p><b>Organizations must understand that changes they make to the application consent process can impact users onboarding new applications, and the organizations must communicate out the changes as needed to impacted users.</b></p>",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

@@ -1,0 +1,21 @@
+<License xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Id>e679972f-4706-4f65-9149-8b73217b65e5</Id>
+  <NumberOfAllowedExecutions>10000</NumberOfAllowedExecutions>
+  <ExpiredDateTime>2029-08-25T00:00:00Z</ExpiredDateTime>
+  <Edition>Community</Edition>
+  <Version>5.0</Version>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+      <Reference URI="">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <DigestValue>Uifk4lGd17Z61zWntMdtKC8dYic=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>D5lZUmxL9zyE/IF3NNdi1zSeeNVgW1ksydsNVh/L+5XUldSkwRSZy88T0zlJEjlmomt0gs96tXp8e6YxSudFdZsz7gxwowORyPqaJxptc3lo02dgEgdyLyNmlLN7nP2LmJ4Q4c7C/jCU92F8e4eGSW0k0fYRrksnwRRlHZO8Uq4=</SignatureValue>
+  </Signature>
+</License>

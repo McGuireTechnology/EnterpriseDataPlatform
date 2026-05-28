@@ -1,0 +1,27 @@
+{
+  "exclude": {
+    "Object": {
+      "EventTimestamp": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      },
+      "DistinguishedName": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      }
+    }
+  },
+  "param": null
+}

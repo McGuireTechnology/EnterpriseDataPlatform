@@ -1,0 +1,98 @@
+﻿{
+  "Id": 99,
+  "UUID": "cfe3bfa1-f28e-4017-8e94-044bd6b914e3",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Accounts with Constrained Delegation configured to krbtgt",
+  "ScriptName": "ConstrainedDelegationToKRBTGT",
+  "ShortName": "SI000099",
+  "Description": "<p>This indicator checks for accounts that have constrained delegation configured to the KRBTGT account.</p>",
+  "CategoryId": "5",
+  "Weight": 9,
+  "Severity": "Critical",
+  "Schedule": "1h",
+  "Impact": 9,
+  "LikelihoodOfCompromise": "<p>In Active Directory it is possible to create a Kerberos delegation to the KRBTGT account. This type of delegation to a user or computer would allow that principal to generate a ticket granting service (TGS) request to the KRBTGT account as any user.</p>\n      <p>An attacker may attempt to compromise any account that has a delegation to the KRBTGT account. This particular type of configuration allows for an attack similar to a Golden Ticket attack.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_delegation_a2d2\" target=\"_blank\">Constrained authentication delegation to a domain controller service | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Detect - Domain Account Monitoring"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln1_delegation_a2d2"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "DomainName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} account(s) with Constrained Delegation configured to the krbtgt service.",
+  "Remediation": "<p>It is recommended to not allow constrained delegation to the KRBTGT account.</p>\n      <p>This type of delegation to a user or computer would allow that principal to generate a ticket granting service (TGS) request to the KRBTGT account as any user.</p>\n      <p>An attacker may attempt to compromise any account that has a delegation to the KRBTGT account. This particular type of configuration allows for an attack similar to a Golden Ticket attack.</p>\n      <p>The delegations identified should be removed.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

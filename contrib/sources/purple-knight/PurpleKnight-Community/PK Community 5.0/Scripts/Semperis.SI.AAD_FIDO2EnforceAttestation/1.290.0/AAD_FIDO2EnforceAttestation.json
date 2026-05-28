@@ -1,0 +1,69 @@
+﻿{
+  "Id": 321,
+  "UUID": "40d6e492-e71f-48bf-99df-ce2f4c0267c4",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "FIDO2 Attestation is not enforced",
+  "ScriptName": "AAD_FIDO2EnforceAttestation",
+  "ShortName": "SI000321",
+  "Description": "<p>This indicator checks if FIDO2 security key attestation is enforced in Entra ID.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Policy.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 4,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 0,
+  "LikelihoodOfCompromise": "<p>FIDO2 security key attestation is a mechanism for providing assurance during key registration that a key is a specific make and model of key, using a cryptographically signed key pair applied to the device during manufacturing, which can then be verified against the FIDO Alliance Metadata service, so that organizations can ensure that only FIDO certified keys are registered. Further, attestation acts as a layer of protection during key registration, ensuring that a threat actor cannot intercept a registration.</p>\n      <p>If an organization disables enforcement, there is a lower level of assurance about the origination and security of the key being registered.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/authentication/how-to-enable-passkey-fido2#fido-security-key-optional-settings\" target=\"_blank\">Enable passkeys for your organization - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All"
+  ],
+  "ResultMessage": "FIDO2 Attestation is not enforced.",
+  "Remediation": "<p>Enable <b>Enforce attestation</b> in Entra ID for FIDO2 security key settings.</p>\n      <p>To enable, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/AuthenticationMethodsMenuBlade/%7E/AdminAuthMethods/fromNav/\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Protection</b> and select <b>Authentication methods</b>.</p>\n      <p>In the blade on the right, select <b>Policies</b>, and then under <b>Method</b> select <b>FIDO2 security key</b>.</p>\n      <p>In the new blade that opens, select <b>Configure</b> from the top menu. Toggle <b>Enforce attestation</b> to <b>yes</b>.</p>\n      <p>Select <b>Save</b> at the bottom of the blade.</p>\n      <p><b>Organizations must test changes to FIDO2 security key settings as this change is user impacting to enrollments, and ensure that changes are communicated out as necessary</b></p>",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

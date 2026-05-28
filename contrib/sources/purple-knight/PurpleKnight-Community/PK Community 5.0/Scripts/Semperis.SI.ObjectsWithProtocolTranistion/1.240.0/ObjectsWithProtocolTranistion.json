@@ -1,0 +1,88 @@
+﻿{
+  "Id": 58,
+  "UUID": "74851f54-7ed4-456a-95c3-05e6090a9538",
+  "Version": "1.240.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Kerberos protocol transition delegation configured",
+  "ScriptName": "ObjectsWithProtocolTranistion",
+  "ShortName": "SI000058",
+  "Description": "This indicator looks for services that have been configured to allow Kerberos protocol transition. This capability enables a delegated service to use any available authentication protocol. This means that compromised services can reduce the quality of their authentication protocol to something that is more easily compromised (e.g. NTLM).",
+  "CategoryId": "5",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "Protocol transition is not often used but when it is, it should be monitored closely for signs of abuse. In addition to compromising the authentication strength, this setting also allows attackers to request delegations with no authentication.",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Credential Access",
+        "Lateral Movement",
+        "Privilege Escalation"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MinVersion": "1.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MaxVersion": "3.0"
+    },
+    {
+      "MinVersion": "3.5",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MaxVersion": "10"
+    },
+    {
+      "MinVersion": "1.4",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MaxVersion": "10"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "AllowedToDelegateTo",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} objects with protocol transition delegation configured.",
+  "Remediation": "Validate that every delegation configured is known and necessary. Check if constrained kerberos could be configured instead of protocol transition.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

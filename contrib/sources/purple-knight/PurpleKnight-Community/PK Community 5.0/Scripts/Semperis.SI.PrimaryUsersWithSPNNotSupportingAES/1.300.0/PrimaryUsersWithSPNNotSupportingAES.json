@@ -1,0 +1,93 @@
+﻿{
+  "Id": 152,
+  "UUID": "b608276e-3849-419d-bc34-6e5a362b3e79",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Primary users with SPN not supporting AES encryption on Kerberos",
+  "ScriptName": "PrimaryUsersWithSPNNotSupportingAES",
+  "ShortName": "SI000152",
+  "Description": "This indicator shows all Primary users with SPNs that do not support AES-128 or AES-256 encryption type.",
+  "CategoryId": "5",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>AES encryption is stronger than RC4 encryption. Configuring primary users with SPN to support AES encryption will not mitigate attacks such as Kerberoasting but does force AES by default, meaning that it is possible to monitor for encryption downgrade attacks to RC4 (Kerberoasting attacks)</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/network-security-configure-encryption-types-allowed-for-kerberos\" target=\"_blank\">Network security: Configure encryption types allowed for Kerberos | Microsoft Learn</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_kerberos_properties_encryption\" target=\"_blank\">Service accounts supported encryption algorithms | ANSSI</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_kerberos_properties_preauth\" target=\"_blank\">Kerberos preauthentication disabled | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln3_kerberos_properties_encryption"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ServicePrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} Primary users with SPN not supporting AES encryption",
+  "Remediation": "Best practice is to enable AES encryption support on service accounts.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

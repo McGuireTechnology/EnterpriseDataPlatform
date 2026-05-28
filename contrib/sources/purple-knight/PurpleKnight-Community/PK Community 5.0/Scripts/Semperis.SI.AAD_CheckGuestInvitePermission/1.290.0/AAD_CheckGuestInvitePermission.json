@@ -1,0 +1,70 @@
+﻿{
+  "Id": 129,
+  "UUID": "87b41c04-d2bb-4de4-896d-212edeaf9e2e",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Check for guests having permission to invite other guests",
+  "ScriptName": "AAD_CheckGuestInvitePermission",
+  "ShortName": "SI000129",
+  "Description": "<p>This indicator checks for guest users that have permission to invite other guests.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Policy.Read.All</li>\n        <li>AuditLog.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>Guests are a feature of Entra ID that allows for business-to-business (B2B) collaboration with users external to your organization. Commonly used for Microsoft 365 and application sharing with partners, vendors, contractors, and other users who collaborate with the organization but are not employees. Guest users are not members of the organization, they have a different risk profile, and are considered less trusted due to the organization not having full control over and insight into the user object and the devices they come from.</p>\n      <p>An attacker may target a guest account for compromise, and use the privilege to invite guests into the Entra tenant to further create persistence and move laterally.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/external-id/external-collaboration-settings-configure#configure-settings-in-the-portal\" target=\"_blank\">Enable B2B external collaboration settings - Microsoft Entra External ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Lateral Movement"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All",
+    "AAD.GraphAPI/AuditLog.Read.All"
+  ],
+  "ResultMessage": "Guests are allowed to send guest invitations.",
+  "Remediation": "<p>Change <b>guest invite restrictions</b> from the setting <b>Anyone in the organization can invite guest users including guests and non-admins (most-inclusive)</b> in the Entra tenant.</p>\n      <p>To change, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/CompanyRelationshipsMenuBlade/%7E/Settings/menuId/Settings\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>External Identities</b>, and select <b>External collaboration settings</b>.</p>\n      <p>In the blade on the right, change the radio dial selection under <b>Guest invite settings</b>, <b>Guest invite restrictions</b>.</p>\n      <p><b>Organizations need to make a determination on what guest invite restriction setting to select, as they have different levels of restrictions on both users and guests. Ensure that any changes are communicated out, as they can impact existing business processes.</b></p>\n      <p>Select <b>Save</b> at the top of the blade.</p>",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

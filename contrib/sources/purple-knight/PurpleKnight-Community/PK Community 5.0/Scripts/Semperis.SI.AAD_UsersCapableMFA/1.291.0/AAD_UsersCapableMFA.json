@@ -1,0 +1,90 @@
+﻿{
+  "Id": 228,
+  "UUID": "128f2108-090d-4291-9c01-0cc98e61d12c",
+  "Version": "1.291.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Ensure all non-privileged users can complete MFA",
+  "ScriptName": "AAD_UsersCapableMFA",
+  "ShortName": "SI000228",
+  "Description": "<p>Indicates whether non-privileged users in the tenant can use and complete the MFA process based on the authentication details that the user entered.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>AuditLog.Read.All</li>\n        <li>User.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 4,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>MFA adds an extra layer of security to the sign-in process, helping protect your organization against security breaches. Without MFA, relying solely on one authentication factor makes accounts more susceptible to unauthorized access. If an attacker obtains a user's password (through phishing, data breaches, or other means), they can easily gain access to the account. In addition, users who use MFA are less likely to fall victim to phishing attacks. MFA helps mitigate this risk because even if a user unknowingly provides their password, the attacker still needs the second factor (e.g., a code from an authenticator app) to gain access.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/fundamentals/security-defaults\" target=\"_blank\">Security defaults in Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-all-users-mfa-strength\" target=\"_blank\">Require multifactor authentication for all users | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation",
+        "Initial access"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MaxVersion": "3.0",
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "DisplayName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "MFAStatus",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/AuditLog.Read.All",
+    "AAD.GraphAPI/User.Read.All"
+  ],
+  "ResultMessage": "Found {0} users that cannot complete the MFA process with strong methods.",
+  "Remediation": "<p>Enforce MFA authentication for users in the tenant by Conditional Access Policies. In case no Premium P1/P2 licenses are used, enable Security Defaults in Entra ID.</p>\n      <p>To Create MFA access condition policy:</p>\n        <p>Browse to <b>Protection</b>, <b>Conditional Access</b> and then <b>Policies</b>. Select <b>New policy</b>. Give your policy a name. Under <b>Assignments</b>, select Users or workload identities. Under <b>Include</b>, select All users. Under <b>Exclude</b> select Users and groups and choose your organization's emergency access or break-glass accounts. Under <b>Target resources</b>, <b>Resources</b> (formerly cloud apps) and under <b>Include</b>, select All resources (formerly 'All cloud apps'). Under <b>Exclude</b>, select any applications that don't require multifactor authentication. Under <b>Access controls</b>, click on <b>Grant</b>, select <b>Grant access</b>. Select <b>\"Require authentication strength\"</b>, then select the built-in <b>\"Multifactor authentication strength\"</b> from the list. Select <b>Select</b>. Select Create to <b>create</b> to enable your policy.</p>\n        <p>To enable Security Defaults:</p>\n          <p>Browse to <b>Identity </b> and then <b>Overview</b> and <b>Properties</b>. Select <b>Manage security defaults</b>. Set Security defaults to <b>Enabled</b>. Select <b>Save</b>.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

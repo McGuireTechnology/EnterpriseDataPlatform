@@ -1,0 +1,93 @@
+﻿{
+  "Id": 22,
+  "UUID": "f84225d1-4f05-4cb1-bf3f-f87413006214",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Risky RODC credential caching",
+  "ScriptName": "RiskyRODCCreds",
+  "ShortName": "SI000022",
+  "Description": "<p>This indicator checks the password replication policy on RODCs.</p>",
+  "CategoryId": "3",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>In many instances, read-only domain controllers (RODCs) are deployed in area where there is a lower level of physical security to the servers.</p>\n      <p>Attackers may try to target read-only domain controllers due to the lower level of security around these. While it is not a direct indicator of an attack, credentials for privileged users should not be cached on RODCs in the case the domain controller is compromised.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc753223(v=ws.10)\" target=\"_blank\">RODC Features | Microsoft Learn</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_rodc_never_reveal\" target=\"_blank\">Dangerous configuration of read-only domain controllers (RODC) (neverReveal) | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - User Account Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln2_rodc_priv_revealed"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "RODC",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} privileged objects added to RODC Password Replication Policy.",
+  "Remediation": "<p>It is recommended to adjust the password replication policy on the RODC to deny replication of privileged user credentials to an RODC.</p>\n      <p>You can review the current settings by opening <b>Active Directory Users and Computers</b>, locate the identified <b>RODC</b>, and then right-click and select <b>Properties</b>.</p>\n      <p>In the <b>Properties</b> of the RODC, select the <b>Password Replication Policy</b> tab.</p>\n      <p>Review the replication policies, identify the policy that is permitting replication of credentials, and adjust to ensure there is a deny policy for the privileged users.</p>\n      <p>You may also need to review the membership of the group <b>Denied RODC Password Replication Group</b>, which by default holds many privileged user groups that should be denied replication.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

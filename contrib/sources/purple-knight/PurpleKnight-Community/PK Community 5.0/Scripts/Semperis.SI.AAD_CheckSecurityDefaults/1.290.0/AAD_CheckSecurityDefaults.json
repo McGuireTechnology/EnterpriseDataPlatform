@@ -1,0 +1,70 @@
+﻿{
+  "Id": 120,
+  "UUID": "8fdabdf5-73e5-47c3-a70b-972f72a61b6f",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Security defaults not enabled",
+  "ScriptName": "AAD_CheckSecurityDefaults",
+  "ShortName": "SI000120",
+  "Description": "<p>This indicator checks whether security defaults are enabled when there are no Conditional Access policies configured.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Policy.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 0,
+  "LikelihoodOfCompromise": "<p>As attackers constantly attempt to compromise cloud environments, it is important to maintain the highest possible security baseline for authentication. To protect the authentication process and privileged actions, security defaults are recommended for tenants that have no conditional access policies configured. Security defaults will require MFA, block legacy authentication, and require additional authentication when accessing the Azure portal, Azure Powershell, or the Azure CLI.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/fundamentals/security-defaults\" target=\"_blank\">Providing a default level of security in Microsoft Entra ID - Microsoft Entra | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Initial Access",
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All"
+  ],
+  "ResultMessage": "There are ZERO Conditional Access Policies enabled and Security Defaults are not configured.",
+  "Remediation": "<p>Enable security defaults or Conditional Access policies.</p>\n      <p>If the organization is licensed for Entra ID P1 or higher, or associated EMS or M365 licensing, it is preferred to use Conditional Access for securing authentication.</p>\n      <p>If the licensing is not available, then an organization should enable security defaults.</p>\n      <p>To enable, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/TenantOverview.ReactView\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>Users</b>, and select <b>Overview</b>.</p>\n      <p>In the blade on the right, select <b>Properties</b>. Under the <b>Security defaults</b> section towards the bottom, select <b>Manage security defaults</b>. Set <b>Security defaults</b> to <b>Enabled</b>. Select <b>Save</b>.</p>\n      <p><b>If Conditional Access is currently used by the organization, it should not enable Security defaults</b>.</p>",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

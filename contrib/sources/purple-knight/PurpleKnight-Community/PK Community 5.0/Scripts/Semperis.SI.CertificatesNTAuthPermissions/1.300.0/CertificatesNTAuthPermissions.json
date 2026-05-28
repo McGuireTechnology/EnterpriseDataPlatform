@@ -1,0 +1,104 @@
+﻿{
+  "Id": 91,
+  "UUID": "e441aeb0-ba69-426b-bbc1-028bf258c3d8",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Dangerous control paths expose certificate containers",
+  "ScriptName": "CertificatesNTAuthPermissions",
+  "ShortName": "SI000091",
+  "Description": "This indicator looks for non-default principals with permissions on the NTAuthCertificates container. This container holds the intermediate CA certificates that can be used to authenticate to AD.",
+  "CategoryId": "3",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>These control paths allow adding a malicious certificate authority, which allow an attacker to authenticate as arbitrary users or services.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_adcs_control\" target=\"_blank\">Dangerous ACLs expose certificate containers (attack path) | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Credential Transmission Scoping"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln1_adcs_control"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Identity",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Access",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} principals that have non default permissions on the NTAuthCertificates object.",
+  "Remediation": "Unprivileged users should not have permissions on the NTAuthCertificates. Doing so potentially gives them the ability to escalate their access and make the domain trust a rouge CA. Remove unnecessary permissions from the object.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

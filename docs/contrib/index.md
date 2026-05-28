@@ -1,15 +1,30 @@
 # Contrib
 
-Contrib is the local reference-document area for source material that informs EDP target features but should not be committed to Git.
+Contrib is the reference area for source material that informs EDP target features, especially CIS Controls, NIST/OSCAL catalogs, Purple Knight assessment content, and policy templates.
 
 Use it for documents such as CIS Controls workbooks, framework mappings, control catalogs, policy templates, and other external references that help shape models, runbooks, dashboards, and governance features.
 
-## Repository Policy
+## Folder Layout
 
-- Commit scripts, documentation, mappings, derived notes, and source citations.
-- Do not commit downloaded workbooks, PDFs, organization-specific policy files, or licensed source material.
-- Keep local source documents under root `contrib/`, which is ignored except for its README and ignore rules.
-- When a source document creates a durable EDP requirement, capture the requirement in docs, models, migrations, dbt, or tests rather than relying on the raw source file.
+- `contrib/sources/cis`: Center for Internet Security material.
+- `contrib/sources/cisa`: Cybersecurity and Infrastructure Security Agency material.
+- `contrib/sources/ieee`: IEEE SA material.
+- `contrib/sources/nist`: NIST and OSCAL control catalogs.
+- `contrib/sources/policy-templates`: policy and procedure templates.
+- `contrib/sources/purple-knight`: Purple Knight assessment resources.
+- `contrib/INDEX.md`: generated source inventory.
+
+The contrib folder is no longer broadly ignored. Only restored source packages larger than GitHub's normal 100 MB blob limit are excluded by `contrib/.gitignore`.
+
+## Index Documents
+
+Refresh the generated source index after adding, restoring, or moving contrib files:
+
+```powershell
+.\scripts\Update-ContribIndex.ps1
+```
+
+The index summarizes provider folders, file counts, total size, primary extensions, and the largest files so the restored source tree is searchable without manually walking every folder.
 
 ## Gather Documents
 
@@ -31,7 +46,7 @@ To refresh a local collection from source:
 .\scripts\Sync-ContribDocuments.ps1 -SourceRoot "C:\path\to\reference-resources" -Collections "CIS Controls" -Clean
 ```
 
-The script writes copied files into root `contrib/` and records a local `manifest.json`. Those gathered files remain local-only.
+The script writes copied files into `contrib/sources` and records a `manifest.json` in that destination.
 
 ## CIS Controls
 

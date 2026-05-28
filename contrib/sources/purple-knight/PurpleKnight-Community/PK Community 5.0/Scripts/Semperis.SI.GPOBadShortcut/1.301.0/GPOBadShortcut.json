@@ -1,0 +1,142 @@
+﻿{
+  "Id": 189,
+  "UUID": "cfe6f680-8137-4690-8116-80aa3d4b9d52",
+  "Version": "1.301.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Writable shortcuts found in GPO",
+  "ScriptName": "GPOBadShortcut",
+  "ShortName": "SI000189",
+  "Description": "This indicator looks for shortcuts within Group Policy Objects (GPOs) that are writable by low privilege users. GPOs are a powerful feature in Windows domains that are used to manage various settings and configurations for multiple computers and users. Shortcuts are links to files or applications that can be deployed using GPOs. When low privilege users have the ability to modify these shortcuts, it could potentially lead to security risks and unauthorized modifications. This indicator helps organizations to identify such misconfigurations and take appropriate actions.",
+  "CategoryId": "4",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>Changing a shortcut within a GPO, allows an attacker to perform the following:</p>\n            <ul>\n              <li>Unauthorized Modifications - Low privilege users could make unauthorized changes to the files, compromising their integrity and potentially causing unintended behavior or security vulnerabilities.</li>\n              <li>Malicious Content Execution - If the files are replaced with malicious content, all users running them could unknowingly execute malicious code, leading to system compromise or unauthorized access to sensitive information.</li>\n            <li>System Instability - Unauthorized modifications to files can result in system instability, causing application errors, data corruption, or system crashes.</li>\n            <li>Compliance and Legal Consequences - If the affected files are critical for compliance or legal requirements, unauthorized modifications may lead to non-compliance, financial losses, reputational damage, or legal repercussions.</li>\n            </ul>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Lateral Movement"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Detect - Script Execution Analysis",
+        "Detect - File Creation Analysis"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "2.5",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "FilePath",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ShortCutPath",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ShortCutName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Result",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UsersWithPrivOnFile",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UsersWithPrivOnFolder",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Policy",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "policyName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PolicyStatus",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LinkedOUs",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PolicyFile",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} writable shortcuts in GPOs that could be modified by low privilege users.",
+  "Remediation": "It is crucial to review and adjust permissions on the identified writable shortcuts to ensure that only authorized users have the right access to them.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

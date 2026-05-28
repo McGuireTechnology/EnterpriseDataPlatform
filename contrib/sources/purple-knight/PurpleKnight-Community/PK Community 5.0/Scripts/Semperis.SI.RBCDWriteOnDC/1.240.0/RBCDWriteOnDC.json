@@ -1,0 +1,80 @@
+﻿{
+  "Id": 79,
+  "UUID": "af90ba77-f497-479a-aa57-ed106191e302",
+  "Version": "1.240.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Write access to RBCD on DC",
+  "ScriptName": "RBCDWriteOnDC",
+  "ShortName": "SI000079",
+  "Description": "This indicator looks for Write access on RBCD for Domain Controllers to users who are not in Domain Admins, Enterprise Admins and Built-in Admins groups.",
+  "CategoryId": "5",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "This setting enables configuring RBCD on Domain Controllers. An attacker that is able to gain Write access to RBCD for a resource can cause that resource to impersonate any user (except where delegation is explicitly disallowed). Write on RBCD is always a high privilege, but when it is on a DC, the impact is substantial as an attacker can delegate to a controlled resource as a privileged user and abuse the DC services.",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Credential Access"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MinVersion": "1.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MaxVersion": "3.0"
+    },
+    {
+      "MinVersion": "3.5",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MaxVersion": "10"
+    },
+    {
+      "MinVersion": "1.4",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MaxVersion": "10"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Access",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} DCs on which the listed principals can write to their msds-AllowedToActOnBehalfOfOtherIdentity attribute.",
+  "Remediation": "For each DC listed, ensure that the principals who can set resource-based constrained delegation are valid.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

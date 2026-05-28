@@ -1,0 +1,95 @@
+﻿{
+  "Id": 136,
+  "UUID": "edeb01fd-375d-4046-9be4-c443d178872c",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Conditional Access policies that contain MFA Trusted IPs",
+  "ScriptName": "AAD_CheckLegacyMFA",
+  "ShortName": "SI000136",
+  "Description": "<p>This indicator checks if any enabled Conditional Access policies contain references to MFA Trusted IPs.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Policy.Read.All</li>\n        <li>AuditLog.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>MFA Trusted IPs is a legacy mechanism originally designed for specifying IP addresses to exclude from per-user MFA. Conditional Access policies also have the ability to refer to these IP address ranges as <em>Multifactor authentication trusted IPs</em> in the Locations condition. Newer security mechanisms, like Continuous Access Evaluation (CAE), help enforce Conditional Access policies that are location-based by IP address or range. Continuous Access Evaluation is not capable of using IP ranges specified in MFA Trusted IPs.</p>\n      <p>An organizations using MFA Trusted IPs may see behavior of Conditional Access policies and Continuous Access Evaluation working as intended, the security posture of target users being lower than expected, and prone to a larger surface area of attack.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-continuous-access-evaluation#supported-location-policies\" target=\"_blank\">Continuous access evaluation in Microsoft Entra ID - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-assignment-network#multifactor-authentication-trusted-ips\" target=\"_blank\">Network in Conditional Access policy - Microsoft Entra ID | Microsoft Learn</a></p>\n       <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/authentication/howto-mfa-mfasettings#trusted-ips\" target=\"_blank\">Configure Microsoft Entra multifactor authentication - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Defense Evasion"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "ConditionalPolicyName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ConditionalPolicyId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LocationName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LocationUsage",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All",
+    "AAD.GraphAPI/AuditLog.Read.All"
+  ],
+  "ResultMessage": "There are Conditional Access policies referencing legacy MFA Trusted IPs.",
+  "Remediation": "<p>IP addresses and ranges in <b>Multifactor authentication trusted IPs</b> should be creates as a Named location to be used by the impacted Conditional Access policies.</p>\n      <p>To configure, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_ConditionalAccess/ConditionalAccessBlade/%7E/NamedLocations/fromNav/\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Protection</b>, expand <b>Conditional Access</b>, and select <b>Named locations</b>.</p>\n      <p>To view existing trusted IPs, select the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/MultifactorAuthenticationConfig.ReactView\" target=\"_blank\">Configure multifactor authentication trusted IPs</a> (direct link) link on the upper portion of the right blade, then click on Service settings. A new named location should be created containing the same ranges.</p>\n      <p><b>Creation and deployment of Conditional Access policies can negatively impact users if not tested. Organizations need to ensure that policies are tested before broad deployment.</b></p>\n      <p><b>Organizations that are using AD FS with Entra Multifactor authentication, per-user MFA, or Entra MFA server may need to retain their trusted IP settings.</b></p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

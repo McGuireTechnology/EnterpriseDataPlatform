@@ -1,0 +1,107 @@
+﻿{
+  "Id": 237,
+  "UUID": "5e9faa14-dd01-4722-b1ed-dd7b5a2ecf46",
+  "Version": "1.291.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Unresolved Entra ID privileged role members",
+  "ScriptName": "EID_UnresolvedPrivilegedUsers",
+  "ShortName": "SI000237",
+  "Description": "<p>This indicator identifies privileged role assignments where the member cannot be found, either due to deleted eligible users or GDAP partner relationships.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>RoleManagement.Read.All</li>\n        <li>Directory.Read.All</li>\n      </ul>",
+  "CategoryId": "6",
+  "Weight": 2,
+  "Severity": "Informational",
+  "Schedule": "1d",
+  "Impact": 2,
+  "LikelihoodOfCompromise": "<p>When privileged role members cannot be found, it can indicate either deleted eligible users or hidden GDAP partner relationships. Deleted eligible users that remain in role assignments can create confusion and complicate role management. GDAP partner relationships, while legitimate, need to be properly tracked and managed to maintain security oversight.</p>\n      <p>Regular auditing of these situations is important to maintain clear visibility of who has access to privileged roles in your environment.</p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Initial Access"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MaxVersion": "3.0",
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "DisplayName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ObjectId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ObjectType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Role",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "AssignmentType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/RoleManagement.Read.All",
+    "AAD.GraphAPI/Directory.Read.All"
+  ],
+  "ResultMessage": "Found {0} privileged role assignments where the member could not be found.",
+  "Remediation": "<p>To address ununresolved privileged role members, follow these steps based on the scenario:</p>\n      <p>For Deleted Users:</p>\n      <ol>\n        <li>Navigate to the Microsoft Entra admin center</li>\n        <li>Use the provided UserPrincipalName and DisplayName to search in the Users blade</li>\n        <li>If confirmed as deleted, remove their role eligibility through PIM</li></ol>\n        <p>For GDAP Partner Relationships:</p>\n        <ol>\n          <li>Access the <a href=\"https://admin.microsoft.com/Adminportal/Home?#/partners\" target=\"_blank\">Microsoft Admin Center</a> (direct link)</li>\n          <li>Review all partner relationships and their associated role assignments</li><li>Verify that each partner relationship is legitimate and necessary</li>\n          </ol>\n          <p>Note: GDAP relationships cannot be viewed through Graph API from the managed tenant, but are visible in the admin portal to Global Administrators</p><p>Regular review of both scenarios is recommended as part of your security governance process.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

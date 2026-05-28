@@ -1,0 +1,99 @@
+﻿{
+  "Id": 108,
+  "UUID": "ffa8305f-ff2e-4196-b980-8d7cafce849d",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Dangerous Trust Attribute Set",
+  "ScriptName": "DangerousTrustAttributeSet",
+  "ShortName": "SI000108",
+  "Description": "This indicator identifies trusts set with either TRUST_ATTRIBUTE_CROSS_ORGANIZATION_ENABLE_TGT_DELEGATION or TRUST_ATTRIBUTE_PIM_TRUST. These bits will either allow a kerberos ticket to be delegated or reduce the protection that SID Filtering provides.",
+  "CategoryId": "3",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>An attacker that has compromised a remote domain can spoof any user or machine in the local domain. This can allow the attacker to access any resource as well as escalate their privileges, thus compromising the entire forest.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_trusts_domain_notfiltered\" target=\"_blank\">Unfiltered outbound domain trust relationship | ANSSI</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_trusts_tgt_deleg\" target=\"_blank\">Inbound trust relationships with delegation | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Domain Trust Policy"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln1_trusts_domain_notfiltered",
+        "vuln3_trusts_tgt_deleg"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "TrustName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "DangerousSetting",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "DomainName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} domains with dangerous trust attribute settings.",
+  "Remediation": "Confirm that the trust attributes are configured as desired.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

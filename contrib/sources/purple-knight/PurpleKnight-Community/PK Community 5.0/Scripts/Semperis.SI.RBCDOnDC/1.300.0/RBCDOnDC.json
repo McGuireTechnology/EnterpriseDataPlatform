@@ -1,0 +1,94 @@
+﻿{
+  "Id": 66,
+  "UUID": "6df6c2ee-a77b-411b-8540-4357e5d0a1fb",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Domain Controllers with Resource-Based Constrained Delegation (RBCD) enabled",
+  "ScriptName": "RBCDOnDC",
+  "ShortName": "SI000066",
+  "Description": "This indicator detects a configuration that grants certain accounts with complete delegation to domain controllers. Delegations towards privileged resources such as DCs should be avoided. Resource-based constrained delegation is configured on the target resource, as opposed to other delegation types that are configured on the accounts accessing the resource.",
+  "CategoryId": "5",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>An attacker needs to know the Service Principal Name (SPN) of the object they want to delegate, as well as be able to populate the msDS-AllowedToActOnBehalfOfOtherIdentity attribute with a computer account that they control. This is sometimes possible when unprivileged users are by default allowed to create computer accounts (MachineAccountQuota) and write the attribute to the target computer.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_delegation_sourcedeleg\" target=\"_blank\">Resource-based constrained delegation on domain controllers | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Defense Evasion",
+        "Lateral Movement",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln1_delegation_sourcedeleg"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "PrincipalsAllowedToDelegate",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} Domain Controller objects with Resource Based Constrained Delegation configured.",
+  "Remediation": "Ensure that the msDS-AllowedToActOnBehalfOfOtherIdentity attribute on any DC is empty - this is the normal state for a DC.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

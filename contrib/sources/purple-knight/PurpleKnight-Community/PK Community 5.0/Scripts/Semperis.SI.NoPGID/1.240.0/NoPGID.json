@@ -1,0 +1,86 @@
+﻿{
+  "Id": 78,
+  "UUID": "f7659564-5968-4ea6-acb2-ce5abd47d8f6",
+  "Version": "1.240.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Users and computers without readable PGID",
+  "ScriptName": "NoPGID",
+  "ShortName": "SI000078",
+  "Description": "This indicator finds users and computers for whom it can't read the PGID. This may be due to the default permission of Read access having been removed, which could indicate an attempt to hide the user (in combination with removal of the memberOf attribute).",
+  "CategoryId": "2",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "Can be used for hiding users in certain groups (non SDProp protected).",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Defense Evasion"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MinVersion": "1.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MaxVersion": "3.0"
+    },
+    {
+      "MinVersion": "3.5",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MaxVersion": "10"
+    },
+    {
+      "MinVersion": "1.4",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MaxVersion": "10"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} objects whose Primary Group ID cannot be queried.",
+  "Remediation": "Ensure that these objects are known and legitimate and check their nTSecurityDescriptor to see if some ACE is causing the Primary Group ID attribute to be unreadable.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

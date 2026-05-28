@@ -1,0 +1,87 @@
+﻿{
+  "Id": 69,
+  "UUID": "fce4fe73-2676-4c3c-bf7e-97529ca7d118",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Domain Controllers in inconsistent state",
+  "ScriptName": "DomainControllerInconsistent",
+  "ShortName": "SI000069",
+  "Description": "<p>This indicator looks for Domain Controllers that may be in an inconsistent state, indicating a possible rogue or otherwise non-functional DC. DCs in a consistent state are characterized by the following:</p>\n      <ol>\n        <li>UserAccountControl attribute on the DC machine object has the SERVER_TRUST_ACCOUNT flag set.</li> \n        <li>A corresponding object of type server exists for the DC in the configuration partition.</li>\n        <li>That server object must have a child NTDS Settings object of type nTDSDSA.</Description></li>\n        </ol>",
+  "CategoryId": "3",
+  "Weight": 3,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 3,
+  "LikelihoodOfCompromise": "<p>Illegitimate machines acting as DCs could indicate someone has compromised the environment (e.g. using DCShadow or similar DC spoofing attacks). At the very least, partially functional legitimate DCs could represent a security risk if they are compromised.</p>\n      <h3>References</h3>\n     <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_dc_inconsistent_uac\" target=\"_blank\">Domain controllers in inconsistent state | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Resource Development"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln1_dc_inconsistent_uac"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Error",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} Domain Controllers that are in an inconsistent state",
+  "Remediation": "Ensure that all DCs within your environment are healthy and functional. It is not uncommon for attackers to attempt to stand up \"fake\" DCs; however, these DCs are generally distinguishable from real DCs by the metadata found by this security indicator.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

@@ -1,0 +1,102 @@
+﻿{
+  "Id": 112,
+  "UUID": "b7f86499-830c-445d-bca9-4d289fc8dc89",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Guest accounts that were inactive for more than 30 days",
+  "ScriptName": "AAD_InactiveGuests",
+  "ShortName": "SI000112",
+  "Description": "<p>This indicator checks for Guest accounts that have not signed in, using an interactive or non-interactive sign in, in the past 30 days.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>User.Read.All</li>\n        <li>AuditLog.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>Guests are a feature of Entra ID that allows for business-to-business (B2B) collaboration with users external to your organization. Commonly used for Microsoft 365 and application sharing with partners, vendors, contractors, and other users who collaborate with the organization but are not employees, a guest user will be represented in the organizations Entra tenant.</p>\n      <p>Guest users are not members of the organization, they have a different risk profile, and are considered less trusted due to the organization not having full control over and insight into the user object and the devices they come from. Because of the nature of guests, they might become <em>stale</em>, that is, their guest account is no longer used or needed in the Entra tenant.</p>\n      <p>Unused guest accounts should be cleaned up in an Entra tenant, to ensure that an attacker cannot compromise the guest and access resources in the tenant.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/users/clean-up-stale-guest-accounts\" target=\"_blank\">Monitor and clean up stale guest accounts - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Persistence",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "UserId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Mail",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastSignIn",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastNonInteractiveSignIn",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/User.Read.All",
+    "AAD.GraphAPI/AuditLog.Read.All"
+  ],
+  "ResultMessage": "Found {0} Guests that are inactive for more than 30 days",
+  "Remediation": "<p>Review the guest users indicated in the results, and determine if the guest objects should be deleted from Entra ID. If the guest object needs to be kept for infrequent use, the object can alternatively be disabled, and then re-enabled when the guest needs access again.</p>\n      <p>If licensed for Entra Identity Governance, organizations can leverage inactive guest insights and configure multi-stage guest reviews in Identity Governance, building a robust lifecycle around guest user objects.</p>\n      <p>To review guest users, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/%7E/UserSettings/menuId/UserSettings\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>Users</b>, and select <b>All users</b>.</p>\n      <p>In the blade on the right, search for the guest object identified. Select the guest user. In the user properties, select <b>Delete</b> towards the top on the right blade to delete the user.</p>\n      <p>If you want to disable the user, under <b>Account status</b>, select <b>Edit</b>, and in the new blade that opens uncheck <b>Account enabled</b>. Select <b>Save</b> at the bottom.</p>\n      <p><b>Deleting active guest users objects in Entra ID will negatively impact the users ability to access resources</b>.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

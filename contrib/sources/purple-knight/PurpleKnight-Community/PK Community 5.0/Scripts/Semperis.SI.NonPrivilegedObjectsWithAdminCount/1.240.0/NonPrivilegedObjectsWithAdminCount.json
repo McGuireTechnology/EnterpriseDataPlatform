@@ -1,0 +1,92 @@
+﻿{
+  "Id": 34,
+  "UUID": "e08bbf6a-b17e-4417-a9cd-8f4b7b6210f9",
+  "Version": "1.240.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Unprivileged accounts with adminCount=1",
+  "ScriptName": "NonPrivilegedObjectsWithAdminCount",
+  "ShortName": "SI000034",
+  "Description": "This indicator looks for any users or groups that may have been under the control of SDProp (adminCount=1) but are no longer members of privileged groups and should not be considered privileged.",
+  "CategoryId": "2",
+  "Weight": 3,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 3,
+  "LikelihoodOfCompromise": "The most common scenario for this behavior is if a user is moved from a privileged group to a non-privileged one and their adminCount variable is not reset. While this is benign, it may cause issues for security controls that monitor privileged users and reduces the overall hygiene of the environment. In rare cases, this might also be evidence of an attacker that attempted to cover their tracks and remove a user they used for compromise.",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MinVersion": "1.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MaxVersion": "3.0"
+    },
+    {
+      "MinVersion": "3.5",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MaxVersion": "10"
+    },
+    {
+      "MinVersion": "1.4",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MaxVersion": "10"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Type",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} objects with adminCount=1 that are not members of a privileged group.",
+  "Remediation": "Remove the adminCount = 1 attribute from these users. Investigate unknown users with this attribute.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

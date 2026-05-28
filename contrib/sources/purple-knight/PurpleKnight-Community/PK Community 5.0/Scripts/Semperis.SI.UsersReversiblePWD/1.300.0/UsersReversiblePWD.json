@@ -1,0 +1,117 @@
+﻿{
+  "Id": 76,
+  "UUID": "2c62cbf1-ebdb-4ac4-9c5c-6507a15fd9e2",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "User accounts that store passwords with reversible encryption",
+  "ScriptName": "UsersReversiblePWD",
+  "ShortName": "SI000076",
+  "Description": "This indicator looks for user accounts with the ENCRYPTED_TEXT_PWD_ALLOWED flag enabled. The secure way of storing passwords is by utilizing one-way encryption where it is mathematically impossible to derive the original password from the ciphertext. This setting encrypts the source password such that it is possible to derive the original. This setting is used when an application or service utilizes authentication protocols that require the original password, e.g. CHAP or IAS.",
+  "CategoryId": "2",
+  "Weight": 4,
+  "Severity": "Informational",
+  "Schedule": "3d",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>Attackers may be able to derive these users' passwords from the ciphertext and take over these accounts.</p>\n      <h3>References</h3>\n      <p><a href=\"https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63-3.pdf\" target=\"_blank\">NIST.SP.800-63-3</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_reversible_password\" target=\"_blank\">Accounts with passwords stored using reversible encryption | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Strong Password Policy"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln3_reversible_password"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "SamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UserAccountControl",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ManagedBy",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastChanged",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Created",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} users with ENCRYPTED_TEXT_PWD_ALLOWED flag set on their User Account Control value.",
+  "Remediation": "This flag represents a potential weakness in user accounts, which if left in place, could make these accounts targets of takeover attacks. It is strongly advised to disable reversible encryption if no service explicitly requires it. If the flag is required, ensure that these accounts have the least privileges possible and are closely monitored.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

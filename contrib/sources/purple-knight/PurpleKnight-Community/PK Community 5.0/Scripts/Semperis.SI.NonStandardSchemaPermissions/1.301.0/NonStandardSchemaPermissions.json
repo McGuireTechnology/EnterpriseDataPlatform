@@ -1,0 +1,106 @@
+﻿{
+  "Id": 81,
+  "UUID": "96995af9-8efb-46d4-b0f3-dfcfac74aaae",
+  "Version": "1.301.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Non-standard schema permissions",
+  "ScriptName": "NonStandardSchemaPermissions",
+  "ShortName": "SI000081",
+  "Description": "This indicator looks for additional  principals with any permissions beyond generic Read to the schema partitions.Schema is one of three main Active Directory naming context. It contains every object attribute definitions of the forest.",
+  "CategoryId": "3",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>By default, modification permissions on schema are limited to Schema Admins. These permissions grant the trusted Principal complete control over Active Directory.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_permissions_schema\" target=\"_blank\">Dangerous ACLs expose schema objects (attack path) | vuln_permissions_schema | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln1_permissions_schema",
+        "vuln2_permissions_schema"
+      ],
+      "Name": "ANSSI"
+    },
+    {
+      "Tags": [
+        "Harden - System Configuration Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Identity",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Access",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} non default ACEs on the schema.",
+  "Remediation": "It is recommended to revert schema permissions to default state. See indicator description for additional info and link.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

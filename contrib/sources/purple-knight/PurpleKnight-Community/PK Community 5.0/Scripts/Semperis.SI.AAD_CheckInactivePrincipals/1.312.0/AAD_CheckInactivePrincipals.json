@@ -1,0 +1,114 @@
+﻿{
+  "Id": 208,
+  "UUID": "47bfb163-2e5d-42c8-9218-0b1e9609d0f6",
+  "Version": "1.312.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Users or devices inactive for at least 90 days",
+  "ScriptName": "AAD_CheckInactivePrincipals",
+  "ShortName": "SI000208",
+  "Description": "<p>This indicator checks for users or devices that have not signed in to Entra ID in the past 90 days.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Device.Read.All</li>\n        <li>User.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>As part of an identity governance process and lifecycle, organizations should evaluate users and devices that have been inactive for 90 days or more, as it may be likely that the user or device is &quot;stale&quot; and no longer in use.</p>\n      <p>Inactive users many times still have access to all the corporate data and systems associated with their role. An attacker may target inactive users to compromise their account, and then exfiltrate data, perform reconnaissance, move laterally, and abuse the users mailbox for actions such as business email compromise. As inactive users are not regularly monitored by the business units associated with their job function, these actions may go unnoticed by the organization.</p>\n      <h3>References</h3><p><a href=\"https://learn.microsoft.com/en-us/entra/identity/monitoring-health/howto-manage-inactive-user-accounts\" target=\"_blank\">How to manage inactive user accounts - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/devices/manage-stale-devices\" target=\"_blank\">How to manage stale devices in Microsoft Entra ID - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final\" target=\"_blank\">NIST SP 800-53 Rev 5</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Persistence",
+        "Privilege Escalation"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.6"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.5"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [
+    {
+      "Name": "IntervalInDays",
+      "Type": "Integer",
+      "Description": "Inactivity analysis interval (in days). Default: 90"
+    }
+  ],
+  "OutputFields": [
+    {
+      "Name": "PrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "PrincipalType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "OperatingSystem",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ObjectId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastSignIn",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Created",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/User.Read.All",
+    "AAD.GraphAPI/Device.Read.All"
+  ],
+  "ResultMessage": "Found {0} users or devices that have been inactive for more than 90 days",
+  "Remediation": "<p>Evaluate the indicated inactive users and devices for management as per your organizational policy.</p>\n      <p>If the organization does not have a policy defining account management, NIST SP 800-53 Rev 5 covers account lifecycle controls under AC-2 (3).</p>\n      <p>Indicated user objects can be found under the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/%7E/AllUsers/menuId/\" target=\"_blank\">Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>Users</b>, and select <b>All users</b>. You can search for the impacted users in the right blade.</p>\n      <p>Indicated user objects can be found under the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_Devices/DevicesMenuBlade/%7E/Devices/menuId/Devices\" target=\"_blank\">Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>Devices</b>, and select <b>All devices</b>. You can search for the impacted users in the right blade.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

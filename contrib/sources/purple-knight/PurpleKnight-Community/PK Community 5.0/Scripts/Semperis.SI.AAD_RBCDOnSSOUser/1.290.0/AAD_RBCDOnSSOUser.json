@@ -1,0 +1,80 @@
+﻿{
+  "Id": 114,
+  "UUID": "3d6ff5b6-8d01-46b9-a261-7f5ab0c3b306",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Resource Based Constrained Delegation applied to AZUREADSSOACC account",
+  "ScriptName": "AAD_RBCDOnSSOUser",
+  "ShortName": "SI000114",
+  "Description": "This indicator looks for Resource Based Constrained Delegation configured on the Entra Seamless SSO account.",
+  "CategoryId": "7",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>When configuring Entra Seamless SSO, a computer account is created in Active Directory, AZUREADSSOACC. This computer account is used by Entra ID to decrypt Kerberos tickets that are used as part of the seamless SSO mechanism between Active Directory and Entra ID. If resource-based constrained delegation is configured on the AZUREADSSOACC computer account, an account with the delegation would be able to generate Ticket Granting Service (TGS) requests to Entra ID on behalf of the AZUREADSSOACC account, and impersonate any user in the Entra tenant that is synchronized from Active Directory.</p>\n      <p>An attacker can use this method to move laterally from Active Directory into Entra ID.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sso#sso-via-primary-refresh-token-vs-seamless-sso\" target=\"_blank\">Microsoft Entra Connect: Seamless single sign-on - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/hybrid/connect/how-to-connect-sso-how-it-works#how-does-set-up-work\" target=\"_blank\">Microsoft Entra Connect: Seamless Single Sign-On - How it works - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Lateral Movement",
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PrincipalsAllowedToDelegate",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD",
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} Domain(s) with Resource Based Constrained Delegation configured on AZUREADSSOACC account.",
+  "Remediation": "<p>Clear the msDS-AllowedToActOnBehalfOfOtherIdentity attribute on the AZUREADSSOACC computer account.</p>\n      <p>There is no functional reason to allow resource-based constrained delegation on this computer account.</p><br /><p>To remove, run the following PowerShell command against the computer account:</p><br /><p>Set-ADComputer -Identity AZUREADSSOACC$ -Clear &quot;msDS-AllowedToActOnBehalfOfOtherIdentity&quot;</p>\n      <p>Organizations should also investigate the necessity for Entra Seamless SSO. If devices are configured for hybrid join, Seamless SSO is not used. Refer to the reference Microsoft article for more information about SSO with a primary refresh token (PRT) vs. the Seamless SSO system.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

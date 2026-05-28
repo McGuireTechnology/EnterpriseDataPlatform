@@ -1,0 +1,88 @@
+﻿{
+  "Id": 35,
+  "UUID": "9f532969-6a43-40a5-9035-f4f2e9cf9e88",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Changes to MS LAPS read permissions",
+  "ScriptName": "ObjectsWithLapsRead",
+  "ShortName": "SI000035",
+  "Description": "This indicator looks for permissions on computer accounts that could allow inadvertent exposure of local administrator accounts in environments that use the Microsoft LAPS solution. These permissions include Read access to ms-Mcs-AdmPwd as well as Write DACL and Owner (which would allow provisioning the read access). LAPS provides a method to rotate local administrator account passwords on servers and workstations.",
+  "CategoryId": "1",
+  "Weight": 3,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 3,
+  "LikelihoodOfCompromise": "<p>Only authorized administrative users should have access to LAPS passwords. Attackers may use this capability to laterally move through a domain using local compromised administrator accounts.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.microsoft.com/en-us/download/details.aspx?id=46899\" target=\"_blank\">Local Administrator Password Solution (LAPS)</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access",
+        "Lateral Movement"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - User Account Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Access",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} computers on which some normal users can read their LAPS password.",
+  "Remediation": "Ensure that there are no unnecessary principals who can read computer administrator account passwords via Extended Rights on the ms-Mcs-AdmPwd attribute.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

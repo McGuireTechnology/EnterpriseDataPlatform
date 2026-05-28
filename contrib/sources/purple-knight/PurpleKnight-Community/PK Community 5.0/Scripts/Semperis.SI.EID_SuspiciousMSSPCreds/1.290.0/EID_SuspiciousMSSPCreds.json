@@ -1,0 +1,108 @@
+﻿{
+  "Id": 700,
+  "UUID": "9eccc815-24b8-48d9-b86b-c9a5c12b66ef",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Suspicious credentials on Microsoft service principals",
+  "ScriptName": "EID_SuspiciousMSSPCreds",
+  "ShortName": "SI000700",
+  "Description": "<p>This indicator checks if certain Microsoft service principals have secrets assigned to them.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Application.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 10,
+  "Severity": "Critical",
+  "Schedule": "1d",
+  "Impact": 10,
+  "LikelihoodOfCompromise": "<p>In Entra ID it is possible to assign credentials such as secrets or keys to service principals for Microsoft applications. In certain scenarios, this would then allow you to act with the same rights the application has using OAuth 2.0 client credential grant flows against Microsoft Graph API.</p>\n      <p>Through Semperis research, it was discovered that select Microsoft service principals had unexposed, or hidden, permissions that would have allowed for unexpected privileges, including the ability to manage roles such as Global Administrator. An attacker, if they knew of this finding, could have used these permissions to elevate privilege and further implement methods of persistence within the Entra tenant. The full scope of the findings and the attack vector can be found in the associated Semperis reference article.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.semperis.com/blog/unoauthorized-privilege-elevation-through-microsoft-applications/\" target=\"_blank\">UnOAuthorized: Privilege elevation through Microsoft applications (semperis.com)</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Persistence",
+        "Defense Evasion"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "2.1",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "ApplicationName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ObjectId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "CredentialType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "keyID",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "StartDate",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ExpirationDate",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Application.Read.All"
+  ],
+  "ResultMessage": "Found {0} suspicious credentials in Entra ID.",
+  "Remediation": "<p>Suspicious credentials have been detected on a Microsoft service principal.</p>\n      <p>The credentials are no longer valid as Microsoft has fixed the underlying issue in Entra ID. The Entra tenant should still be audited, as there is no known or valid reason to have ever had credentials assigned to the discovered service principal.</p>\n      <p>Organizations should investigate any audit log data available in their SIEM to look for any actions performed by the discovered service principal, as well as details on the user that assigned the credential to the service principal.</p>\n      <p>Organizations should treat the finding with concern, in particular for Device Registration Service. The UnOAuthorized abuse of Device Registration Service allowed for role management in Entra ID, including highly privileged roles such as Global Administrator.</p>\n      <p>For full details on the attack, please refer to the Semperis article in references.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

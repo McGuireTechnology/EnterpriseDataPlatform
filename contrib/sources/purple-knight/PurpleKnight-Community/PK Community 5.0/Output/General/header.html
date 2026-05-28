@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .print-header {
+            background-color: #000;
+            height:130px;
+        }
+    </style>
+    <script>
+
+        function showHeader() {
+            var vars = {};
+            var x = document.location.search.substring(1).split('&');
+            for (var i in x) {
+                var z = x[i].split('=', 2);
+                vars[z[0]] = decodeURIComponent(z[1]);
+            }
+
+            if (vars["page"] <= 1) {
+                document.getElementById('header').style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body >
+</body>
+</html>

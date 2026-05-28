@@ -1,0 +1,107 @@
+﻿{
+  "Id": 170,
+  "UUID": "0fe1c7ee-8406-4362-84dc-aa71ba3a9508",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Conditional Access policies contain private IP addresses",
+  "ScriptName": "AAD_CheckConditionalPrivateAddress",
+  "ShortName": "SI000170",
+  "Description": "<p>This indicator checks if any named locations contains private IP addresses and are assigned to enabled Conditional Access policies.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Policy.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>Named locations should define public egress IP addresses or ranges, as Entra ID will see the public address of a user when evaluating Conditional Access policies.</p>\n      <p>If a private IP address or range is defined in a named location, it may result in the associated Conditional Access policies not operating as intended. Depending on how the policy is defined, it may present a security posture lower than intended.</p>\n      <p>The attack surface would be specific to the intention of the impacted Conditional Access policy.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/conditional-access/concept-assignment-network#user-ip-address\" target=\"_blank\">Using networks and countries/regions in Microsoft Entra ID - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Initial Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "2.1",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "ConditionalPolicyName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ConditionalPolicyId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LocationName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LocationId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LocationUsage",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LocationRange",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All",
+    "AAD.GraphAPI/AuditLog.Read.All"
+  ],
+  "ResultMessage": "There are Conditional Access policies referencing named locations containing private IP Addresses. These private addresses will not be considered while access is determined.",
+  "Remediation": "<p>Review the impacted Conditional Access policy, and verify the policy conditions are working as expected.</p>\n      <p>If the policy is working as expected, the Named location should be removed from the policy, as private IP addresses or ranges are not used in Conditional Access evaluation.</p>\n      <p>If the policy is not working as expected and is designed to evaluate based on network location, the Named location should be changed to reflect the egress IP addresses or ranges.</p>\n      <p><b>Organizations must ensure that all Conditional Access policy changes are documented and verify that they do not cause unintended negative impact</b></p>\n      <p>Named locations can be reviewed in the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_ConditionalAccess/ConditionalAccessBlade/%7E/NamedLocations/fromNav/\" target=\"_blank\">Entra admin center</a> (direct link). To browse to them, on the left menu, expand <b>Protection</b> and then expand <b>Conditional Access</b>. In the blade on the right, select <b>Named locations</b>.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

@@ -1,0 +1,104 @@
+﻿{
+  "Id": 235,
+  "UUID": "1ab76648-ae7d-4431-80a8-93437401b772",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Certificate-Based Authentication Persistence",
+  "ScriptName": "AAD_CBAPersistence",
+  "ShortName": "SI000235",
+  "Description": "<p>This indicator looks for the presence of specific Entra ID Microsoft Graph app roles and permissions that, when combined, can enable a user to establish persistence through certificate-based authentication (CBA).</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>RoleManagement.Read.Directory</li>\n        <li>RoleManagement.Read.All</li>\n        <li>Directory.Read.All</li>\n        <li>Application.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>If an attacker is able to gain access to an Account with Authentication Policy Administrator role or an application with a combination of <em>Policy.ReadWrite.AuthenticationMethod</em> and <em>Organization.ReadWrite.All</em> permissions, they can log into Entra ID as any user, even a Global Administrator.</p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Persistence",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "ObjectName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ObjectId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "RoleDefinitionId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Type",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ObjectType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/RoleManagement.Read.Directory",
+    "AAD.GraphAPI/RoleManagement.Read.All",
+    "AAD.GraphAPI/Directory.Read.All",
+    "AAD.GraphAPI/Application.Read.All"
+  ],
+  "ResultMessage": "Found {0} principals with at least one of the required permissions to be able to persist using CBA.",
+  "Remediation": "<p>To mitigate the risk associated with Certificate-based authentication (CBA) persistence, it is recommended that the organization review and evaluate the necessity of the permissions and role assignments that can be leveraged for a CBA attack.</p>\n      <p>Limit the assignment of the following permissions only to trusted apps that need the ability to add a Root CA if CBA is enabled:</p>\n      <ul>\n        <li>Authentication Policy Administrator</li>\n        <li>Application with Policy.ReadWrite.AuthenticationMethod and Organization.ReadWrite.All permissions</li>\n       </ul> \n      <p>Remove the following roles and permissions from any account that does not require them for operational purposes:</p>\n      <ul>\n        <li>Privileged Role Administrator</li>\n        <li>Privileged Authentication Administrator</li>\n        <li>RoleManagement.ReadWrite.Directory</li>\n        <li>AppRoleAssignment.ReadWrite.All</li>\n        </ul>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

@@ -1,0 +1,103 @@
+﻿{
+  "Id": 219,
+  "UUID": "c687bf2a-e2b6-4a8e-8651-c0f7c79a4338",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "More than 10 Privileged Administrators exist",
+  "ScriptName": "AAD_MoreThan10PrivilegedRoles",
+  "ShortName": "SI000219",
+  "Description": "<p>This indicator checks for the presence of 10 or more Privileged Assigned Roles.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>RoleManagement.Read.Directory</li>\n        <li>RoleManagement.Read.All</li>\n        <li>Directory.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 2,
+  "Severity": "Informational",
+  "Schedule": "7d",
+  "Impact": 2,
+  "LikelihoodOfCompromise": "<p>Users that hold the a privileged assigned role are one of the most privileged users in Entra ID. Organizations should limit the number of privileged roles to less than ten.</p>\n      <p>An attacker will find users with the privileged role as high-value, and a compromised privileged role can lead to several attacks against the organization, that can include data exfiltration, lateral movement into other systems in Azure, multi-cloud, and on-premise systems, and can result in complete tenant compromise where an organization becomes locked out of their Entra tenant by the attacker.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-create-roles-and-resource-roles-review\" target=\"_blank\">Create an access review of Azure resource and Microsoft Entra roles in PIM - Microsoft Entra ID Governance | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/best-practices#6-limit-the-number-of-privileged-role-assignments-to-less-than-10\" target=\"_blank\">Best practices for Microsoft Entra roles - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/security-emergency-access\" target=\"_blank\">Manage emergency access admin accounts - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DisplayName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ObjectId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ObjectType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Roles",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "AssignmentType",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/RoleManagement.Read.Directory",
+    "AAD.GraphAPI/RoleManagement.Read.All",
+    "AAD.GraphAPI/Directory.Read.All"
+  ],
+  "ResultMessage": "Found {0} privileged roles in Azure AD.",
+  "Remediation": "<p>Review the users assigned the selected privileged role, and determine if the role assignment can be removed.</p>\n      <p>To review and manage role assignments, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/%7E/UserSettings/menuId/UserSettings\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, select <b>Show more</b>, expand <b>Roles &amp; admins</b>, and select <b>Roles &amp; admins</b>.</p>\n      <p>In the blade on the right, find the <b>privileged roles</b> role. Select each privileged role.</p>\n      <p>From this view you can remove users as necessary from the role. Organizations that have Entra ID P2 licensing available should use access reviews to manage the lifecycle of privileged users.</p>\n      <p><b>Organizations must ensure that any removal of the privileged role assignment does not impact the ability to manage their Entra tenant</b>.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

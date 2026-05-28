@@ -1,0 +1,87 @@
+﻿{
+  "Id": 106,
+  "UUID": "216596bf-333e-4f59-a3f5-8af65acbba9b",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Inheritance enabled on AdminSDHolder object",
+  "ScriptName": "AdminSDHolderInheritance",
+  "ShortName": "SI000106",
+  "Description": "<p>This indicator checks for inheritance enabled on the access control list (ACL) of the AdminSDHolder object.</p>",
+  "CategoryId": "1",
+  "Weight": 10,
+  "Severity": "Critical",
+  "Schedule": "1h",
+  "Impact": 10,
+  "LikelihoodOfCompromise": "<p>The AdminSDHolder object in Active Directory holds the permissions that will be applied to privileged groups and users, including Domain Admins. By default, permissions on privileged users are more restrictive to protect them from compromise. If an organization adjusts the permissions on the AdminSDHolder object, including enabling inheritance, they may weaken the security of these privileged users.</p>\n      <p>An attacker may discover these weaker permissions on privileged users and groups, and with a greater surface area, an attacker has a stronger chance of formulating attack paths to compromise users such as a Domain Admin, and then compromising Active Directory.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.semperis.com/resources/improving-your-active-directory-security-posture-adminsdholderto-the-rescue/\" target=\"_blank\">AdminSDHolder to improve Active Directory Security | Semperis</a></p>\n      <p><a href=\"https://www.semperis.com/blog/7-active-directory-misconfigurations-to-find-and-fix-now/\" target=\"_blank\">7 Active Directory Misconfigurations to Find and Fix-Now - Semperis</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/plan/security-best-practices/appendix-c--protected-accounts-and-groups-in-active-directory\" target=\"_blank\">Appendix C - Protected Accounts and Groups in Active Directory | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Defense Evasion",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Attribute",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastChanged",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} domains containing an AdminSDHolder container with inheritance enabled.",
+  "Remediation": "<p>In addition to <b>disabling inheritance</b> on the AdminSDHolder object, organizations should investigate the ACL on the object to ensure it aligns with their security policy. Use attack path analysis software, such as Forest Druid, to analyze attack paths to privileged users in Active Directory.</p>\n      <p>Organizations, if changing the permissions on AdminSDHolder, should have an established process in place for awareness.</p>\n      <p>Unplanned changes to AdminSDHolder should be considered <b>highly suspicious</b> and <b>must</b> be investigated further. Unplanned changes to AdminSDHolder are a <b>very strong indicator</b> of compromise of Active Directory.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

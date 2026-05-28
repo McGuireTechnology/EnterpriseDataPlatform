@@ -1,0 +1,77 @@
+﻿{
+  "Id": 207,
+  "UUID": "1a1a74a5-c9a3-44ad-b4c2-9de7c8a10043",
+  "Version": "1.291.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Non-admin users can create tenants",
+  "ScriptName": "AAD_UsersCanCreateTenants",
+  "ShortName": "SI000207",
+  "Description": "<p>This indicator checks if non-admin users are allowed to create Entra tenants.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Policy.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 0,
+  "LikelihoodOfCompromise": "<p>By default all users are allowed to create additional Entra tenants from an existing Entra tenant. When created, the user will be invited into the new Entra tenant as a guest and will have Global Administrator access within that tenant. While the new Entra tenant will not have any resources associated with it, organizations may want to limit this from a shadow IT perspective.</p>\n      <p>If users start associating resources with this tenant, and it is not managed and monitored properly, it may become an easy target for an attacker.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/fundamentals/users-default-permissions#restrict-member-users-default-permissions\" target=\"_blank\">Default user permissions - Microsoft Entra | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Initial Access",
+        "Persistence",
+        "Privilege Escalation"
+      ]
+    },
+    {
+      "Name": "MITRE D3FEND",
+      "Tags": [
+        "Model - Access Modeling"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MaxVersion": "3.0",
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All"
+  ],
+  "ResultMessage": "Non-admin users are able to create Entra tenants",
+  "Remediation": "<p>Enable <b>Restrict non-admin users from creating tenants</b> in the Entra tenant.</p>\n      <p>To enable, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/%7E/UserSettings/menuId/UserSettings\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>Users</b>, and select <b>User settings</b>.</p>\n      <p>In the blade on the right, toggle <b>Restrict non-admin users from creating tenants</b> to <b>yes</b>.</p>\n      <p>Select <b>Save</b> at the bottom of the blade.</p>\n      <p>Organizations should understand how this change impacts their users and communicate the change out according to defined business processes.</p>",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

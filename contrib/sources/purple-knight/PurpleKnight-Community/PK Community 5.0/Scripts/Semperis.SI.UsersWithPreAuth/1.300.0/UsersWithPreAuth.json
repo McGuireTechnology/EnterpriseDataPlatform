@@ -1,0 +1,81 @@
+﻿{
+  "Id": 27,
+  "UUID": "ad0f14a9-580c-4709-b8d2-c1be16b22a3e",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Users with Kerberos pre-authentication disabled",
+  "ScriptName": "UsersWithPreAuth",
+  "ShortName": "SI000027",
+  "Description": "This indicator identifies users with Kerberos pre-authentication disabled, which exposes them to potential ASREP-Roasting attacks, such as 'Kerberoasting'.",
+  "CategoryId": "2",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "3d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>If an account has Kerberos pre-authentication disabled, it makes it easier for attackers to send dummy requests to a DC to try and crack its Ticket Granting Ticket (TGT).</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/archive/technet-wiki/23559.kerberos-pre-authentication-why-it-should-not-be-disabled\" target=\"_blank\">Kerberos Pre-Authentication: Why It Should Not Be Disabled | Microsoft Learn</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_kerberos_properties_preauth_priv\" target=\"_blank\">Kerberos preauthentication disabled for privileged accounts\n | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Credential Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "vuln1_kerberos_properties_preauth_priv",
+        "vuln2_kerberos_properties_preauth"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} users with pre-authentication disabled.",
+  "Remediation": "Ensure that pre-authentication is enabled on all users if possible; if not possible, consider reducing their privileges instead.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

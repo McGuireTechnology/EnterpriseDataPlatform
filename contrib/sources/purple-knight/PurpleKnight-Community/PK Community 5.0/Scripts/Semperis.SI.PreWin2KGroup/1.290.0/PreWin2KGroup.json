@@ -1,0 +1,93 @@
+﻿{
+  "Id": 104,
+  "UUID": "c0c929cf-ab95-4d8f-975b-8193054f520b",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Changes to Pre-Windows 2000 Compatible Access Group membership",
+  "ScriptName": "PreWin2KGroup",
+  "ShortName": "SI000104",
+  "Description": "This indicator looks for changes to the built-in group \"Pre-Windows 2000 Compatible Access\". This group grants read-only access to Active Directory.",
+  "CategoryId": "2",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>As part of a layered approach to security and to ensure that non-authenticated users cannot read Active Directory, it's best to ensure this group does not contain the \"Anonymous Logon\" or \"Everyone\" groups.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.semperis.com/blog/security-risks-pre-windows-2000-compatibility-windows-2022/\" target=\"_blank\">Understanding the Risks of Pre-Windows 2000 Compatible Access Settings | Semperis blog</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Member",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Operation",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} changes to Pre-Windows 2000 Compatible Access group.",
+  "Remediation": "Confirm that any addition or removals from Pre-Windows 2000 Compatible Access group are valid and properly accounted for.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

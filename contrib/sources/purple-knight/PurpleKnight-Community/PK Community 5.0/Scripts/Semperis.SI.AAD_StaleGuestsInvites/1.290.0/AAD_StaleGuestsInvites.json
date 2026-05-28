@@ -1,0 +1,101 @@
+﻿{
+  "Id": 165,
+  "UUID": "4c4029ed-2fdd-46c8-8d96-eebefd2d9799",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Guest invites not accepted in last 30 day",
+  "ScriptName": "AAD_StaleGuestsInvites",
+  "ShortName": "SI000165",
+  "Description": "<p>This indicator checks for guest invites that were not redeemed within 30 days of the invitation.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>User.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 2,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 2,
+  "LikelihoodOfCompromise": "<p>Guests are a feature of Entra ID that allows for business-to-business (B2B) collaboration with users external to your organization. Commonly used for Microsoft 365 and application sharing with partners, vendors, contractors, and other users who collaborate with the organization but are not employees, a guest user will be represented in the organizations Entra tenant. Guest users are not members of the organization, have a different risk profile, and are considered less trusted due to the organization not having full control over and insight into the user object and the devices they come from. Unused guest invitations can result in excessive permissions on resources, however, there are also legitimate reasons guests may exist in a tenant without redeeming an invite.</p>\n      <p>An attacker may target a guest account for compromise, and access the associated resources that the guest was assigned permission to.</p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Persistence",
+        "Initial Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "UserId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Mail",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Created",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ExternalUserStateChangedDateTime",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/User.Read.All"
+  ],
+  "ResultMessage": "Found {0} Guest invitations that were not accepted within 30 days of the invitation",
+  "Remediation": "<p>Guest accounts that have not accepted their invitation should be evaluated for cleanup.</p>\n      <p>Guest users can server multiple purposes in an Entra tenant for an organization. If guest users have never redeemed their invitation, then the intended access to the resources they have been assigned permissions has never been used, and may result in excessive unnecessary permissions.</p>\n      <p>Guest users though may be created for legitimate reasons in an Entra tenant, including:</p>\n      <ul>\n      <li>Membership in an Office 365 group</li>\n      <li>Membership in an Exchange Online distribution list</li>\n      <li>Membership in a Teams channel for email</li>\n      <li>Guest accounts being used as contact objects</li>\n      </ul>\n      <p>Organizations must review the legitimacy of why the guest users exist in the tenant, and make a decision on how to clean up or keep the accounts.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

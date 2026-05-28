@@ -1,0 +1,88 @@
+﻿{
+  "Id": 185,
+  "UUID": "1a220cc3-cadb-4960-840d-37cf7b07e940",
+  "Version": "1.318.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Objects with Reanimate-Tombstones extended right",
+  "ScriptName": "ObjectsCanReanimateTombstones",
+  "ShortName": "SI000185",
+  "Description": "<p>This indicator checks if there are any non-default principals with the Reanimate-Tombstones extended right configured.</p>",
+  "CategoryId": "1",
+  "Weight": 4,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "<p>When an Active Directory object is deleted, it is by default transformed into a tombstone object and loses most of its attributes. If the Active Directory Recycle Bin optional feature is enabled, the object is instead transformed into a deleted-object, which maintains the state of the object before deletion and can be undeleted without loss of information.</p><p>By default, only domain administrators can restore deleted objects. For other users, restoring these types of AD deleted objects requires having the \"Reanimate-Tombstones\" extended right. It is not recommended to delegate this right to other users since tombstone reanimation is a highly privileged and infrequent operation.</p><p>Furthermore, this permission could assist attackers with privilege escalation and lateral movement opportunities, as it could permit them to restore account objects with access to more resources. As tombstones don't maintain the state of the original object, reanimating them essentially grants control over the account because the user must set a password for the restored account.</p><h3>References</h3><p><a href=\"https://learn.microsoft.com/en-us/windows/win32/ad/restoring-deleted-objects\" target=\"_blank\">Restoring Deleted Objects | Microsoft Learn</a></p><p><a href=\"https://learn.microsoft.com/en-us/windows/win32/ad/creating-and-deleting-objects-in-active-directory-domain-services\" target=\"_blank\">Creating and Deleting Objects in Active Directory Domain Services | Microsoft Learn</a></p><p><a href=\"https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/e9482178-ee53-4b6c-841d-5259d6261985\" target=\"_blank\">Recycle Bin Optional Feature | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Lateral Movement",
+        "Privilege Escalation",
+        "Persistence"
+      ]
+    },
+    {
+      "Name": "MITRE D3FEND",
+      "Tags": [
+        "Isolate - User Account Permissions"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.5"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.4"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "DomainName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} principal(s) with the \"Reanimate-Tombstones\" extended right.",
+  "Remediation": "<p>By default, only domain administrators can restore deleted objects, and it is not recommended to delegate the \"Reanimate-Tombstones\" right to other users since tombstone reanimation is a highly privileged and infrequent operation.</p><p>The \"Reanimate Tombstone\" control access right is granted at the Naming Context root. To remove the detected privilege assignments, perform the following steps:</p>\n      <ol>\n        <li>Open Active Directory Users and Computers (dsa.msc) and check the <b>Advanced Features</b> option under <b>View</b>.</li>\n        <li>Right-click the domain root object and select <b>Properties</b> to view its properties.</li>\n        <li>Click the <b>Security</b> tab and select the detected object in the \"Group or user names\" pane.</li>\n        <li>Scroll down in the permissions pane to locate the \"Reanimate tombstones\" permission entry. If the permission isn't visible, you may need to find it using the <b>Advanced</b> button below the pane.</li>\n        <li>Deselect the \"Allow\" checkbox for the permission, then click <b>Apply</b> to save the change.</li>\n      </ol>\n      <h3>References</h3><p><a href=\"https://learn.microsoft.com/en-us/windows/win32/ad/restoring-deleted-objects\" target=\"_blank\">Restoring Deleted Objects | Microsoft Learn</a></p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

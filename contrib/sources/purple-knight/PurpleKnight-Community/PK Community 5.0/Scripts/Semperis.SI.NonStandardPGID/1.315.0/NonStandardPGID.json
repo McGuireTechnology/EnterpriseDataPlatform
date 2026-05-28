@@ -1,0 +1,99 @@
+﻿{
+  "Id": 14,
+  "UUID": "16262280-22e2-40e2-a227-9934e63dadaa",
+  "Version": "1.315.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Users and computers with non-default Primary Group IDs",
+  "ScriptName": "NonStandardPGID",
+  "ShortName": "SI000014",
+  "Description": "This indicator returns a list of users and computers whose Primary Group IDs (PGIDs) are not the defaults for domain users and computers. Users created in the domain will have a default PGID of 513 (Domain Users) or 514 (Domain Guests) while computers are 515 (Domain Computers), 516 (Domain Controllers), or 521 (RODC). The Primary Group ID is not automatically changed when a user is moved to a different group (i.e. a user moved into Domain Admins will not be assigned PGID 512). This fact can be used to hide users with privileges to systems that rely on PGID, while hiding the user from queries that rely on enumerating the member attribute without the PGID. Additionally, group objects' member attribute will not list the user objects with PGID of those groups.",
+  "CategoryId": "2",
+  "Weight": 3,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 3,
+  "LikelihoodOfCompromise": "<p>Modifying the Primary Group ID is a stealthy way for an attacker to escalate privileges without triggering member attribute auditing for group membership changes.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_primary_group_id_1000\" target=\"_blank\">Accounts with PrimaryGroupID lower than 1000 | ANSSI</a></p>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_primary_group_id_nochange\" target=\"_blank\">Accounts with modified PrimaryGroupID | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation"
+      ]
+    },
+    {
+      "Name": "ANSSI",
+      "Tags": [
+        "vuln1_primary_group_id_1000",
+        "vuln3_primary_group_id_nochange"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.5"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.4"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "PrimaryGroupID",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "GroupSamAccountName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} objects with Primary Group ID of a group they are not member of.",
+  "Remediation": "Ensure these PGIDs are needed. When unneeded change the Primary Group to Domain Users (can be done through the MemberOf tab in dsa.msc).",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

@@ -1,0 +1,76 @@
+﻿{
+  "Id": 93,
+  "UUID": "7b9dd975-4b16-4fce-8e5f-41b36e7dc816",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Report suspicious MFA activity disabled",
+  "ScriptName": "AAD_ReportMFASuspiciousActivityIsEnabled",
+  "ShortName": "SI000093",
+  "Description": "<p>This indicator checks if the setting to report suspicious MFA activity is enabled.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Policy.Read.All</li>\n        <li>GroupMember.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 1,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 1,
+  "LikelihoodOfCompromise": "<p>Social engineering attacks such as phishing or MFA fatigue attacks can be used to trick a user into authorizing an MFA request they did not initiate. While systems like number matching reduce the ability for these attacks to work, in some instances the attacker may have gained access to the user's password.</p>\n      <p>When report suspicious activity is enabled, users can report suspicious MFA requests in interactive MFA scenarios with push notifications or phone calls. This allows the user to be proactively involved in securing their account.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en%2Dus/entra/identity/authentication/howto%2Dmfa%2Dmfasettings\" target=\"_blank\">Configure Microsoft Entra multifactor authentication settings | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Initial Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Multi-factor Authentication"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All",
+    "AAD.GraphAPI/GroupMember.Read.All"
+  ],
+  "ResultMessage": "Report suspicious activity is set to {0} for Group {1}.",
+  "Remediation": "<p>It is recommended to have the \"Report suspicious activity\" setting enabled for all users. Please note that if you are using the \"Microsoft managed\" option, the \"Report suspicious activity\" setting will be disabled.</p>\n      <p>To configure the \"Report suspicious activity\" setting, open the <a href=\"https://entra.microsoft.com/\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), browse to <b>Protection &gt; Authentication methods &gt; Settings &gt; Report suspicious activity</b>, and confirm that <b>State</b> is set to Enabled and <b>Target</b> is All users.</p>",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

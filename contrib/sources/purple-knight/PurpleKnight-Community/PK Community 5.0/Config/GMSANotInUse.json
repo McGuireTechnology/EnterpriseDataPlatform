@@ -1,0 +1,17 @@
+{
+  "exclude": {
+    "Object": {
+      "DomainName": {
+        "notlike": [],
+        "like": [],
+        "in": [],
+        "match": [],
+        "notin": [],
+        "notmatch": [],
+        "le": "",
+        "ge": ""
+      }
+    }
+  },
+  "param": null
+}

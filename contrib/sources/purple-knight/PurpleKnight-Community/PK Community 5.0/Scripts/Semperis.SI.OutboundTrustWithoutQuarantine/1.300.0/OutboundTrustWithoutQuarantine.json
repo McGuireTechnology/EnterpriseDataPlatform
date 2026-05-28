@@ -1,0 +1,98 @@
+﻿{
+  "Id": 87,
+  "UUID": "19a4b814-3561-4463-a083-2769fabf1490",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Domain trust to a third-party domain without quarantine",
+  "ScriptName": "OutboundTrustWithoutQuarantine",
+  "ShortName": "SI000087",
+  "Description": "This indicator looks for outbound forest trusts that has Quarantine flag set to false, which means that the trusted domain is not subject to SID filtering.",
+  "CategoryId": "3",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>An attacker having compromised the remote domain can spoof any user or machine on the local domain (except for accounts with a RID lower than 1000, excluding built-in accounts and groups). This attacker can therefore access every resource on the local domain. If a dangerous control path is exposed to any \"spoofable\" account (virtually any account other than the built-in ones), the attacker could also escalate his privileges up to \"Domain Admins\" and compromise the entire forest.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_trusts_domain_notfiltered\" target=\"_blank\">Unfiltered outbound domain trust relationship | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Lateral Movement"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Domain Trust Policy"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln1_trusts_domain_notfiltered"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "TrustedForest",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "TrustAttributes",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} outbound trusts where Quarantine is disabled or SID history is enabled.",
+  "Remediation": "<p>Unless domain migration is currently ongoing, use the following command to enable Quarantine for external trusts: <code>NETDOM TRUST <ForestName> /domain:<TrustedForest> /Quarantine yes</code></p>\n      <p>And use the following command to disable SID history for forest trusts: <code>NETDOM TRUST <ForestName> /domain:<TrustedForest> /EnableSIDHistory:No</code></p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

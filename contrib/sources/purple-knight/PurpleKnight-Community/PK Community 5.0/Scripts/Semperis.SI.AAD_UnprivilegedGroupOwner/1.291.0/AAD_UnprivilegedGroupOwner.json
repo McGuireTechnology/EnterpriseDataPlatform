@@ -1,0 +1,109 @@
+﻿{
+  "Id": 225,
+  "UUID": "36e3878e-e65c-47a1-a9b8-0444ce978683",
+  "Version": "1.291.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Unprivileged owner of a privileged group",
+  "ScriptName": "AAD_UnprivilegedGroupOwner",
+  "ShortName": "SI000225",
+  "Description": "<p>This indicator checks for the presence of an unprivileged owner of a group with privileged roles.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>RoleManagement.Read.Directory</li> \n        <li>Directory.Read.All</li>\n        <li>GroupMember.Read.All</li> \n        <li>RoleAssignmentSchedule.Read.Directory</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>Assigning roles to a group instead of individual principals streamlines the process of adding or removing users and ensures consistent permissions for all group members. However, a group owner can add themselves to the group at any time, posing a privilege escalation risk if the owner is an unprivileged principal. Therefore, organizations should monitor group ownership closely to ensure it is not assigned to an unprivileged principal.</p>\n      <p>An attacker compromising an unprivileged group owner's account can exploit this to achieve privilege escalation by adding their compromised account (or any other account) to the privileged group and inherit all the permissions associated with that group.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/id-governance/privileged-identity-management/pim-create-roles-and-resource-roles-review\" target=\"_blank\">Create an access review of Azure resource and Microsoft Entra roles in PIM - Microsoft Entra ID Governance | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/role-based-access-control/groups-concept\" target=\"_blank\">Use Microsoft Entra groups to manage role assignments - Microsoft Entra ID | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MaxVersion": "3.0",
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "GroupName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "GroupId",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "AssignedRoles",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EligibleRoles",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UnprivilegedOwners",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UnprivilegedEligibleOwners",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/RoleManagement.Read.Directory",
+    "AAD.GraphAPI/Directory.Read.All",
+    "AAD.GraphAPI/GroupMember.Read.All",
+    "AAD.GraphAPI/PrivilegedEligibilitySchedule.Read.AzureADGroup"
+  ],
+  "ResultMessage": "Found {0} unprivileged owners of a privileged groups in Entra ID",
+  "Remediation": "<p>Review the principals assigned the ownership of a given privileged group, and determine if the ownership can be removed.</p>\n      <p>To review and manage role assignments, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_IAM/GroupsManagementMenuBlade/~/EnablePrivilegedAccessGroups/menuId/AllGroups\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Privileged Identity Management</b>, select the <b>privileged group name</b>, expand <b>Roles</b> under the <b>Manage</b> blade, and select <b>Owner</b>.</p>\n      <p>Select each unprivileged principal and consider its ownership.</p>\n      <p>From this view you can remove principals as necessary from the group's ownership. </p>\n      <p><b>Organizations must ensure that any removal of the unprivileged owners does not impact the ability to manage their Entra tenant</b>.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

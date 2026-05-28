@@ -1,0 +1,98 @@
+﻿{
+  "Id": 188,
+  "UUID": "49368362-a307-4d9a-91b5-56eac7be35c5",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "GPO Weak LM Hash storage enabled",
+  "ScriptName": "GPOWeakLMHashStorageEnabled",
+  "ShortName": "SI000188",
+  "Description": "This indicator detects when the \"Network security: Do not store LAN Manager hash value on next password change\" Group Policy Object setting is disabled within the Windows operating system.",
+  "CategoryId": "4",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "<p>When the \"Network security: Do not store LAN Manger hash value on next password change\" setting is disabled, LAN Manager (LM) hashes continue to be stored during password changes. Enabling this setting strengthens security by preventing the storage of weak LM hashes and promoting the use of stronger password storage mechanisms.\n        If an attacker gains access to the system or manages to extract the stored LM hashes, they can employ offline cracking techniques to obtain the original passwords. Therefore, monitoring and enabling this setting is crucial for mitigating the risk of unauthorized access and data breaches caused by the exploitation of weak LM hashes.</p>\n        <h3>References</h3>\n        <p><a href=\"https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/network-security-do-not-store-lan-manager-hash-value-on-next-password-change\">MS GPO information</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Strong Password Policy"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "2.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "Policy",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PolicyName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Status",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LinkedOUs",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} Group Policies with Network security: Do not store LAN Manager hash value on next password change value disabled.",
+  "Remediation": "<p>Microsoft best practices for this value are:</p>\n      <ul>\n        <li>Set Network security: Do not store LAN Manager hash value on next password change to Enabled.</li>\n        <li>Require all users to set new passwords the next time they sign in to the domain so that LAN Manager hashes are removed.</li>\n          </ul></a>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

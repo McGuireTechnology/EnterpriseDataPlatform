@@ -1,0 +1,97 @@
+﻿{
+  "Id": 105,
+  "UUID": "326a11f8-0dbd-40a1-b3f2-0b4440981f99",
+  "Version": "1.291.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Non-synced Entra user that is eligible for a privileged role",
+  "ScriptName": "AAD_CheckSMTPMatch",
+  "ShortName": "SI000105",
+  "Description": "<p>This indicator checks for Entra users that are eligible for a high-privilege role and have the proxyAddress attribute, but are not synchronized with an AD account.</p>\n      <h3>Required permissions:</h3>\n      <ul>\n        <li>User.Read.All</li>\n        <li>RoleManagement.Read.Directory</li>\n        <li>Directory.Read.All</li>\n        <li>Organization.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 5,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 5,
+  "LikelihoodOfCompromise": "<p>An attacker can abuse SMTP matching to synchronize a user they have compromised in Active Directory to a user in Entra ID that is eligible for a high-privilege role. This process overwrites the user password in Entra ID and can result in privilege escalation over the Entra tenant.</p>\n      <h3>References</h3>\n      <p><a href=\"https://www.semperis.com/blog/smtp-matching-abuse-in-azure-ad/\" target=\"_blank\">SMTP Matching Abuse in Entra ID | Semperis blog</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Privilege Escalation"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MaxVersion": "3.0",
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MaxVersion": "10",
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DisplayName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ProxyAddresses",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Roles",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/User.Read.All",
+    "AAD.GraphAPI/RoleManagement.Read.Directory",
+    "AAD.GraphAPI/Directory.Read.All",
+    "AAD.GraphAPI/Organization.Read.All"
+  ],
+  "ResultMessage": "Found {0} user(s) eligible for high privilege roles that are not synchronized with AD.",
+  "Remediation": "<p>Ensure that the users indicated in the results are configured for MFA, which will prevent the ability for an attacker to authenticate as the compromised user in Entra ID, even if the attacker attempts SMTP matching abuse.</p>\n      <p>Further, organizations can disable soft-matching in their Entra tenant to protect against this takeover. Disabling soft-matching should not be a replacement for enablement of MFA on privileged users in Entra ID.</p>\n      <p>Full details on the attack, detection and preventative remediation can be found in the referenced Semperis article.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

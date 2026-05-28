@@ -1,0 +1,87 @@
+﻿{
+  "Id": 309,
+  "UUID": "6e11c380-dd30-4407-88f8-c3f1037b292c",
+  "Version": "1.219.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Users without Multi-Factor Authentication (MFA)",
+  "ScriptName": "OKTA_UsersWithoutMFA",
+  "ShortName": "SI000309",
+  "Description": "This indicator checks all users to identify those who have not registered for Multi-Factor Authentication (MFA).",
+  "CategoryId": "8",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "Users who have not configured MFA are at a high risk of being compromised. This poses a significant threat not only to the individual user but also to the entire environment.",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Initial Access"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Multi-factor Authentication"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "10",
+      "Name": "PK",
+      "MinVersion": "4.0",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ]
+    }
+  ],
+  "DataSources": [
+    "Okta.OktaAPI"
+  ],
+  "OutputFields": [
+    {
+      "Name": "UserID",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "UserStatus",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UserLastLogin",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "UserDisplayName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "User",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "Okta"
+  ],
+  "Permissions": [],
+  "ResultMessage": "There are {0} Okta users without MFA configured.",
+  "Remediation": "Ensure that MFA is enabled and enforced for all users.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

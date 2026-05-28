@@ -1,0 +1,87 @@
+﻿{
+  "Id": 307,
+  "UUID": "ad1b3358-d94e-4e3d-abdc-5cf49a7b784f",
+  "Version": "1.219.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "User activation in the last 7 days",
+  "ScriptName": "OKTA_UserActivate",
+  "ShortName": "SI000307",
+  "Description": "This indicator checks if a user has been activated within the last 7 days.",
+  "CategoryId": "8",
+  "Weight": 1,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 1,
+  "LikelihoodOfCompromise": "Activated users have the ability to authenticate and perform actions within the environment. It is important to monitor and verify the activation status of users to ensure that only authorized individuals have access.",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Persistence"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - User Account Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "10",
+      "Name": "PK",
+      "MinVersion": "4.0",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ]
+    }
+  ],
+  "DataSources": [
+    "Okta.OktaAPI"
+  ],
+  "OutputFields": [
+    {
+      "Name": "Operation",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Users",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ActorID",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ActorName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "Okta"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} new activated users.",
+  "Remediation": "Review the activation status of users to confirm that they should indeed be active. Deactivate any users who no longer require access or whose activation may be unauthorized.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

@@ -1,0 +1,89 @@
+﻿{
+  "Id": 303,
+  "UUID": "fce1590d-01ea-4c23-a653-7d4d395ae36a",
+  "Version": "1.219.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "New API token was created",
+  "ScriptName": "OKTA_NewAppAccessToken",
+  "ShortName": "SI000303",
+  "Description": "In the last 7 days,a new API token was created.",
+  "CategoryId": "8",
+  "Weight": 4,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "API tokens with high privileges can allow unauthorized access and actions in Okta. If an attacker gains access to the token's password, they can leverage it to query and perform actions, potentially leading to persistence and compromising the environment.",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Persistence"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Application Configuration Hardening",
+        "Harden - User Account Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "10",
+      "Name": "PK",
+      "MinVersion": "4.0",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ]
+    }
+  ],
+  "DataSources": [
+    "Okta.OktaAPI"
+  ],
+  "OutputFields": [
+    {
+      "Name": "Operation",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Tokens",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ActorID",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ActorName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "Okta"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} new API tokens in the last week.",
+  "Remediation": "Ensure that the API token was created and used legitimately. Regularly review and audit API tokens to verify their necessity and permissions. Implement proper access controls and token management practices to mitigate the risk of unauthorized access.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

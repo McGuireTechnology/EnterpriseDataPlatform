@@ -1,0 +1,94 @@
+﻿{
+  "Id": 306,
+  "UUID": "74e7dd15-b715-4926-bb7e-71c12d3ced5a",
+  "Version": "1.219.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "New Super Admin permission has been granted to a group",
+  "ScriptName": "OKTA_NewSuperadminGroup",
+  "ShortName": "SI000306",
+  "Description": "In the last 7 days, \"Super Admin\" permission was given to a group.",
+  "CategoryId": "8",
+  "Weight": 6,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 6,
+  "LikelihoodOfCompromise": "Members of a group with \"Super Admin\" privileges have extensive access and can perform significant actions in Okta. This includes managing user accounts, configuring security settings, and controlling critical aspects of the environment. It is important to closely monitor and control which groups are granted these strong privileges to prevent unauthorized access and potential compromise of the Okta environment.",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Privilege Escalation",
+        "Persistence"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - User Account Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "10",
+      "Name": "PK",
+      "MinVersion": "4.0",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ]
+    }
+  ],
+  "DataSources": [
+    "Okta.OktaAPI"
+  ],
+  "OutputFields": [
+    {
+      "Name": "Operation",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Groups",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PrivilegeGranted",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "ActorID",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "ActorName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "Okta"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} events granting \"Super Admin\" permissions to groups in the last week.",
+  "Remediation": "Make sure that the \"Super Admin\" permissions given to the group are indeed necessary and were done legitimately.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

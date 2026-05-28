@@ -1,0 +1,117 @@
+﻿{
+  "Id": 54,
+  "UUID": "a0d33c5f-fda5-4a06-9b80-5196e099131e",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Computers with older OS versions",
+  "ScriptName": "CompObsoleteOS",
+  "ShortName": "SI000054",
+  "Description": "This indicator looks for machine accounts that are running versions of Windows older than Server 2012-R2 and Windows 8.1.",
+  "CategoryId": "3",
+  "Weight": 4,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 4,
+  "LikelihoodOfCompromise": "Computers running older and unsupported OS versions could be targeted with known or unpatched exploits.",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Lateral Movement",
+        "Persistence"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - Software Update"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "LastLogonTimeStamp",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "PasswordLastSet",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "OperatingSystem",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Active",
+      "Type": "Boolean",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Enabled",
+      "Type": "Boolean",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} computers in the organization that have obsolete OS.",
+  "Remediation": "Where possible, update servers and workstations to later versions with better security features.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

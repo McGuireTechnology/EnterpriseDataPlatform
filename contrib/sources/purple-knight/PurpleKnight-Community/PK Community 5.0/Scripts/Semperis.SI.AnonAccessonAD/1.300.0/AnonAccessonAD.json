@@ -1,0 +1,102 @@
+﻿{
+  "Id": 30,
+  "UUID": "79d857a6-23a7-421d-a63d-5a2f9df5d080",
+  "Version": "1.300.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Anonymous access to Active Directory enabled",
+  "ScriptName": "AnonAccessonAD",
+  "ShortName": "SI000030",
+  "Description": "It is possible, though not recommended, to enable anonymous access to AD. This indicator looks for the presence of the flag that enables anonymous access. Anonymous access would allow unauthenticated users to query AD.",
+  "CategoryId": "3",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>Anonymous access to Active Directory allows an attacker to enumerate accounts and perform attacks like password spray, as well as to enumerate the domain to gather information that can model attack paths. This is a significant risk as the complexity of AD often presents many opportunities for attackers and anonymous access allows them an easy way to find such opportunities.</p>\n      <h3>References</h3>\n      <p><a href= \"https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-adts/e5899be4-862e-496f-9a38-33950617d2c5\" target=\"_blank\">6.1.1.2.4.1.2 dSHeuristics | Microsoft Learn</a></p>\n      <p><a href= \"https://www.cert.ssi.gouv.fr/uploads/ad_checklist.html#vuln_compatible_2000_anonymous\" target=\"_blank\">The \"Pre-Windows 2000 Compatible Access\" group includes \"Anonymous\" | ANSSI</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Defense Evasion",
+        "Initial Access",
+        "Persistence",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Harden - User Account Permissions"
+      ],
+      "Name": "MITRE D3FEND"
+    },
+    {
+      "Tags": [
+        "vuln2_compatible_2000_anonymous"
+      ],
+      "Name": "ANSSI"
+    }
+  ],
+  "Products": [
+    {
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "MaxVersion": "3.0",
+      "Name": "HYD"
+    },
+    {
+      "Licenses": [
+        "DSP-A",
+        "DSP-I"
+      ],
+      "MinVersion": "3.5",
+      "MaxVersion": "10",
+      "Name": "DSP"
+    },
+    {
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.4",
+      "MaxVersion": "10",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "DistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "DSHeuristics",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "LastChanged",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found risky configuration in the forest that enables anonymous access to LDAP operations.",
+  "Remediation": "Disable anonymous access unless it is absolutely needed. The dsHeuristics attribute on the CN=Directory Service,CN=Windows NT,CN=Services,CN=Configuration,DC=<forest_name> object should be set to disable anonymous access.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

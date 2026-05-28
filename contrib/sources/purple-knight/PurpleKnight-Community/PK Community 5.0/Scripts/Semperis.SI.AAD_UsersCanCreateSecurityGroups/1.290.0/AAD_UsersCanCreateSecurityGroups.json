@@ -1,0 +1,76 @@
+﻿{
+  "Id": 169,
+  "UUID": "7b1b04d3-216b-4031-9657-679443ab3c51",
+  "Version": "1.290.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Users can create security groups",
+  "ScriptName": "AAD_UsersCanCreateSecurityGroups",
+  "ShortName": "SI000169",
+  "Description": "<p>This indicator checks if non-admin users can create security groups.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>Policy.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 4,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 0,
+  "LikelihoodOfCompromise": "<p>By default all users are allowed to create security groups in an Entra tenant.</p>\n      <p>While many organizations may desire users to be able to create M365 groups for collaborations, valid cases for users creating security groups are generally limited.</p>\n      <p>Entra ID does not require unique group names, and an attacker may create malicious security groups with duplicate names of valid groups, in an effort to have the malicious group assigned further privileges.</p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/fundamentals/users-default-permissions#restrict-member-users-default-permissions\" target=\"_blank\">Default user permissions - Microsoft Entra | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Tags": [
+        "Persistence",
+        "Privilege Escalation"
+      ],
+      "Name": "MITRE ATT&CK"
+    },
+    {
+      "Tags": [
+        "Model - Access Modeling"
+      ],
+      "Name": "MITRE D3FEND"
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "MinVersion": "1.0",
+      "Name": "HYD"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "MinVersion": "3.6",
+      "Name": "DSP"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "MinVersion": "1.5",
+      "Name": "PK"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/Policy.Read.All"
+  ],
+  "ResultMessage": "Any user can create security groups",
+  "Remediation": "<p>Disable <b>Users can create security groups</b> in the Entra tenant.</p>\n    <p>To disable, open the <a href=\"https://entra.microsoft.com/#view/Microsoft_AAD_UsersAndTenants/UserManagementMenuBlade/%7E/UserSettings/menuId/UserSettings\" target=\"_blank\">Microsoft Entra admin center</a> (direct link), expand <b>Identity</b>, expand <b>Users</b>, and select <b>User settings</b>.</p>\n    <p>In the blade on the right, toggle <b>Users can create security groups</b> to <b>no</b>.</p>\n    <p>Select <b>Save</b> at the bottom of the blade.</p>\n    <p>Organizations should understand how this change impacts their users and communicate the change out according to defined business processes.</p>",
+  "IgnoreListSupport": false,
+  "Selected": true
+}

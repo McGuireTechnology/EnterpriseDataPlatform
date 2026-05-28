@@ -1,0 +1,98 @@
+﻿{
+  "Id": 110,
+  "UUID": "070e7b62-4784-4ca5-bdaa-82da2972e23a",
+  "Version": "1.270.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "Ephemeral Admins",
+  "ScriptName": "EphemeralAdmins",
+  "ShortName": "SI000110",
+  "Description": "This indicator looks for users which were added and removed from an admin group within a 48 hour span of time. Such short-lived accounts may indicate malicious activity.",
+  "CategoryId": "2",
+  "Weight": 3,
+  "Severity": "Informational",
+  "Schedule": "1w",
+  "Impact": 3,
+  "LikelihoodOfCompromise": "In most environments, management of admin accounts is tightly controlled and audited. This indicator provides a fast method to create a list of ephemeral admins for investigation and review.",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Persistence"
+      ]
+    },
+    {
+      "Name": "MITRE D3FEND",
+      "Tags": [
+        "Harden - User Account Permissions"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MinVersion": "1.0",
+      "Name": "HYD",
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ]
+    },
+    {
+      "MinVersion": "3.5",
+      "Name": "DSP",
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I"
+      ]
+    },
+    {
+      "MinVersion": "1.4",
+      "Name": "PK",
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ]
+    }
+  ],
+  "DataSources": [
+    "AD.LDAP"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "GroupDistinguishedName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "Member",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "Operation",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": false
+    },
+    {
+      "Name": "EventTimestamp",
+      "Type": "DateTime",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AD"
+  ],
+  "Permissions": [],
+  "ResultMessage": "Found {0} users who have been added & removed from an admin group within 48 hours.",
+  "Remediation": "Confirm that any additions/removals from admin groups are valid and properly accounted for.",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

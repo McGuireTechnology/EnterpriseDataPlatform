@@ -1,0 +1,83 @@
+﻿{
+  "Id": 121,
+  "UUID": "55019a5c-f4d1-4089-ac9e-5782400caced",
+  "Version": "1.319.0",
+  "Types": [
+    "IoE"
+  ],
+  "Name": "MFA not configured for privileged accounts",
+  "ScriptName": "AAD_CheckPrivilegedMFA",
+  "ShortName": "SI000121",
+  "Description": "<p>This indicator checks that MFA (Multi-factor Authentication) is enabled for users assigned privileged roles.</p>\n      <h3>Required permissions</h3>\n      <ul>\n        <li>RoleManagement.Read.Directory</li>\n        <li>Reports.Read.All</li>\n        </ul>",
+  "CategoryId": "6",
+  "Weight": 7,
+  "Severity": "Warning",
+  "Schedule": "1d",
+  "Impact": 7,
+  "LikelihoodOfCompromise": "<p>Users that hold privileged roles in Entra ID are high-value targets for an attacker. It is critical for organizations to require MFA for all users holding privileged roles.</p>\n      <p>The risk associated with compromise of a privileged user is equal to the permissions and rights held within the role assigned to the user.</p>\n      <p><b>Implementing changes to Conditional Access policies and enabling Security Defaults can negatively impact users if not properly tested.</b></p>\n      <h3>References</h3>\n      <p><a href=\"https://learn.microsoft.com/en-us/azure/security/fundamentals/steps-secure-identity#before-you-begin-protect-privileged-accounts-with-mfa\" target=\"_blank\">Secure your Microsoft Entra identity infrastructure - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/identity/conditional-access/policy-old-require-mfa-admin\" target=\"_blank\">Require MFA for administrators with Conditional Access - Microsoft Entra ID | Microsoft Learn</a></p>\n      <p><a href=\"https://learn.microsoft.com/en-us/entra/fundamentals/security-defaults\" target=\"_blank\">Providing a default level of security in Microsoft Entra ID - Microsoft Entra | Microsoft Learn</a></p>",
+  "SecurityFrameworks": [
+    {
+      "Name": "MITRE ATT&CK",
+      "Tags": [
+        "Credential Access"
+      ]
+    }
+  ],
+  "Products": [
+    {
+      "MaxVersion": "3.0",
+      "Licenses": [
+        "Cloud"
+      ],
+      "Name": "HYD",
+      "MinVersion": "1.0"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "DSP-I-AAD"
+      ],
+      "Name": "DSP",
+      "MinVersion": "3.6"
+    },
+    {
+      "MaxVersion": "10",
+      "Licenses": [
+        "Community",
+        "Post-Breach",
+        "BPIR"
+      ],
+      "Name": "PK",
+      "MinVersion": "1.5"
+    }
+  ],
+  "DataSources": [
+    "AAD.GraphAPI"
+  ],
+  "Parameters": [],
+  "OutputFields": [
+    {
+      "Name": "UserPrincipalName",
+      "Type": "String",
+      "IsCollection": false,
+      "IsKey": true
+    },
+    {
+      "Name": "MFARegistered",
+      "Type": "Boolean",
+      "IsCollection": false,
+      "IsKey": false
+    }
+  ],
+  "Targets": [
+    "AAD"
+  ],
+  "Permissions": [
+    "AAD.GraphAPI/RoleManagement.Read.Directory",
+    "AAD.GraphAPI/Reports.Read.All"
+  ],
+  "ResultMessage": "{0} privileged user(s) found without MFA configured.",
+  "Remediation": "<p>Users identified as impacted must be configured to require MFA at minimum for authentication in Entra ID.</p>\n      <p><b>Break-glass accounts may be an exception to MFA requirements, and can be added to an ignore list for this indicator. Organizations need to monitor their break-glass accounts to ensure that the accounts are not used without awareness</b></p>\n      <p>Microsoft provides both a Conditional Access policy template, as well as step-by-step instructions for creating a Conditional Access Policy requiring MFA for administrators. If a Conditional Access policy already exists for privileged users, the identified users can be added to that policy.</p>\n      <p>Organizations that do not have licensing for Conditional Access policies should enable Security Defaults.</p>",
+  "IgnoreListSupport": true,
+  "Selected": true
+}

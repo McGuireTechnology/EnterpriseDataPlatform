@@ -1,0 +1,20 @@
+{
+  "workbench.iconTheme": "material-icon-theme",
+  "material-icon-theme.folders.associations": {
+    "airflow": "tasks",
+    "api": "api",
+    "contrib": "middleware",
+    "dash": "vue",
+    "dbt": "batch",
+    "docs": "docs",
+    "postgres": "migrations",
+    "superset": "layout"
+  },
+  "material-icon-theme.files.associations": {
+    "compose.yml": "docker",
+    "Dockerfile.docs": "docker",
+    ".env": "tune",
+    ".env.compose.example": "tune",
+    "alembic.ini": "database"
+  }
+}

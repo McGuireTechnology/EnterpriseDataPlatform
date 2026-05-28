@@ -1,0 +1,68 @@
+Term,Sheet,CIS Controls IG1 Minimum,Description,Example
+Enterprise Asset Identifier,Enterprise Asset Inventory v8.1,Yes,A unique ID that can be used to identify an asset.,458369
+Asset Sub-Class,Enterprise Asset Inventory v8.1,,A term specific to the CIS Controls that can be used to classify an asset. Can also be customized based on the enterprise.,End-User Device
+Date of Purchase,Enterprise Asset Inventory v8.1,Yes,The purchase date of the asset.,1/1/2025
+Purchase Price,Enterprise Asset Inventory v8.1,Yes,The purchase price of the asset.,"$1,020.00"
+Item Description,Enterprise Asset Inventory v8.1,Yes,A general description of the enterprise asset.,ABC Laptop XPS 16
+Manufacturer,Enterprise Asset Inventory v8.1,Yes,The manufacturer of the asset.,ABC
+Model Number,Enterprise Asset Inventory v8.1,Yes,The model number of the asset that identifies the type or product line. Given by the manufacturer.,9640
+Serial Number,Enterprise Asset Inventory v8.1,Yes,The serial number of the asset that uniquely identifies the asset. Can be the same or different from the Enterprise Asset ID. Given by the manufacturer.,CN-0546871-1536-165465-0564Q
+Name of the Enterprise Asset Owner,Enterprise Asset Inventory v8.1,Yes,The member of the workforce that the enterprise asset is assigned to and is responsible for.,John Smith
+Machine Name,Enterprise Asset Inventory v8.1,Yes,The name that is assigned to an enterprise asset for the purposes of identification and management.,JSMITH-09
+Business Unit,Enterprise Asset Inventory v8.1,Yes,The business unit or department that the enterprise asset owner resides in.,Sales
+Physical Location of Enterprise Asset,Enterprise Asset Inventory v8.1,Yes,The physical location of the enterprise asset.,Headquarters Cubicle 4G
+Physical (MAC) Address ,Enterprise Asset Inventory v8.1,Yes,A 12-character hexadecimal number to uniquely identify an enterprise asset. Assigned by the manufacturer on the network interface card (NIC).,00:1A:2B:3C:4D:5E
+IP Address,Enterprise Asset Inventory v8.1,Yes,"A network address assigned to an enterprise asset for identification within a network, either internal or external. While intended to be unique, IP addresses are often shared due to NAT (Network Address Translation) or proxying, meaning a single IP may represent multiple devices. This can create challenges for asset tracking, security monitoring, and network management tasks.",192.168.123.132
+Warranty Expiration Date ,Enterprise Asset Inventory v8.1,Yes,The expiration date of the warranty.,1/1/2027
+Any Relevant Licensing Information,Enterprise Asset Inventory v8.1,Yes,Any information that may be prudent to include regarding licensing.,Product support included in license
+Approval to Connect to Enterprise Network?,Enterprise Asset Inventory v8.1,Yes,Is the asset approved to connect to the network.,Yes
+IT Verification of Enterprise Asset Inventory,Enterprise Asset Inventory v8.1,Yes,The last date that the asset was verified by IT.,6/1/2025
+Disposal Date,Enterprise Asset Inventory v8.1,,The date that the asset was disposed of.,1/1/2027
+Disposal Type (Controlled/Uncontrolled),Enterprise Asset Inventory v8.1,,The method or type of disposal. ,Hard drive shredded through data destruction service on-site.
+Software Title,Software Asset Inventory v8.1,Yes,The title/name of the software.,Software ABC
+Business Purpose,Software Asset Inventory v8.1,Yes,The business justification or purpose that the software is used for.,Used as the enterprise's enterprise resource planning tool
+Asset Sub-Class,Software Asset Inventory v8.1,,A term specific to the CIS Controls that can be used to classify an asset. Can also be customized based on the enterprise.,Application
+Developer/Publisher of Software,Software Asset Inventory v8.1,Yes,The developer or publisher of the software.,XYZ Corp.
+Acquisition Date,Software Asset Inventory v8.1,Yes,The acquisition date of the software.,1/1/2025
+Initial Install/Use Date,Software Asset Inventory v8.1,Yes,The installation date of the software. ,3/1/2025
+Duration of Usage,Software Asset Inventory v8.1,Yes,The duration that the software has been used since installation.,2 months
+URL,Software Asset Inventory v8.1,Yes,The URL/Link where more information can be found on the software.,https://xyc.com/abc
+App Store(s),Software Asset Inventory v8.1,Yes,"If purchased through an App Store, the reference/link of the App Store where more information can be found on the application.",N/A
+Version(s),Software Asset Inventory v8.1,Yes,"The version (or versions, if multiple) of the software.",1.1.1
+Deployment Mechanism,Software Asset Inventory v8.1,Yes,The method of deployment for the software.,Basic Deployment
+End-of-life (EoL)/End-of-support (EoS) Date,Software Asset Inventory v8.1,Yes,"The date when the software is no longer supported for updates, including security patches, and should be retired.  Note that some software developers may provide an extension for certain legacy products as a short-term solution during migration to a newer, supported software version/platform.",1/1/2028
+Decommission Date,Software Asset Inventory v8.1,Yes,The date that the asset is no longer in use.,1/1/2028
+Any Relevant Licensing Information,Software Asset Inventory v8.1,Yes,Any information that may be prudent to include regarding licensing.,Subscription/Term licensing
+Number of Licenses,Software Asset Inventory v8.1,,The number of licenses procured for each software asset.,4
+Data Name,Data Inventory v8.1,Yes,An short name/identifier that can be used to refer to the data.,eCommerce Platform
+Asset Sub-Class,Data Inventory v8.1,,A term specific to the CIS Controls that can be used to classify data. Can also be customized based on the enterprise.,Database
+"Data Type (Financial, Customer, etc.)",Data Inventory v8.1,,The type of data that is being inventoried.,"Financial, operational"
+Description,Data Inventory v8.1,,A brief description of the data.,A platform for eCommerce transactions
+Data Location,Data Inventory v8.1,,The location that the data resides - can be physical or digital.,Cloud Company A
+Data Format,Data Inventory v8.1,,"The format of the data - how the data is arranged, stored, and/or transmitted.",Relational Database
+Data Owner,Data Inventory v8.1,Yes,The person responsible for the data.,John Smith
+Data Classification,Data Inventory v8.1,,"The categorization that a piece of data, or dataset, is assigned, based on sensitivity and regulatory requirements (e.g., Public, Confidential, Restricted, Sensitive).",Sensitive
+Business Purpose,Data Inventory v8.1,,The business justification or purpose that the data is used for.,To store eCommerce transactions
+Data Retention Limits,Data Inventory v8.1,Yes,The length of time that the data will be stored by the enterprise.,3 years
+Disposal Method,Data Inventory v8.1,Yes,"If disposed, how the data is disposed - can be physical or digital.",Records deleted permanently (purged) after 3 years
+Disposal Date,Data Inventory v8.1,Yes,The date that the data was disposed of.,1/1/2025
+Associated Service Provider or Product,Account Inventory v8.1,Yes,The service provider or product associated with the account.,Active Directory
+Account Owner,Account Inventory v8.1,Yes,The member of the workforce that the account is assigned to and is responsible for.,John Smith
+Account Type,Account Inventory v8.1,,A term specific to the CIS Controls that can be used to classify an account.,User Account
+Username,Account Inventory v8.1,Yes,A unique identifier that can be used to log into software.,jsmith-09
+Account Creation Date,Account Inventory v8.1,Yes,The date that the account was created.,1/1/2025
+Account Deletion Date,Account Inventory v8.1,Yes,The date that the account was deleted.,N/A
+Account Expiration Date,Account Inventory v8.1,Yes,The date that the account expired.,N/A
+"Account Status (Enabled, Disabled, Deleted, Dormant, Locked)",Account Inventory v8.1,Yes,"The status of the account currently. Examples may include enabled, disabled, deleted, dormant, and locked.",Enabled
+MFA Enabled?,Account Inventory v8.1,Yes,Indicates if the account has multi-factor authentication (MFA) enabled or not. Note that not all accounts will be able to support MFA.,Yes
+Review Date (Date Validated),Account Inventory v8.1,Yes,The last date that the account was validated.,3/1/2025
+Business Unit,Account Inventory v8.1,Yes,The business unit or department that the account owner resides in.,Sales
+Service Provider Name,Service Provider Inventory v8.1,Yes,The name of the service provider.,Cloud Company A
+Service Provider Classification,Service Provider Inventory v8.1,Yes,The classification of the service provider.,Standard
+Service Provider Point of Contact,Service Provider Inventory v8.1,Yes,"The point of contact at the service provider that is responsible for assisting the enterprise. Can have multiple contacts that provide various types of support (technical, sales, etc.)",Joe Smith/jsmith@cloudcompanya.com
+Enterprise Point of Contact,Service Provider Inventory v8.1,Yes,The point of contact at the enterprise that is responsible for the service provider.,John Smith/jsmith@enterprisea.com
+Business Unit,Service Provider Inventory v8.1,Yes,The business unit or department that is using the service provider.,Sales
+Description,Service Provider Inventory v8.1,,A short description of what the service provider does for the enterprise.,Provides platform for eCommerce database
+Contract Start Date,Service Provider Inventory v8.1,,The start date of the service provider contract.,1/1/2025
+Contract Expire Date,Service Provider Inventory v8.1,,The expiration date of the service provider contract.,1/1/2026
+Contract Review Date,Service Provider Inventory v8.1,Yes,The last date that the contract was reviewed.,1/1/2026

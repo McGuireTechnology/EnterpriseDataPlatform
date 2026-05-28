@@ -19,6 +19,7 @@ depends_on = None
 
 
 def upgrade() -> None:
+    op.execute(sa.text('CREATE SCHEMA IF NOT EXISTS "meta"'))
     op.execute(sa.text('CREATE SCHEMA IF NOT EXISTS "ad"'))
 
     op.create_table(
@@ -96,3 +97,4 @@ def downgrade() -> None:
     op.drop_table("ingestion_run", schema="meta")
     op.drop_table("source_system", schema="meta")
     op.execute(sa.text('DROP SCHEMA IF EXISTS "ad"'))
+    op.execute(sa.text('DROP SCHEMA IF EXISTS "meta"'))

@@ -14,8 +14,8 @@ The raw data store captures source data with minimal transformation. It supports
 
 Raw data should preserve source identifiers, extraction timestamps, source payload shape, and enough metadata to explain where the record came from. This layer is optimized for faithful capture, not user-facing reporting.
 
-Within `edp_raw`, use one schema per source system or connector package. Active
-Directory raw tables should live under `edp_raw.ad`, Microsoft 365 under
+Within `edp_raw`, use one schema per source system or connector package. AD raw
+tables should live under `edp_raw.ad`, M365 under
 `edp_raw.m365`, a hypothetical FleetTrack connector under
 `edp_raw.fleettrack`, and so on. This keeps source-specific payloads and naming
 close to their origin while still sharing common raw metadata patterns.
@@ -64,7 +64,7 @@ last check-in time, operating system version, and warranty expiration.
 
 In `edp_raw`, the connector stores each API response with minimal reshaping in a
 source-specific schema. FleetTrack records would land in tables such as
-`fleettrack.device_record` or `fleettrack.assignment_record`. Active Directory
+`fleettrack.device_record` or `fleettrack.assignment_record`. AD
 objects would land in tables such as `ad.object_record`. Each raw row keeps the
 source identifier, the full JSON payload, the extraction timestamp, the
 ingestion run identifier, and source metadata. If a source changes an attribute
@@ -105,8 +105,8 @@ should have a recognizable column pattern.
 ### `edp_raw`
 
 Raw tables preserve source truth and ingestion context. Each source system gets
-its own raw schema, so Active Directory tables live under `edp_raw.ad`, Microsoft
-365 tables under `edp_raw.m365`, and FleetTrack tables under
+its own raw schema, so AD tables live under `edp_raw.ad`, M365 tables under
+`edp_raw.m365`, and FleetTrack tables under
 `edp_raw.fleettrack`.
 
 A table such as `ad.object_record` will typically include:

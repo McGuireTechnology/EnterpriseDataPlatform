@@ -4,7 +4,7 @@ Canvas LMS is a learning management system source for courses, sections, enrollm
 
 ## Overview
 
-Canvas can provide EDP with learning platform activity, course structure, enrollment state, and instructional workflow context. It is especially useful when correlated with Infinite Campus, Google Workspace, Microsoft 365, Apple School Manager, and identity systems.
+Canvas can provide EDP with learning platform activity, course structure, enrollment state, and instructional workflow context. It is especially useful when correlated with Infinite Campus, Google Workspace, M365, Apple School Manager, and identity systems.
 
 EDP should use Canvas data to support:
 

@@ -1,14 +1,14 @@
-# Active Directory
+# AD
 
-Active Directory is the first documented EDP source system. It provides foundational identity, group, computer, organizational unit, and membership data for identity lifecycle visibility and cross-system correlation.
+AD is the first documented EDP source system. It provides foundational identity, group, computer, organizational unit, and membership data for identity lifecycle visibility and cross-system correlation.
 
-This page describes an on-premises Active Directory Domain Services source. Entra ID or Microsoft 365 should be documented as separate source systems because their APIs, identifiers, permissions, and data shapes differ.
+This page describes an on-premises AD DS source. Entra ID or M365 should be documented as separate source systems because their APIs, identifiers, permissions, and data shapes differ.
 
 ## Overview
 
-Active Directory is commonly used as a system of record or synchronization source for users, groups, computers, service accounts, organizational units, and access control structures.
+AD is commonly used as a system of record or synchronization source for users, groups, computers, service accounts, organizational units, and access control structures.
 
-EDP should use Active Directory data to support:
+EDP should use AD data to support:
 
 - Identity lifecycle reporting
 - Onboarding and offboarding validation
@@ -24,14 +24,14 @@ EDP should use Active Directory data to support:
 
 | Role | Responsibility |
 | --- | --- |
-| Source system owner | Owns Active Directory service health, access policies, and operational use |
+| Source system owner | Owns AD service health, access policies, and operational use |
 | Technical owner | Supports connector access, directory queries, and network reachability |
 | Data steward | Defines identity, group, computer, and membership meaning for EDP consumers |
 | Platform owner | Runs the connector, raw landing, transformations, quality checks, and downstream models |
 
 ## Data Domains
 
-Initial Active Directory data domains:
+Initial AD data domains:
 
 - Users
 - Groups
@@ -63,7 +63,7 @@ Later domains may include:
 
 Status: prebuilt planned.
 
-A reusable Active Directory connector package should include:
+A reusable AD connector package should include:
 
 - Containerized connector runtime where feasible
 - Optional Windows-based export pattern if direct Linux container LDAP access is not approved
@@ -163,7 +163,7 @@ The Data Vault should preserve historical changes in memberships, account state,
 
 ## Data Mart Outputs
 
-Initial Active Directory marts:
+Initial AD marts:
 
 - Identity lifecycle mart
 - Disabled and stale accounts mart
@@ -200,7 +200,7 @@ Historical changes should be preserved in the Data Vault or snapshot structures 
 
 ## Operational Runbook
 
-The Active Directory connector runbook should include:
+The AD connector runbook should include:
 
 - How to validate service account access
 - How to test LDAPS connectivity
@@ -214,7 +214,7 @@ The Active Directory connector runbook should include:
 
 ## Known Limitations
 
-Active Directory may not contain all authoritative identity lifecycle information. HR, Entra ID, Microsoft 365, endpoint management, service desk, and application systems may each hold different parts of the lifecycle.
+AD may not contain all authoritative identity lifecycle information. HR, Entra ID, M365, endpoint management, service desk, and application systems may each hold different parts of the lifecycle.
 
 Distinguished names and account names can change. Use immutable source identifiers for durable correlation.
 

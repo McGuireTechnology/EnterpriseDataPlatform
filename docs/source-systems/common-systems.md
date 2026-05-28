@@ -1,6 +1,6 @@
 # Common Source Systems
 
-After Active Directory and Microsoft 365, EDP should prioritize source systems that improve lifecycle visibility, operational correlation, governance, and audit readiness.
+After AD and M365, EDP should prioritize source systems that improve lifecycle visibility, operational correlation, governance, and audit readiness.
 
 This page lists common systems to consider. It is not a commitment to integrate every system. Use the source inventory, business value, access feasibility, and pilot goals to decide what comes next.
 
@@ -32,7 +32,7 @@ This page lists common systems to consider. It is not a commitment to integrate 
 
 ## Recommended Early Priority
 
-After Active Directory and Microsoft 365, prioritize:
+After AD and M365, prioritize:
 
 1. HR or workforce system
 2. Student information system such as Infinite Campus when student lifecycle, course, and roster context matters
@@ -49,9 +49,9 @@ After Active Directory and Microsoft 365, prioritize:
 
 ## Why HR Matters Early
 
-The HR or workforce system is often the missing authoritative source for identity lifecycle. Active Directory and Microsoft 365 can show accounts and access, but HR usually explains whether a person is active, starting, changing roles, on leave, terminated, assigned to a department, or reporting to a specific manager.
+The HR or workforce system is often the missing authoritative source for identity lifecycle. AD and M365 can show accounts and access, but HR usually explains whether a person is active, starting, changing roles, on leave, terminated, assigned to a department, or reporting to a specific manager.
 
-When EDP combines HR, Active Directory, Microsoft 365, and service desk data, it can answer lifecycle questions that usually require multiple spreadsheets:
+When EDP combines HR, AD, M365, and service desk data, it can answer lifecycle questions that usually require multiple spreadsheets:
 
 - Has every new hire been provisioned correctly?
 - Are terminated users disabled everywhere?

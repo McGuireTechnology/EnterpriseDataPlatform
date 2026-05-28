@@ -1,0 +1,31 @@
+name: Package Release
+on:
+  push:
+    tags:
+      - v*
+jobs:
+  package-release:
+    name: Package Release
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+        with:
+          submodules: recursive
+      - uses: actions/setup-java@v5
+        with:
+          distribution: "temurin"
+          java-version: "17"
+      - name: Generate artifacts
+        # RELEASE is set to the tag name (vX.X.X) without the first character
+        run: |
+          make -j2 artifacts archives RELEASE=${GITHUB_REF_NAME:1}
+        working-directory: build
+      - name: Create release
+        uses: softprops/action-gh-release@v2
+        with:
+          token: ${{ secrets.COMMIT_TOKEN }}
+          draft: true
+          generate_release_notes: true
+          fail_on_unmatched_files: true
+          files: |
+            build/generated/oscal*

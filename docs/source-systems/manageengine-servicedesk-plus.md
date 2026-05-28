@@ -15,7 +15,7 @@ EDP should use ManageEngine ServiceDesk Plus data to support:
 - Asset and CMDB reconciliation
 - Approval and service catalog workflow visibility
 - Onboarding, offboarding, and lifecycle ticket validation
-- Cross-system correlation with Active Directory, Microsoft 365, HR, endpoint management, asset inventory, and security platforms
+- Cross-system correlation with AD, M365, HR, endpoint management, asset inventory, and security platforms
 
 ## Ownership
 
@@ -165,7 +165,7 @@ Common mapping rules:
 - Model requests, problems, and changes separately even when they are linked in the source.
 - Treat status, assignment, SLA, and approval changes as lifecycle events when history is available.
 - Keep ticket text and attachment content out of broad reporting models unless explicitly approved.
-- Reconcile ServiceDesk Plus assets and CIs with Endpoint Central, AD, Microsoft 365, Meraki, and procurement sources using approved matching rules.
+- Reconcile ServiceDesk Plus assets and CIs with Endpoint Central, AD, M365, Meraki, and procurement sources using approved matching rules.
 
 ## Data Vault Mapping
 

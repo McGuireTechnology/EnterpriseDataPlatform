@@ -151,7 +151,7 @@ Common mapping rules:
 
 - Use stable Apple identifiers as source keys and preserve serial numbers as sensitive matching attributes.
 - Correlate Apple devices to MDM and asset inventory records by serial number, hardware identifiers, and approved matching rules.
-- Correlate Managed Apple Accounts to HR, identity provider, Microsoft 365, Google Workspace, or SIS identities through approved identifiers only.
+- Correlate Managed Apple Accounts to HR, identity provider, M365, Google Workspace, or SIS identities through approved identifiers only.
 - Keep Apple enrollment assignment separate from MDM compliance or configuration state.
 - Treat Apps and Books licenses as entitlement records that may differ from actual app installation state.
 - Treat ASM roster records as education lifecycle data and apply student-data governance requirements.

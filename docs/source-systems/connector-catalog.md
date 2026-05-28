@@ -21,8 +21,8 @@ Connector status should be explicit so teams know what can be deployed quickly, 
 
 | Source Type | Common Connector Options | Prebuilt Status | Notes |
 | --- | --- | --- | --- |
-| [Active Directory](/source-systems/active-directory) | LDAPS query, LDAP query, PowerShell export, scheduled file export | Prebuilt planned | First source system; supports identity lifecycle, access visibility, and membership correlation |
-| [Microsoft 365](/source-systems/microsoft-365) | Microsoft Graph API, reports API, admin exports, PowerShell-assisted export | Prebuilt planned | Supports users, groups, Teams, licenses, usage, and cloud collaboration visibility |
+| [AD](/source-systems/active-directory) | LDAPS query, LDAP query, PowerShell export, scheduled file export | Prebuilt planned | First source system; supports identity lifecycle, access visibility, and membership correlation |
+| [M365](/source-systems/microsoft-365) | Microsoft Graph API, reports API, admin exports, PowerShell-assisted export | Prebuilt planned | Supports users, groups, Teams, licenses, usage, and cloud collaboration visibility |
 | [Google Workspace](/source-systems/google-workspace) | Admin SDK Directory API, Admin SDK Reports API, Enterprise License Manager API, Alert Center API, Events API, admin export | Planned | Supports Google users, groups, memberships, org units, roles, devices, licenses, usage reports, audit events, and alerts |
 | [Infinite Campus](/source-systems/infinite-campus) | OneRoster API, customer-approved MS SQL read access, OneRoster CSV export, ad hoc reports, vendor-supported integration | Planned | Supports SIS users, schools, terms, courses, sections, rosters, enrollments, assignments, grades, attendance, and broader SIS reporting when database access is approved |
 | [Canvas LMS](/source-systems/canvas-lms) | Canvas REST API, Canvas Data 2, Live Events, SIS import/export reports, admin reports | Planned | Supports LMS accounts, users, courses, sections, enrollments, assignments, submissions, grades, and activity reporting |

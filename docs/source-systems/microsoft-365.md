@@ -1,16 +1,16 @@
-# Microsoft 365
+# M365
 
-Microsoft 365 is a core EDP source system for cloud productivity, collaboration, licensing, usage, and service metadata. It should be documented separately from on-premises Active Directory because it uses Microsoft Graph and cloud service APIs, has different identifiers, and exposes different operational data.
+M365 is a core EDP source system for cloud productivity, collaboration, licensing, usage, and service metadata. It should be documented separately from on-premises AD because it uses Microsoft Graph and cloud service APIs, has different identifiers, and exposes different operational data.
 
 ## Overview
 
-Microsoft 365 can provide EDP with cloud-side identity, group, license, collaboration, usage, and service information.
+M365 can provide EDP with cloud-side identity, group, license, collaboration, usage, and service information.
 
-EDP should use Microsoft 365 data to support:
+EDP should use M365 data to support:
 
 - Cloud identity and account visibility
 - License assignment and utilization reporting
-- Group and Microsoft 365 group visibility
+- Group and M365 group visibility
 - Teams and channel visibility
 - Collaboration governance
 - User activity and adoption reporting
@@ -23,17 +23,17 @@ EDP should use Microsoft 365 data to support:
 
 | Role | Responsibility |
 | --- | --- |
-| Source system owner | Owns Microsoft 365 tenant operations, licensing, access policies, and service configuration |
+| Source system owner | Owns M365 tenant operations, licensing, access policies, and service configuration |
 | Technical owner | Supports app registrations, Graph permissions, admin consent, and connector access |
 | Data steward | Defines license, group, team, channel, and usage reporting meaning for EDP consumers |
 | Platform owner | Runs the connector, raw landing, transformations, quality checks, and downstream models |
 
 ## Data Domains
 
-Initial Microsoft 365 data domains:
+Initial M365 data domains:
 
 - Users
-- Groups and Microsoft 365 groups
+- Groups and M365 groups
 - Group memberships and ownership
 - Teams
 - Channels
@@ -56,8 +56,8 @@ Later domains may include:
 
 | Connector Option | When It Fits | Notes |
 | --- | --- | --- |
-| Microsoft Graph API | Preferred production pattern for most Microsoft 365 entities | Supports users, groups, Teams, licenses, reports, and many cloud resources |
-| Microsoft Graph reports API | Preferred for Microsoft 365 usage and adoption reports | Useful for usage reporting and service adoption dashboards |
+| Microsoft Graph API | Preferred production pattern for most M365 entities | Supports users, groups, Teams, licenses, reports, and many cloud resources |
+| Microsoft Graph reports API | Preferred for M365 usage and adoption reports | Useful for usage reporting and service adoption dashboards |
 | PowerShell-assisted export | Useful when an administrative module exposes needed data more easily | Should still produce governed files or API results into raw landing |
 | Admin center export | Useful as an interim or fallback approach | Should be treated as a temporary bridge, not a long-term connector pattern |
 | Manual seed | Acceptable only for early testing or static reference data | Should not be used for production operational reporting |
@@ -66,7 +66,7 @@ Later domains may include:
 
 Status: prebuilt planned.
 
-A reusable Microsoft 365 connector package should include:
+A reusable M365 connector package should include:
 
 - Containerized Graph connector runtime
 - Configuration schema for tenant, endpoints, object sets, schedules, and report periods
@@ -97,7 +97,7 @@ Document these items before production use:
 - Report periods and usage report requirements
 - Throttling and retry behavior
 - Network egress requirements
-- Approval from the Microsoft 365 tenant owner
+- Approval from the M365 tenant owner
 
 Permission requirements vary by endpoint. Keep the exact permission list with the connector package and review it whenever Microsoft Graph endpoints or requested data domains change.
 
@@ -107,8 +107,8 @@ Recommended raw tables:
 
 | Raw Table | Purpose |
 | --- | --- |
-| `raw.m365_users` | Microsoft 365 or Entra user payloads and source metadata |
-| `raw.m365_groups` | Group and Microsoft 365 group payloads |
+| `raw.m365_users` | M365 or Entra user payloads and source metadata |
+| `raw.m365_groups` | Group and M365 group payloads |
 | `raw.m365_group_memberships` | Group membership and ownership edges |
 | `raw.m365_teams` | Team payloads and metadata |
 | `raw.m365_channels` | Team channel payloads and metadata |
@@ -149,7 +149,7 @@ Common mapping rules:
 
 - Use stable Microsoft cloud object identifiers for source identity.
 - Preserve user principal name and mail attributes as descriptive attributes because they can change.
-- Correlate cloud accounts to Active Directory accounts through immutable identifiers, synchronization attributes, UPN, mail, or approved matching rules.
+- Correlate cloud accounts to AD accounts through immutable identifiers, synchronization attributes, UPN, mail, or approved matching rules.
 - Model direct group and team memberships first.
 - Add ownership and nested membership expansions as derived models with clear lineage.
 - Keep license assignments separate from license utilization.
@@ -178,11 +178,11 @@ The Data Vault should preserve historical changes in license assignments, group 
 
 ## Data Mart Outputs
 
-Initial Microsoft 365 marts:
+Initial M365 marts:
 
 - License assignment mart
 - License utilization mart
-- Microsoft 365 group mart
+- M365 group mart
 - Teams and channel visibility mart
 - User cloud account mart
 - Inactive or stale cloud account mart
@@ -216,7 +216,7 @@ Use more frequent collection when operational needs require closer tracking, suc
 
 ## Operational Runbook
 
-The Microsoft 365 connector runbook should include:
+The M365 connector runbook should include:
 
 - How to validate app registration or managed identity access
 - How to confirm Graph permissions and admin consent
@@ -231,11 +231,11 @@ The Microsoft 365 connector runbook should include:
 
 ## Known Limitations
 
-Microsoft 365 APIs may throttle requests. Connector logic should respect throttling responses and use backoff behavior.
+M365 APIs may throttle requests. Connector logic should respect throttling responses and use backoff behavior.
 
 Some reports are aggregated, delayed, anonymized, licensed, or limited by tenant settings. Document report behavior for each data domain.
 
-Microsoft 365 and Active Directory may contain related but different identity records. Correlation rules should be explicit and auditable.
+M365 and AD may contain related but different identity records. Correlation rules should be explicit and auditable.
 
 Permission requirements can change as endpoints and data domains expand. Keep permissions reviewed and documented with the connector package.
 
@@ -243,4 +243,4 @@ Permission requirements can change as endpoints and data domains expand. Keep pe
 
 - [Microsoft Graph throttling guidance](https://learn.microsoft.com/en-us/graph/throttling)
 - [Microsoft Graph reports API overview](https://learn.microsoft.com/en-us/graph/reportroot-concept-overview)
-- [Microsoft 365 usage reports in Microsoft Graph](https://learn.microsoft.com/en-us/graph/api/resources/report?view=graph-rest-1.0)
+- [M365 usage reports in Microsoft Graph](https://learn.microsoft.com/en-us/graph/api/resources/report?view=graph-rest-1.0)

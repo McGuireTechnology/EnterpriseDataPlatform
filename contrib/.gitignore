@@ -5,3 +5,7 @@
 /sources/cis/SecureSuite Platform Windows v1.4.0.zip
 /sources/purple-knight/PurpleKnight-Community.zip
 /sources/purple-knight/PurpleKnight-Community/PK Community 5.0/PurpleKnight.exe
+
+# Office/editor lock files are local noise.
+.~lock*
+**/.~lock*

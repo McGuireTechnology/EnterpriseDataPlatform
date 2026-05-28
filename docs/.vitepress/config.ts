@@ -53,6 +53,7 @@ export default defineConfig({
           { text: 'Tooling Recommendations', link: '/architecture/tooling-recommendations' },
           { text: 'Platform Positioning', link: '/architecture/platform-positioning' },
           { text: 'GRC', link: '/grc/' },
+          { text: 'Policy Templates', link: '/grc/policy-templates/' },
           { text: 'Policy Template Conversion', link: '/grc/policy-template-conversion' },
           { text: 'Runbooks', link: '/runbooks/' },
           { text: 'Local PostgreSQL', link: '/runbooks/local-postgresql' },

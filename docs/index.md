@@ -25,6 +25,8 @@ features:
     details: EDP correlates identities, assets, permissions, tickets, licenses, and operational records across specialized systems.
   - title: Governed Reporting
     details: Shared models, version-controlled transformations, and reusable dashboards reduce spreadmarts and conflicting sources of truth.
+  - title: GRC Traceability
+    details: OSCAL controls, policy fragments, evidence, findings, and POA&M work can be linked to explain posture over time.
   - title: Contrib References
-    details: Local-only reference documents such as CIS Controls inputs can guide target features without committing source material.
+    details: Reference documents such as CIS Controls inputs and policy templates guide target features and can be converted into durable docs.
 ---

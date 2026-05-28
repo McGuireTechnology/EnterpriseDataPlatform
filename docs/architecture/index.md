@@ -30,6 +30,7 @@ Use this section to explain how the platform is assembled, how data moves throug
 - [Orchestration and recovery patterns](/architecture/orchestration)
 - Custom application integration patterns
 - [Dashboard, application, and visualization consumption patterns](/architecture/consumer-tools)
+- [GRC use cases and OSCAL-backed policy traceability](/grc/)
 - [Contrib reference workflow](/contrib/)
 - [Platform positioning and differentiation](/architecture/platform-positioning)
 - Access, identity, and authorization model

@@ -57,8 +57,16 @@ export default defineConfig({
           { text: 'Policy Template Conversion', link: '/grc/policy-template-conversion' },
           { text: 'Runbooks', link: '/runbooks/' },
           { text: 'Local PostgreSQL', link: '/runbooks/local-postgresql' },
+          { text: 'Local pgBackRest', link: '/runbooks/local-pgbackrest' },
           { text: 'Local Airflow', link: '/runbooks/local-airflow' },
+          { text: 'Local dbt', link: '/runbooks/local-dbt' },
+          { text: 'Local Great Expectations', link: '/runbooks/local-great-expectations' },
           { text: 'Local Superset', link: '/runbooks/local-superset' },
+          { text: 'Local OpenMetadata', link: '/runbooks/local-openmetadata' },
+          { text: 'Local CKAN', link: '/runbooks/local-ckan' },
+          { text: 'Local OPA', link: '/runbooks/local-opa' },
+          { text: 'Local OpenBao', link: '/runbooks/local-openbao' },
+          { text: 'Local MinIO', link: '/runbooks/local-minio' },
           { text: 'Decisions', link: '/decisions/' }
         ]
       },

@@ -10,11 +10,14 @@ Start with Apache Superset as the main BI and dashboard portal.
 
 Superset is a strong default for EDP because it connects well to SQL databases, supports charts and dashboards, includes a semantic layer, and fits naturally with PostgreSQL, Airflow, dbt, and governed Data Marts.
 
+Use CKAN when EDP needs a public or semi-public publication portal. CKAN fits statutory reporting packages, downloadable datasets, open-data style pages, and transparency records that explain what data is collected, processed, and shared with third parties.
+
 ## Suggested Tool Mapping
 
 | Consumer Need | Recommended Tool |
 | --- | --- |
 | Standard dashboards and BI portal | Apache Superset |
+| Public dataset publication and transparency portal | CKAN |
 | Simple self-service business questions | Metabase |
 | Operational and technical monitoring dashboards | Grafana |
 | Curated narrative data products | Evidence.dev |
@@ -35,6 +38,20 @@ Good Superset use cases include:
 - Internal BI portal experiences
 
 Superset should generally query Data Marts or governed ODS views. Avoid pointing casual users directly at raw tables or deeply normalized Data Vault structures.
+
+## CKAN
+
+Use CKAN for published data products that need dataset pages, resources, downloads, metadata, and public-facing discovery.
+
+Good CKAN use cases include:
+
+- ASBR and other statutory reporting packages
+- Approved CSV, XLSX, PDF, and supporting documentation downloads
+- Public or board-facing data inventories
+- Data-sharing transparency records for third-party systems
+- Dataset pages with ownership, refresh cadence, methodology, and contact details
+
+CKAN should publish approved outputs, not internal working tables. Keep internal lineage, ownership, model definitions, and impact analysis in OpenMetadata and source control. Use CKAN to communicate what is safe and appropriate for the public or an authorized audience to inspect.
 
 ## Metabase
 

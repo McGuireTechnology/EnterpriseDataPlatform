@@ -1,0 +1,13 @@
+{
+  "input": {
+    "action": "publish_dataset",
+    "channel": "ckan",
+    "dataset": {
+      "name": "asbr-2026-summary",
+      "classification": "public",
+      "contains_student_level_records": false,
+      "contains_secrets": false,
+      "approved": true
+    }
+  }
+}

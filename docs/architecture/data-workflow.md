@@ -9,6 +9,24 @@ This page defines the standard EDP flow across raw, ODS, Data Vault, and mart da
 - Preserve enough raw history to rebuild downstream layers after connector or transform fixes.
 - Keep ODS, vault, and mart processing deterministic and re-runnable by bounded windows.
 
+## From Data Lake to Business Value
+
+The simplest EDP mental model is: raw data in, trusted insight out.
+
+| Layer | Plain-English Role | EDP Implementation |
+| --- | --- | --- |
+| Data sources | Operational systems, databases, APIs, files, logs, SaaS apps, and third-party services | Connector packages and Airflow DAGs |
+| Data lake / landing zone | Store source data as-is so it can be replayed, audited, and reprocessed | `edp_raw` source schemas plus MinIO buckets for large files, archives, and extracts |
+| Data warehouse | Clean, conform, integrate, and preserve current and historical business state | `edp_ods` for current operational state and `edp_vault` for durable history |
+| Data marts | Curate focused datasets for business questions and user-facing products | `edp_mart` reporting tables, semantic views, dbt models, and GX validations |
+| Consumption | Dashboards, reports, public datasets, applications, alerts, and exports | Superset, CKAN, APIs, custom apps, and downstream integrations |
+
+Raw data management runs across the flow: ingestion, metadata, cataloging, lineage, and quality checks should be captured from the first landing step instead of added later as cleanup work. Use Great Expectations where validation evidence needs to be reusable, reviewable, and orchestrated across layers.
+
+Governance, security, and observability are the guardrails around every layer. EDP should make ownership, lineage, quality, access control, audit logs, monitoring, policies, secrets handling, and compliance visible enough that people can trust the outputs. Use OPA where governance rules need to become executable allow or deny decisions for publication, access, exports, or deployment checks. Use OpenBao where services need to retrieve credentials from a controlled secret store instead of reading long-lived secrets from local files.
+
+For public schools, the consumption layer includes public transparency obligations as well as internal dashboards. CKAN should publish approved artifacts such as ASBR packages, public reporting datasets, and plain-language disclosures about which data is shared with third parties and why.
+
 ## Database Responsibilities
 
 | Database | Responsibility |
@@ -30,6 +48,7 @@ flowchart LR
     VAULT["edp_vault history"]
     MART["edp_mart curated outputs"]
     BI["Superset / APIs / Apps"]
+    TRUST["OpenMetadata / GX / OPA / OpenBao"]
 
     SRC --> RAWF
     SRC --> RAWI
@@ -39,6 +58,9 @@ flowchart LR
     VAULT --> MART
     ODS --> MART
     MART --> BI
+    TRUST -.governance.-> RAWF
+    TRUST -.governance.-> ODS
+    TRUST -.governance.-> MART
     RAWF -.replay.-> ODS
     RAWI -.replay.-> ODS
 ```

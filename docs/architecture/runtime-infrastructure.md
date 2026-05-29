@@ -105,6 +105,21 @@ The platform should distinguish between:
 
 Secrets should never be committed to Git.
 
+## Secrets Management
+
+EDP should treat secret management as a platform capability, not an afterthought inside each tool.
+
+For local development, OpenBao gives the stack a concrete secrets-management target. It lets connector code, orchestration jobs, and applications practice retrieving credentials from an API-backed secret store while keeping `.env.example` limited to disposable local defaults.
+
+For production, choose the secret store that fits the hosting model:
+
+- OpenBao when the organization wants an open-source, self-hosted Vault-compatible secrets platform.
+- Vault when the organization already standardizes on HashiCorp operations or managed Vault services.
+- Managed cloud secret stores when the platform runs mainly in AWS, Azure, or Google Cloud.
+- SOPS plus age for Git-encrypted configuration where runtime secret APIs are not yet justified.
+
+Regardless of product, the architecture should define who owns each secret, how it is rotated, which workloads can read it, how access is audited, and what the break-glass recovery process is.
+
 ## Prebuilt Models and Connectors
 
 Repeatability improves when EDP provides reusable starter packages:
@@ -178,7 +193,7 @@ For an early production-capable EDP environment:
 - Store deployment definitions in Git.
 - Use GitHub Actions for build and validation.
 - Use Argo CD or Flux when the deployment process is ready for GitOps reconciliation.
-- Use SOPS plus age, Vault, OpenBao, or a managed secret store for credentials.
+- Use SOPS plus age, OpenBao, Vault, or a managed secret store for credentials.
 - Treat host operating systems as minimal container infrastructure, not manually managed application servers.
 
 This approach keeps the platform portable, repeatable, and easier to rebuild when hardware, hosting, or organizational requirements change.

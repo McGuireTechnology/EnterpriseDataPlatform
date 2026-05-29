@@ -37,6 +37,8 @@ This keeps the first implementation understandable and maintainable. It also avo
 
 Add object storage and Parquet when raw history becomes large or when immutable file-based retention is useful. In that pattern, raw extracts can be stored in S3-compatible storage, Azure Blob, or another durable object store while PostgreSQL keeps manifests, metadata, and searchable indexes.
 
+For local development, use MinIO as the S3-compatible object storage adapter. It should hold large raw files, retained extracts, generated exports, CKAN publication resources, and backup repository experiments. Keep object endpoints and bucket names in configuration so production can later move to S3, Azure Blob or ADLS Gen2, Google Cloud Storage, Ceph, Garage, SeaweedFS, or another object store without rewriting platform logic.
+
 Use DuckDB for local development, exploration, and ad hoc analytics against Parquet files. DuckDB is useful beside the platform, but it should not be treated as the central server database.
 
 Consider ClickHouse when dashboard or analytical workloads outgrow PostgreSQL. It is strong for high-volume analytical queries, but it adds operational complexity and should be introduced for a clear workload need.

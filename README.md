@@ -4,6 +4,8 @@
   <img src="docs/public/brand/edp-wordmark-dark.svg" alt="Enterprise Data Platform" width="720">
 </p>
 
+[![Deploy GitHub Pages](https://github.com/McGuireTechnology/EnterpriseDataPlatform/actions/workflows/deploy-pages.yml/badge.svg)](https://github.com/McGuireTechnology/EnterpriseDataPlatform/actions/workflows/deploy-pages.yml)
+
 Canonical version: see `VERSION`.
 
 Public website: https://edp.mcguire.technology/

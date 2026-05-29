@@ -82,6 +82,8 @@ Secrets and configuration tools manage API keys, database passwords, service cre
 
 Secrets should not live in source code, documentation, container images, or ad hoc configuration files.
 
+OpenBao is the reference local secret store for this stack. It should be used to test how connectors, Airflow jobs, custom applications, and administrative tools retrieve secrets before production chooses OpenBao, Vault, a managed cloud secret store, or SOPS plus age.
+
 ## Observability and Monitoring
 
 Observability tools track pipeline health, service health, logs, metrics, traces, freshness, failures, latency, and platform capacity.

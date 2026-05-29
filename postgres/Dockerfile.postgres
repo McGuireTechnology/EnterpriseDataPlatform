@@ -1,0 +1,13 @@
+ARG POSTGRES_BASE_IMAGE=postgres:16-bookworm
+FROM ${POSTGRES_BASE_IMAGE}
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates pgbackrest \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY postgres/docker/postgres-entrypoint.sh /usr/local/bin/edp-postgres-entrypoint.sh
+
+RUN chmod +x /usr/local/bin/edp-postgres-entrypoint.sh
+
+ENTRYPOINT ["edp-postgres-entrypoint.sh"]
+CMD ["postgres"]

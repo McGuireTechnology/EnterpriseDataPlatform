@@ -8,15 +8,16 @@ EDP should prefer open-source, PostgreSQL-centered, container-friendly, Git-mana
 | --- | --- | --- |
 | Connectors and Data Movement | Custom Python connectors, Airbyte, Meltano | Debezium for CDC, Kafka or Redpanda for event streams |
 | Orchestration and Workflow | Apache Airflow | Dagster for asset-centric orchestration, Temporal for durable business workflows |
-| Storage and Persistence | PostgreSQL | Object storage plus Parquet, ClickHouse, TimescaleDB |
+| Storage and Persistence | PostgreSQL, MinIO for local S3-compatible object storage | Cloud object storage plus Parquet, ClickHouse, TimescaleDB |
+| Backup and Recovery | pgBackRest for PostgreSQL physical backups and WAL archiving | Object-storage repositories, managed PITR, cross-region replicas |
 | Transformation and Modeling | dbt | SQLMesh, custom Python transforms |
-| Data Quality and Validation | dbt tests, Great Expectations, Soda Core | Deequ for Spark-heavy environments |
+| Data Quality and Validation | dbt tests, Great Expectations / GX Core, Soda Core | Deequ for Spark-heavy environments |
 | Catalog, Metadata, and Lineage | OpenMetadata | DataHub for larger metadata and governance programs |
 | Semantic Layer and Metrics | dbt semantic layer concepts, Superset semantic layer | Cube, Lightdash, commercial semantic layers |
-| Consumer Experience | Apache Superset, Grafana, FastAPI plus Vue | Metabase, Evidence.dev, Power BI |
+| Consumer Experience | Apache Superset, CKAN, Grafana, FastAPI plus Vue | Metabase, Evidence.dev, Power BI |
 | Custom Applications and APIs | FastAPI, Vue, NGINX | React, .NET APIs, internal developer portals |
-| Identity and Access | Existing identity provider, Keycloak if self-hosting | Open Policy Agent for policy-as-code |
-| Secrets and Configuration | Kubernetes Secrets for a basic start, SOPS plus age | HashiCorp Vault or OpenBao |
+| Identity and Access | Existing identity provider, Keycloak if self-hosting, Open Policy Agent for policy-as-code | OPA Gatekeeper for Kubernetes admission control |
+| Secrets and Configuration | SOPS plus age, OpenBao for local secret-management integration | Managed secret stores, HashiCorp Vault |
 | Observability and Monitoring | Prometheus, Grafana, Loki | OpenTelemetry, Tempo, Alertmanager |
 | DevOps, GitOps, and CI/CD | GitHub Actions, Docker, Kubernetes manifests | Argo CD, Flux, Helm, Renovate |
 | Search and Indexing | PostgreSQL full-text search | OpenSearch when search becomes central |
@@ -28,10 +29,17 @@ EDP should prefer open-source, PostgreSQL-centered, container-friendly, Git-mana
 Start with:
 
 - PostgreSQL for persistence
+- pgBackRest for PostgreSQL backup and restore testing
+- MinIO for local object storage, with migration paths to S3, Azure Blob or ADLS, GCS, Ceph, or another object store
 - PostgreSQL schemas for raw, ODS, Data Vault, Data Marts, platform metadata, and application state
 - Airflow for orchestration
 - dbt for transformations, tests, lineage, and model documentation
+- Great Expectations for reusable data quality suites and validation results
+- OpenMetadata for catalog, ownership, glossary, metadata ingestion, and lineage
 - Superset for the main BI portal
+- CKAN for public dataset publication, statutory reporting packages, and transparency disclosures
+- Open Policy Agent for executable governance decisions around access, publication, and exports
+- OpenBao for local secret storage, policy experiments, and future dynamic-credential patterns
 - Grafana for platform and operational dashboards
 - FastAPI plus Vue for workflow-oriented applications
 - VitePress for documentation
@@ -47,9 +55,16 @@ See [Runtime Infrastructure](/architecture/runtime-infrastructure) for recommend
 Phase 1 should establish the platform core:
 
 - PostgreSQL
+- pgBackRest
+- MinIO
 - Airflow
 - dbt
+- Great Expectations
+- OpenMetadata
 - Superset
+- CKAN
+- Open Policy Agent
+- OpenBao
 - Grafana
 - VitePress
 - GitHub Actions
@@ -57,8 +72,9 @@ Phase 1 should establish the platform core:
 Phase 2 should improve trust, operations, and governance:
 
 - Great Expectations or Soda Core
-- OpenMetadata
+- Broader OpenMetadata lineage, ownership, and glossary workflows
 - SOPS plus age
+- OpenBao auth, policy, audit, and rotation workflows
 - Prometheus
 - Loki
 - Alertmanager
@@ -77,7 +93,7 @@ Phase 4 should add specialized scale and mature operations:
 - TimescaleDB for serious time-series needs
 - Temporal for durable workflow applications
 - OpenSearch for cross-entity search
-- Vault or OpenBao for mature secrets management
+- Managed secret stores or Vault for mature secrets management when OpenBao is not the chosen production target
 
 ## Selection Principles
 

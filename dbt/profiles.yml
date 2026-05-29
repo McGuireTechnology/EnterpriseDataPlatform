@@ -1,0 +1,39 @@
+edp:
+  target: "{{ env_var('DBT_TARGET', 'mart') }}"
+  outputs:
+    raw:
+      type: postgres
+      host: "{{ env_var('DBT_PG_HOST', 'pgbouncer') }}"
+      port: "{{ env_var('DBT_PG_PORT', '6432') | int }}"
+      user: "{{ env_var('DBT_PG_USER', 'postgres') }}"
+      password: "{{ env_var('DBT_PG_PASSWORD', 'postgres') }}"
+      dbname: "{{ env_var('DBT_RAW_DB', 'edp_raw') }}"
+      schema: "{{ env_var('DBT_RAW_SCHEMA', 'raw') }}"
+      threads: "{{ env_var('DBT_THREADS', '4') | int }}"
+    ods:
+      type: postgres
+      host: "{{ env_var('DBT_PG_HOST', 'pgbouncer') }}"
+      port: "{{ env_var('DBT_PG_PORT', '6432') | int }}"
+      user: "{{ env_var('DBT_PG_USER', 'postgres') }}"
+      password: "{{ env_var('DBT_PG_PASSWORD', 'postgres') }}"
+      dbname: "{{ env_var('DBT_ODS_DB', 'edp_ods') }}"
+      schema: "{{ env_var('DBT_ODS_SCHEMA', 'ods') }}"
+      threads: "{{ env_var('DBT_THREADS', '4') | int }}"
+    vault:
+      type: postgres
+      host: "{{ env_var('DBT_PG_HOST', 'pgbouncer') }}"
+      port: "{{ env_var('DBT_PG_PORT', '6432') | int }}"
+      user: "{{ env_var('DBT_PG_USER', 'postgres') }}"
+      password: "{{ env_var('DBT_PG_PASSWORD', 'postgres') }}"
+      dbname: "{{ env_var('DBT_VAULT_DB', 'edp_vault') }}"
+      schema: "{{ env_var('DBT_VAULT_SCHEMA', 'vault') }}"
+      threads: "{{ env_var('DBT_THREADS', '4') | int }}"
+    mart:
+      type: postgres
+      host: "{{ env_var('DBT_PG_HOST', 'pgbouncer') }}"
+      port: "{{ env_var('DBT_PG_PORT', '6432') | int }}"
+      user: "{{ env_var('DBT_PG_USER', 'postgres') }}"
+      password: "{{ env_var('DBT_PG_PASSWORD', 'postgres') }}"
+      dbname: "{{ env_var('DBT_MART_DB', 'edp_mart') }}"
+      schema: "{{ env_var('DBT_MART_SCHEMA', 'mart') }}"
+      threads: "{{ env_var('DBT_THREADS', '4') | int }}"

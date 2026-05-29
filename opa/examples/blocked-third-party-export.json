@@ -1,0 +1,17 @@
+{
+  "input": {
+    "action": "export_data",
+    "requestor": {
+      "role": "data_steward"
+    },
+    "dataset": {
+      "name": "student-roster",
+      "approved": true
+    },
+    "destination": {
+      "name": "vendor-without-dsa",
+      "third_party": true,
+      "data_sharing_agreement": false
+    }
+  }
+}

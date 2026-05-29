@@ -6,6 +6,14 @@ The canonical project version is maintained in the root `VERSION` file.
 
 Added:
 
+- Local OpenMetadata Compose scaffold with Elasticsearch-backed catalog search, ingestion service, Make targets, metadata databases, and runbook
+- Local dbt project scaffold, dbt Compose tooling container, Make targets, and runbook
+- Local pgBackRest-enabled PostgreSQL image, backup repository volumes, Make targets, and runbook
+- Local CKAN transparency portal scaffold with Solr, Redis, DataPusher, metadata databases, Make targets, and runbook
+- Local Great Expectations tooling container, workspace scaffold, Make targets, and runbook
+- Local Open Policy Agent service, starter Rego policy, example policy inputs, Make targets, and runbook
+- Local OpenBao service, tooling container, sample secret seed script, Make targets, and runbook
+- Local MinIO object storage service, bucket initialization job, Make targets, and runbook
 - Root `requirements.txt` that references subproject Python requirement files
 - Root npm `package.json` workspace and lockfile for project-level docs commands
 - Local Apache Airflow Compose scaffold, DAG folder structure, healthcheck DAG, Make targets, and runbook

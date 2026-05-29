@@ -1,8 +1,159 @@
 name: edp
 
+x-openmetadata-server-env: &openmetadata-server-env
+  OPENMETADATA_CLUSTER_NAME: ${OPENMETADATA_CLUSTER_NAME:-edp-openmetadata}
+  SERVER_PORT: ${OPENMETADATA_SERVER_PORT:-8585}
+  SERVER_ADMIN_PORT: ${OPENMETADATA_SERVER_ADMIN_PORT:-8586}
+  LOG_LEVEL: ${OPENMETADATA_LOG_LEVEL:-INFO}
+  MIGRATION_LIMIT_PARAM: ${OPENMETADATA_MIGRATION_LIMIT_PARAM:-1200}
+  AUTHORIZER_CLASS_NAME: ${OPENMETADATA_AUTHORIZER_CLASS_NAME:-org.openmetadata.service.security.DefaultAuthorizer}
+  AUTHORIZER_REQUEST_FILTER: ${OPENMETADATA_AUTHORIZER_REQUEST_FILTER:-org.openmetadata.service.security.JwtFilter}
+  AUTHORIZER_ADMIN_PRINCIPALS: ${OPENMETADATA_AUTHORIZER_ADMIN_PRINCIPALS:-[admin]}
+  AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN: ${OPENMETADATA_AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN:-["all"]}
+  AUTHORIZER_INGESTION_PRINCIPALS: ${OPENMETADATA_AUTHORIZER_INGESTION_PRINCIPALS:-[ingestion-bot]}
+  AUTHORIZER_PRINCIPAL_DOMAIN: ${OPENMETADATA_AUTHORIZER_PRINCIPAL_DOMAIN:-"open-metadata.org"}
+  AUTHORIZER_ALLOWED_DOMAINS: ${OPENMETADATA_AUTHORIZER_ALLOWED_DOMAINS:-[]}
+  AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN: ${OPENMETADATA_AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN:-false}
+  AUTHORIZER_ENABLE_SECURE_SOCKET: ${OPENMETADATA_AUTHORIZER_ENABLE_SECURE_SOCKET:-false}
+  AUTHENTICATION_PROVIDER: ${OPENMETADATA_AUTHENTICATION_PROVIDER:-basic}
+  AUTHENTICATION_RESPONSE_TYPE: ${OPENMETADATA_AUTHENTICATION_RESPONSE_TYPE:-id_token}
+  CUSTOM_OIDC_AUTHENTICATION_PROVIDER_NAME: ${OPENMETADATA_CUSTOM_OIDC_AUTHENTICATION_PROVIDER_NAME:-""}
+  AUTHENTICATION_PUBLIC_KEYS: ${OPENMETADATA_AUTHENTICATION_PUBLIC_KEYS:-[http://localhost:8585/api/v1/system/config/jwks]}
+  AUTHENTICATION_AUTHORITY: ${OPENMETADATA_AUTHENTICATION_AUTHORITY:-https://accounts.google.com}
+  AUTHENTICATION_CLIENT_ID: ${OPENMETADATA_AUTHENTICATION_CLIENT_ID:-""}
+  AUTHENTICATION_CALLBACK_URL: ${OPENMETADATA_AUTHENTICATION_CALLBACK_URL:-""}
+  AUTHENTICATION_JWT_PRINCIPAL_CLAIMS: ${OPENMETADATA_AUTHENTICATION_JWT_PRINCIPAL_CLAIMS:-[email,preferred_username,sub]}
+  AUTHENTICATION_JWT_PRINCIPAL_CLAIMS_MAPPING: ${OPENMETADATA_AUTHENTICATION_JWT_PRINCIPAL_CLAIMS_MAPPING:-[]}
+  AUTHENTICATION_ENABLE_SELF_SIGNUP: ${OPENMETADATA_AUTHENTICATION_ENABLE_SELF_SIGNUP:-true}
+  AUTHENTICATION_CLIENT_TYPE: ${OPENMETADATA_AUTHENTICATION_CLIENT_TYPE:-public}
+  OIDC_CLIENT_ID: ${OPENMETADATA_OIDC_CLIENT_ID:-""}
+  OIDC_TYPE: ${OPENMETADATA_OIDC_TYPE:-""}
+  OIDC_CLIENT_SECRET: ${OPENMETADATA_OIDC_CLIENT_SECRET:-""}
+  OIDC_SCOPE: ${OPENMETADATA_OIDC_SCOPE:-"openid email profile"}
+  OIDC_DISCOVERY_URI: ${OPENMETADATA_OIDC_DISCOVERY_URI:-""}
+  OIDC_USE_NONCE: ${OPENMETADATA_OIDC_USE_NONCE:-true}
+  OIDC_PREFERRED_JWS: ${OPENMETADATA_OIDC_PREFERRED_JWS:-"RS256"}
+  OIDC_RESPONSE_TYPE: ${OPENMETADATA_OIDC_RESPONSE_TYPE:-"code"}
+  OIDC_DISABLE_PKCE: ${OPENMETADATA_OIDC_DISABLE_PKCE:-true}
+  OIDC_CALLBACK: ${OPENMETADATA_OIDC_CALLBACK:-"http://localhost:8585/callback"}
+  OIDC_SERVER_URL: ${OPENMETADATA_OIDC_SERVER_URL:-"http://localhost:8585"}
+  OIDC_CLIENT_AUTH_METHOD: ${OPENMETADATA_OIDC_CLIENT_AUTH_METHOD:-"client_secret_post"}
+  OIDC_TENANT: ${OPENMETADATA_OIDC_TENANT:-""}
+  OIDC_MAX_CLOCK_SKEW: ${OPENMETADATA_OIDC_MAX_CLOCK_SKEW:-""}
+  OIDC_CUSTOM_PARAMS: ${OPENMETADATA_OIDC_CUSTOM_PARAMS:-{}}
+  OIDC_MAX_AGE: ${OPENMETADATA_OIDC_MAX_AGE:-"0"}
+  OIDC_PROMPT_TYPE: ${OPENMETADATA_OIDC_PROMPT_TYPE:-"consent"}
+  OIDC_SESSION_EXPIRY: ${OPENMETADATA_OIDC_SESSION_EXPIRY:-"604800"}
+  RSA_PUBLIC_KEY_FILE_PATH: ${OPENMETADATA_RSA_PUBLIC_KEY_FILE_PATH:-"./conf/public_key.der"}
+  RSA_PRIVATE_KEY_FILE_PATH: ${OPENMETADATA_RSA_PRIVATE_KEY_FILE_PATH:-"./conf/private_key.der"}
+  JWT_ISSUER: ${OPENMETADATA_JWT_ISSUER:-"open-metadata.org"}
+  JWT_KEY_ID: ${OPENMETADATA_JWT_KEY_ID:-"edp-openmetadata-local"}
+  PIPELINE_SERVICE_CLIENT_ENDPOINT: ${OPENMETADATA_PIPELINE_SERVICE_CLIENT_ENDPOINT:-http://openmetadata-ingestion:8080}
+  PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL: ${OPENMETADATA_PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL:-300}
+  SERVER_HOST_API_URL: ${OPENMETADATA_SERVER_HOST_API_URL:-http://openmetadata-server:8585/api}
+  PIPELINE_SERVICE_CLIENT_VERIFY_SSL: ${OPENMETADATA_PIPELINE_SERVICE_CLIENT_VERIFY_SSL:-"no-ssl"}
+  PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH: ${OPENMETADATA_PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH:-""}
+  DB_DRIVER_CLASS: ${OPENMETADATA_DB_DRIVER_CLASS:-org.postgresql.Driver}
+  DB_SCHEME: ${OPENMETADATA_DB_SCHEME:-postgresql}
+  DB_PARAMS: ${OPENMETADATA_DB_PARAMS:-allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC}
+  DB_USER: ${OPENMETADATA_DATABASE_USER:-openmetadata}
+  DB_USER_PASSWORD: ${OPENMETADATA_DATABASE_PASSWORD:-openmetadata}
+  DB_HOST: ${OPENMETADATA_DB_HOST:-pgbouncer}
+  DB_PORT: ${OPENMETADATA_DB_PORT:-6432}
+  OM_DATABASE: ${OPENMETADATA_DATABASE:-openmetadata}
+  ELASTICSEARCH_HOST: ${OPENMETADATA_ELASTICSEARCH_HOST:-openmetadata-elasticsearch}
+  ELASTICSEARCH_PORT: ${OPENMETADATA_ELASTICSEARCH_PORT:-9200}
+  ELASTICSEARCH_SCHEME: ${OPENMETADATA_ELASTICSEARCH_SCHEME:-http}
+  ELASTICSEARCH_USER: ${OPENMETADATA_ELASTICSEARCH_USER:-""}
+  ELASTICSEARCH_PASSWORD: ${OPENMETADATA_ELASTICSEARCH_PASSWORD:-""}
+  SEARCH_TYPE: ${OPENMETADATA_SEARCH_TYPE:-"elasticsearch"}
+  ELASTICSEARCH_TRUST_STORE_PATH: ${OPENMETADATA_ELASTICSEARCH_TRUST_STORE_PATH:-""}
+  ELASTICSEARCH_TRUST_STORE_PASSWORD: ${OPENMETADATA_ELASTICSEARCH_TRUST_STORE_PASSWORD:-""}
+  ELASTICSEARCH_CONNECTION_TIMEOUT_SECS: ${OPENMETADATA_ELASTICSEARCH_CONNECTION_TIMEOUT_SECS:-5}
+  ELASTICSEARCH_SOCKET_TIMEOUT_SECS: ${OPENMETADATA_ELASTICSEARCH_SOCKET_TIMEOUT_SECS:-60}
+  ELASTICSEARCH_KEEP_ALIVE_TIMEOUT_SECS: ${OPENMETADATA_ELASTICSEARCH_KEEP_ALIVE_TIMEOUT_SECS:-600}
+  ELASTICSEARCH_BATCH_SIZE: ${OPENMETADATA_ELASTICSEARCH_BATCH_SIZE:-100}
+  ELASTICSEARCH_PAYLOAD_BYTES_SIZE: ${OPENMETADATA_ELASTICSEARCH_PAYLOAD_BYTES_SIZE:-10485760}
+  ELASTICSEARCH_INDEX_MAPPING_LANG: ${OPENMETADATA_ELASTICSEARCH_INDEX_MAPPING_LANG:-EN}
+  EVENT_MONITOR: ${OPENMETADATA_EVENT_MONITOR:-prometheus}
+  EVENT_MONITOR_BATCH_SIZE: ${OPENMETADATA_EVENT_MONITOR_BATCH_SIZE:-10}
+  EVENT_MONITOR_PATH_PATTERN: ${OPENMETADATA_EVENT_MONITOR_PATH_PATTERN:-["/api/v1/tables/*", "/api/v1/health-check"]}
+  EVENT_MONITOR_LATENCY: ${OPENMETADATA_EVENT_MONITOR_LATENCY:-[]}
+  PIPELINE_SERVICE_CLIENT_ENABLED: ${OPENMETADATA_PIPELINE_SERVICE_CLIENT_ENABLED:-true}
+  PIPELINE_SERVICE_CLIENT_CLASS_NAME: ${OPENMETADATA_PIPELINE_SERVICE_CLIENT_CLASS_NAME:-"org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"}
+  PIPELINE_SERVICE_IP_INFO_ENABLED: ${OPENMETADATA_PIPELINE_SERVICE_IP_INFO_ENABLED:-false}
+  PIPELINE_SERVICE_CLIENT_HOST_IP: ${OPENMETADATA_PIPELINE_SERVICE_CLIENT_HOST_IP:-""}
+  PIPELINE_SERVICE_CLIENT_SECRETS_MANAGER_LOADER: ${OPENMETADATA_PIPELINE_SERVICE_CLIENT_SECRETS_MANAGER_LOADER:-"noop"}
+  AIRFLOW_USERNAME: ${OPENMETADATA_AIRFLOW_USERNAME:-admin}
+  AIRFLOW_PASSWORD: ${OPENMETADATA_AIRFLOW_PASSWORD:-admin}
+  AIRFLOW_TIMEOUT: ${OPENMETADATA_AIRFLOW_TIMEOUT:-10}
+  AIRFLOW_TRUST_STORE_PATH: ${OPENMETADATA_AIRFLOW_TRUST_STORE_PATH:-""}
+  AIRFLOW_TRUST_STORE_PASSWORD: ${OPENMETADATA_AIRFLOW_TRUST_STORE_PASSWORD:-""}
+  FERNET_KEY: ${OPENMETADATA_FERNET_KEY:-jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA=}
+  SECRET_MANAGER: ${OPENMETADATA_SECRET_MANAGER:-db}
+  OM_EMAIL_ENTITY: ${OPENMETADATA_EMAIL_ENTITY:-"OpenMetadata"}
+  OM_SUPPORT_URL: ${OPENMETADATA_SUPPORT_URL:-"https://slack.open-metadata.org"}
+  AUTHORIZER_ENABLE_SMTP: ${OPENMETADATA_AUTHORIZER_ENABLE_SMTP:-false}
+  OPENMETADATA_SERVER_URL: ${OPENMETADATA_PUBLIC_SERVER_URL:-""}
+  OPENMETADATA_SMTP_SENDER_MAIL: ${OPENMETADATA_SMTP_SENDER_MAIL:-""}
+  SMTP_SERVER_ENDPOINT: ${OPENMETADATA_SMTP_SERVER_ENDPOINT:-""}
+  SMTP_SERVER_PORT: ${OPENMETADATA_SMTP_SERVER_PORT:-""}
+  SMTP_SERVER_USERNAME: ${OPENMETADATA_SMTP_SERVER_USERNAME:-""}
+  SMTP_SERVER_PWD: ${OPENMETADATA_SMTP_SERVER_PWD:-""}
+  SMTP_SERVER_STRATEGY: ${OPENMETADATA_SMTP_SERVER_STRATEGY:-"SMTP_TLS"}
+  OPENMETADATA_HEAP_OPTS: ${OPENMETADATA_HEAP_OPTS:--Xmx1G -Xms1G}
+  MASK_PASSWORDS_API: ${OPENMETADATA_MASK_PASSWORDS_API:-false}
+  WEB_CONF_URI_PATH: ${OPENMETADATA_WEB_CONF_URI_PATH:-"/api"}
+  WEB_CONF_HSTS_ENABLED: ${OPENMETADATA_WEB_CONF_HSTS_ENABLED:-false}
+  WEB_CONF_HSTS_MAX_AGE: ${OPENMETADATA_WEB_CONF_HSTS_MAX_AGE:-"365 days"}
+  WEB_CONF_HSTS_INCLUDE_SUBDOMAINS: ${OPENMETADATA_WEB_CONF_HSTS_INCLUDE_SUBDOMAINS:-"true"}
+  WEB_CONF_HSTS_PRELOAD: ${OPENMETADATA_WEB_CONF_HSTS_PRELOAD:-"true"}
+  WEB_CONF_FRAME_OPTION_ENABLED: ${OPENMETADATA_WEB_CONF_FRAME_OPTION_ENABLED:-false}
+  WEB_CONF_FRAME_OPTION: ${OPENMETADATA_WEB_CONF_FRAME_OPTION:-"SAMEORIGIN"}
+  WEB_CONF_FRAME_ORIGIN: ${OPENMETADATA_WEB_CONF_FRAME_ORIGIN:-""}
+  WEB_CONF_CONTENT_TYPE_OPTIONS_ENABLED: ${OPENMETADATA_WEB_CONF_CONTENT_TYPE_OPTIONS_ENABLED:-false}
+  WEB_CONF_XSS_PROTECTION_ENABLED: ${OPENMETADATA_WEB_CONF_XSS_PROTECTION_ENABLED:-false}
+  WEB_CONF_XSS_PROTECTION_ON: ${OPENMETADATA_WEB_CONF_XSS_PROTECTION_ON:-true}
+  WEB_CONF_XSS_PROTECTION_BLOCK: ${OPENMETADATA_WEB_CONF_XSS_PROTECTION_BLOCK:-true}
+  WEB_CONF_XSS_CSP_ENABLED: ${OPENMETADATA_WEB_CONF_XSS_CSP_ENABLED:-false}
+  WEB_CONF_XSS_CSP_POLICY: ${OPENMETADATA_WEB_CONF_XSS_CSP_POLICY:-"default-src 'self'"}
+  WEB_CONF_XSS_CSP_REPORT_ONLY_POLICY: ${OPENMETADATA_WEB_CONF_XSS_CSP_REPORT_ONLY_POLICY:-""}
+  WEB_CONF_CACHE_CONTROL: ${OPENMETADATA_WEB_CONF_CACHE_CONTROL:-""}
+  WEB_CONF_PRAGMA: ${OPENMETADATA_WEB_CONF_PRAGMA:-""}
+
+x-ckan-env: &ckan-env
+  CKAN_SITE_ID: ${CKAN_SITE_ID:-edp-local}
+  CKAN_SITE_URL: ${CKAN_SITE_URL:-http://localhost:5000}
+  CKAN_PORT_HOST: ${CKAN_PORT_HOST:-5000}
+  CKAN_SQLALCHEMY_URL: ${CKAN_SQLALCHEMY_URL:-postgresql://ckan:ckan@pgbouncer:6432/ckan}
+  CKAN_DATASTORE_WRITE_URL: ${CKAN_DATASTORE_WRITE_URL:-postgresql://ckan:ckan@pgbouncer:6432/ckan_datastore}
+  CKAN_DATASTORE_READ_URL: ${CKAN_DATASTORE_READ_URL:-postgresql://ckan_datastore_readonly:ckan_datastore_readonly@pgbouncer:6432/ckan_datastore}
+  CKAN_SOLR_URL: ${CKAN_SOLR_URL:-http://ckan-solr:8983/solr/ckan}
+  CKAN_REDIS_URL: ${CKAN_REDIS_URL:-redis://ckan-redis:6379/1}
+  CKAN_DATAPUSHER_URL: ${CKAN_DATAPUSHER_URL:-http://ckan-datapusher:8800}
+  CKAN__DATAPUSHER__CALLBACK_URL_BASE: ${CKAN_DATAPUSHER_CALLBACK_URL_BASE:-http://ckan:5000}
+  CKAN_STORAGE_PATH: ${CKAN_STORAGE_PATH:-/var/lib/ckan}
+  CKAN_MAX_UPLOAD_SIZE_MB: ${CKAN_MAX_UPLOAD_SIZE_MB:-100}
+  CKAN_SYSADMIN_NAME: ${CKAN_SYSADMIN_NAME:-ckan_admin}
+  CKAN_SYSADMIN_PASSWORD: ${CKAN_SYSADMIN_PASSWORD:-admin}
+  CKAN_SYSADMIN_EMAIL: ${CKAN_SYSADMIN_EMAIL:-admin@example.com}
+  CKAN___BEAKER__SESSION__SECRET: ${CKAN_SESSION_SECRET:-change-me-for-local-only}
+  CKAN___API_TOKEN__JWT__ENCODE__SECRET: ${CKAN_API_TOKEN_ENCODE_SECRET:-string:change-me-for-local-only}
+  CKAN___API_TOKEN__JWT__DECODE__SECRET: ${CKAN_API_TOKEN_DECODE_SECRET:-string:change-me-for-local-only}
+  CKAN_SMTP_SERVER: ${CKAN_SMTP_SERVER:-localhost:25}
+  CKAN_SMTP_STARTTLS: ${CKAN_SMTP_STARTTLS:-False}
+  CKAN_SMTP_USER: ${CKAN_SMTP_USER:-}
+  CKAN_SMTP_PASSWORD: ${CKAN_SMTP_PASSWORD:-}
+  CKAN_SMTP_MAIL_FROM: ${CKAN_SMTP_MAIL_FROM:-ckan@localhost}
+  CKAN__PLUGINS: ${CKAN_PLUGINS:-image_view text_view datatables_view datastore datapusher envvars}
+
 services:
   postgres:
-    image: postgres:16-alpine
+    build:
+      context: .
+      dockerfile: postgres/Dockerfile.postgres
+      args:
+        POSTGRES_BASE_IMAGE: ${POSTGRES_BASE_IMAGE:-postgres:16-bookworm}
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
@@ -11,9 +162,32 @@ services:
       AIRFLOW_DATABASE_PASSWORD: ${AIRFLOW_DATABASE_PASSWORD:-airflow}
       SUPERSET_DATABASE_USER: ${SUPERSET_DATABASE_USER:-superset}
       SUPERSET_DATABASE_PASSWORD: ${SUPERSET_DATABASE_PASSWORD:-superset}
+      OPENMETADATA_DATABASE_USER: ${OPENMETADATA_DATABASE_USER:-openmetadata}
+      OPENMETADATA_DATABASE_PASSWORD: ${OPENMETADATA_DATABASE_PASSWORD:-openmetadata}
+      OPENMETADATA_AIRFLOW_DATABASE_USER: ${OPENMETADATA_AIRFLOW_DATABASE_USER:-openmetadata_airflow}
+      OPENMETADATA_AIRFLOW_DATABASE_PASSWORD: ${OPENMETADATA_AIRFLOW_DATABASE_PASSWORD:-openmetadata_airflow}
+      CKAN_DATABASE_USER: ${CKAN_DATABASE_USER:-ckan}
+      CKAN_DATABASE_PASSWORD: ${CKAN_DATABASE_PASSWORD:-ckan}
+      CKAN_DATASTORE_READONLY_USER: ${CKAN_DATASTORE_READONLY_USER:-ckan_datastore_readonly}
+      CKAN_DATASTORE_READONLY_PASSWORD: ${CKAN_DATASTORE_READONLY_PASSWORD:-ckan_datastore_readonly}
     volumes:
       - edp-postgres:/var/lib/postgresql/data
+      - edp-pgbackrest:/var/lib/pgbackrest
+      - edp-pgbackrest-spool:/var/spool/pgbackrest
+      - ./postgres/pgbackrest.conf:/etc/pgbackrest/pgbackrest.conf:ro
       - ./postgres/docker/init:/docker-entrypoint-initdb.d:ro
+    command:
+      - postgres
+      - -c
+      - wal_level=replica
+      - -c
+      - archive_mode=on
+      - -c
+      - archive_command=pgbackrest --stanza=edp archive-push %p
+      - -c
+      - archive_timeout=60s
+      - -c
+      - max_wal_senders=3
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 5s
@@ -32,6 +206,14 @@ services:
       AIRFLOW_DATABASE_PASSWORD: ${AIRFLOW_DATABASE_PASSWORD:-airflow}
       SUPERSET_DATABASE_USER: ${SUPERSET_DATABASE_USER:-superset}
       SUPERSET_DATABASE_PASSWORD: ${SUPERSET_DATABASE_PASSWORD:-superset}
+      OPENMETADATA_DATABASE_USER: ${OPENMETADATA_DATABASE_USER:-openmetadata}
+      OPENMETADATA_DATABASE_PASSWORD: ${OPENMETADATA_DATABASE_PASSWORD:-openmetadata}
+      OPENMETADATA_AIRFLOW_DATABASE_USER: ${OPENMETADATA_AIRFLOW_DATABASE_USER:-openmetadata_airflow}
+      OPENMETADATA_AIRFLOW_DATABASE_PASSWORD: ${OPENMETADATA_AIRFLOW_DATABASE_PASSWORD:-openmetadata_airflow}
+      CKAN_DATABASE_USER: ${CKAN_DATABASE_USER:-ckan}
+      CKAN_DATABASE_PASSWORD: ${CKAN_DATABASE_PASSWORD:-ckan}
+      CKAN_DATASTORE_READONLY_USER: ${CKAN_DATASTORE_READONLY_USER:-ckan_datastore_readonly}
+      CKAN_DATASTORE_READONLY_PASSWORD: ${CKAN_DATASTORE_READONLY_PASSWORD:-ckan_datastore_readonly}
     volumes:
       - ./pgbouncer/pgbouncer.ini:/etc/pgbouncer/pgbouncer.ini:ro
       - ./pgbouncer/docker/entrypoint.sh:/etc/pgbouncer/entrypoint.sh:ro
@@ -52,6 +234,14 @@ services:
       AIRFLOW_DATABASE_PASSWORD: ${AIRFLOW_DATABASE_PASSWORD:-airflow}
       SUPERSET_DATABASE_USER: ${SUPERSET_DATABASE_USER:-superset}
       SUPERSET_DATABASE_PASSWORD: ${SUPERSET_DATABASE_PASSWORD:-superset}
+      OPENMETADATA_DATABASE_USER: ${OPENMETADATA_DATABASE_USER:-openmetadata}
+      OPENMETADATA_DATABASE_PASSWORD: ${OPENMETADATA_DATABASE_PASSWORD:-openmetadata}
+      OPENMETADATA_AIRFLOW_DATABASE_USER: ${OPENMETADATA_AIRFLOW_DATABASE_USER:-openmetadata_airflow}
+      OPENMETADATA_AIRFLOW_DATABASE_PASSWORD: ${OPENMETADATA_AIRFLOW_DATABASE_PASSWORD:-openmetadata_airflow}
+      CKAN_DATABASE_USER: ${CKAN_DATABASE_USER:-ckan}
+      CKAN_DATABASE_PASSWORD: ${CKAN_DATABASE_PASSWORD:-ckan}
+      CKAN_DATASTORE_READONLY_USER: ${CKAN_DATASTORE_READONLY_USER:-ckan_datastore_readonly}
+      CKAN_DATASTORE_READONLY_PASSWORD: ${CKAN_DATASTORE_READONLY_PASSWORD:-ckan_datastore_readonly}
     ports:
       - "6432:6432"
     volumes:
@@ -79,6 +269,14 @@ services:
       AIRFLOW_DATABASE_PASSWORD: ${AIRFLOW_DATABASE_PASSWORD:-airflow}
       SUPERSET_DATABASE_USER: ${SUPERSET_DATABASE_USER:-superset}
       SUPERSET_DATABASE_PASSWORD: ${SUPERSET_DATABASE_PASSWORD:-superset}
+      OPENMETADATA_DATABASE_USER: ${OPENMETADATA_DATABASE_USER:-openmetadata}
+      OPENMETADATA_DATABASE_PASSWORD: ${OPENMETADATA_DATABASE_PASSWORD:-openmetadata}
+      OPENMETADATA_AIRFLOW_DATABASE_USER: ${OPENMETADATA_AIRFLOW_DATABASE_USER:-openmetadata_airflow}
+      OPENMETADATA_AIRFLOW_DATABASE_PASSWORD: ${OPENMETADATA_AIRFLOW_DATABASE_PASSWORD:-openmetadata_airflow}
+      CKAN_DATABASE_USER: ${CKAN_DATABASE_USER:-ckan}
+      CKAN_DATABASE_PASSWORD: ${CKAN_DATABASE_PASSWORD:-ckan}
+      CKAN_DATASTORE_READONLY_USER: ${CKAN_DATASTORE_READONLY_USER:-ckan_datastore_readonly}
+      CKAN_DATASTORE_READONLY_PASSWORD: ${CKAN_DATASTORE_READONLY_PASSWORD:-ckan_datastore_readonly}
     ports:
       - "127.0.0.1:5050:80"
     volumes:
@@ -103,6 +301,186 @@ services:
     volumes:
       - .:/workspace
     working_dir: /workspace
+    profiles:
+      - tools
+
+  dbt:
+    build:
+      context: .
+      dockerfile: dbt/Dockerfile
+    depends_on:
+      pgbouncer:
+        condition: service_started
+    environment:
+      DBT_PROFILES_DIR: /workspace/dbt
+      DBT_TARGET: ${DBT_TARGET:-mart}
+      DBT_PG_HOST: ${DBT_PG_HOST:-pgbouncer}
+      DBT_PG_PORT: ${DBT_PG_PORT:-6432}
+      DBT_PG_USER: ${DBT_PG_USER:-postgres}
+      DBT_PG_PASSWORD: ${DBT_PG_PASSWORD:-postgres}
+      DBT_RAW_DB: ${DBT_RAW_DB:-edp_raw}
+      DBT_ODS_DB: ${DBT_ODS_DB:-edp_ods}
+      DBT_VAULT_DB: ${DBT_VAULT_DB:-edp_vault}
+      DBT_MART_DB: ${DBT_MART_DB:-edp_mart}
+      DBT_THREADS: ${DBT_THREADS:-4}
+    volumes:
+      - .:/workspace
+    working_dir: /workspace/dbt
+    profiles:
+      - tools
+
+  gx:
+    build:
+      context: .
+      dockerfile: gx/Dockerfile
+    depends_on:
+      pgbouncer:
+        condition: service_started
+    environment:
+      GX_HOME: /workspace/gx
+      GX_TARGET: ${GX_TARGET:-mart}
+      GX_RAW_DATABASE_URL: ${GX_RAW_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_raw}
+      GX_ODS_DATABASE_URL: ${GX_ODS_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_ods}
+      GX_VAULT_DATABASE_URL: ${GX_VAULT_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_vault}
+      GX_MART_DATABASE_URL: ${GX_MART_DATABASE_URL:-postgresql+psycopg://postgres:postgres@pgbouncer:6432/edp_mart}
+    volumes:
+      - .:/workspace
+    working_dir: /workspace/gx
+    profiles:
+      - tools
+
+  opa:
+    image: ${OPA_IMAGE:-openpolicyagent/opa:1.8.0}
+    command:
+      - run
+      - --server
+      - --addr=0.0.0.0:8181
+      - --log-level=${OPA_LOG_LEVEL:-info}
+      - /policies
+    ports:
+      - "8181:8181"
+    volumes:
+      - ./opa/policies:/policies:ro
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "/dev/null", "http://localhost:8181/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  opa-tools:
+    image: ${OPA_IMAGE:-openpolicyagent/opa:1.8.0}
+    volumes:
+      - ./opa:/workspace/opa:ro
+    working_dir: /workspace/opa
+    profiles:
+      - tools
+
+  openbao:
+    image: ${OPENBAO_IMAGE:-openbao/openbao:2.5.4}
+    environment:
+      BAO_ADDR: http://127.0.0.1:8200
+      BAO_DEV_ROOT_TOKEN_ID: ${OPENBAO_DEV_ROOT_TOKEN_ID:-edp-local-root-token}
+    command:
+      - server
+      - -dev
+      - -dev-listen-address=0.0.0.0:8200
+      - -dev-root-token-id=${OPENBAO_DEV_ROOT_TOKEN_ID:-edp-local-root-token}
+    ports:
+      - "8200:8200"
+    cap_add:
+      - IPC_LOCK
+    healthcheck:
+      test: ["CMD", "bao", "status", "-address=http://127.0.0.1:8200"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  openbao-tools:
+    image: ${OPENBAO_IMAGE:-openbao/openbao:2.5.4}
+    depends_on:
+      openbao:
+        condition: service_started
+    environment:
+      BAO_ADDR: ${OPENBAO_ADDR:-http://openbao:8200}
+      BAO_TOKEN: ${OPENBAO_DEV_ROOT_TOKEN_ID:-edp-local-root-token}
+    volumes:
+      - ./openbao:/workspace/openbao:ro
+    working_dir: /workspace/openbao
+    entrypoint: ["bao"]
+    profiles:
+      - tools
+
+  minio:
+    image: ${MINIO_IMAGE:-quay.io/minio/minio:RELEASE.2025-09-07T16-13-09Z-cpuv1}
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    command: ["server", "/data", "--console-address", ":9001"]
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - edp-minio:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    restart: unless-stopped
+
+  minio-init:
+    image: ${MINIO_CLIENT_IMAGE:-quay.io/minio/mc:RELEASE.2025-08-13T08-35-41Z-cpuv1}
+    depends_on:
+      minio:
+        condition: service_healthy
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+      MINIO_BUCKET_RAW: ${MINIO_BUCKET_RAW:-edp-raw}
+      MINIO_BUCKET_ARCHIVE: ${MINIO_BUCKET_ARCHIVE:-edp-archive}
+      MINIO_BUCKET_EXPORTS: ${MINIO_BUCKET_EXPORTS:-edp-exports}
+      MINIO_BUCKET_CKAN: ${MINIO_BUCKET_CKAN:-edp-ckan}
+      MINIO_BUCKET_BACKUPS: ${MINIO_BUCKET_BACKUPS:-edp-backups}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -e
+        mc alias set local http://minio:9000 "$$MINIO_ROOT_USER" "$$MINIO_ROOT_PASSWORD"
+        mc mb --ignore-existing "local/$$MINIO_BUCKET_RAW"
+        mc mb --ignore-existing "local/$$MINIO_BUCKET_ARCHIVE"
+        mc mb --ignore-existing "local/$$MINIO_BUCKET_EXPORTS"
+        mc mb --ignore-existing "local/$$MINIO_BUCKET_CKAN"
+        mc mb --ignore-existing "local/$$MINIO_BUCKET_BACKUPS"
+    restart: "no"
+
+  minio-client:
+    image: ${MINIO_CLIENT_IMAGE:-quay.io/minio/mc:RELEASE.2025-08-13T08-35-41Z-cpuv1}
+    depends_on:
+      minio:
+        condition: service_started
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    entrypoint: ["/bin/sh", "-c"]
+    command: ["mc alias set local http://minio:9000 $$MINIO_ROOT_USER $$MINIO_ROOT_PASSWORD && mc ls local"]
+    profiles:
+      - tools
+
+  pgbackrest-tools:
+    build:
+      context: .
+      dockerfile: postgres/Dockerfile.postgres
+      args:
+        POSTGRES_BASE_IMAGE: ${POSTGRES_BASE_IMAGE:-postgres:16-bookworm}
+    user: postgres
+    volumes:
+      - edp-postgres:/var/lib/postgresql/data
+      - edp-pgbackrest:/var/lib/pgbackrest
+      - edp-pgbackrest-spool:/var/spool/pgbackrest
+      - ./postgres/pgbackrest.conf:/etc/pgbackrest/pgbackrest.conf:ro
+    entrypoint: ["pgbackrest"]
     profiles:
       - tools
 
@@ -263,6 +641,165 @@ services:
     command: ["dag-processor"]
     restart: unless-stopped
 
+  openmetadata-elasticsearch:
+    image: ${OPENMETADATA_ELASTICSEARCH_IMAGE:-docker.elastic.co/elasticsearch/elasticsearch:9.3.0}
+    environment:
+      discovery.type: single-node
+      ES_JAVA_OPTS: ${OPENMETADATA_ELASTICSEARCH_JAVA_OPTS:--Xms1024m -Xmx1024m}
+      xpack.security.enabled: "false"
+    ports:
+      - "127.0.0.1:9200:9200"
+      - "127.0.0.1:9300:9300"
+    volumes:
+      - edp-openmetadata-elasticsearch:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health?pretty | grep status | grep -qE 'green|yellow' || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+    restart: unless-stopped
+
+  openmetadata-migrate:
+    image: ${OPENMETADATA_IMAGE:-docker.getcollate.io/openmetadata/server:1.12.6}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+      openmetadata-elasticsearch:
+        condition: service_healthy
+    environment:
+      <<: *openmetadata-server-env
+    command: ["./bootstrap/openmetadata-ops.sh", "migrate"]
+    restart: "no"
+
+  openmetadata-server:
+    image: ${OPENMETADATA_IMAGE:-docker.getcollate.io/openmetadata/server:1.12.6}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+      openmetadata-elasticsearch:
+        condition: service_healthy
+      openmetadata-migrate:
+        condition: service_completed_successfully
+    environment:
+      <<: *openmetadata-server-env
+    ports:
+      - "8585:8585"
+      - "8586:8586"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8586/healthcheck"]
+    restart: unless-stopped
+
+  openmetadata-ingestion:
+    image: ${OPENMETADATA_INGESTION_IMAGE:-docker.getcollate.io/openmetadata/ingestion:1.12.6}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+      openmetadata-elasticsearch:
+        condition: service_started
+      openmetadata-server:
+        condition: service_started
+    environment:
+      AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session"
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__OPENMETADATA_AIRFLOW_APIS__DAG_GENERATED_CONFIGS: /opt/airflow/dag_generated_configs
+      DB_HOST: ${OPENMETADATA_AIRFLOW_DB_HOST:-pgbouncer}
+      DB_PORT: ${OPENMETADATA_AIRFLOW_DB_PORT:-6432}
+      AIRFLOW_DB: ${OPENMETADATA_AIRFLOW_DATABASE:-openmetadata_airflow}
+      DB_USER: ${OPENMETADATA_AIRFLOW_DATABASE_USER:-openmetadata_airflow}
+      DB_SCHEME: ${OPENMETADATA_AIRFLOW_DB_SCHEME:-postgresql+psycopg2}
+      DB_PASSWORD: ${OPENMETADATA_AIRFLOW_DATABASE_PASSWORD:-openmetadata_airflow}
+      DB_PROPERTIES: ${OPENMETADATA_AIRFLOW_DB_PROPERTIES:-}
+    ports:
+      - "8081:8080"
+    volumes:
+      - edp-openmetadata-ingestion-dag-airflow:/opt/airflow/dag_generated_configs
+      - edp-openmetadata-ingestion-dags:/opt/airflow/dags
+      - edp-openmetadata-ingestion-tmp:/tmp
+    entrypoint: /bin/bash
+    command: ["/opt/airflow/ingestion_dependency.sh"]
+    restart: unless-stopped
+
+  ckan-solr:
+    image: ${CKAN_SOLR_IMAGE:-ckan/ckan-solr:2.11-solr9}
+    volumes:
+      - edp-ckan-solr:/var/solr
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "/dev/null", "http://localhost:8983/solr/"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  ckan-redis:
+    image: ${CKAN_REDIS_IMAGE:-redis:7.2-alpine}
+    healthcheck:
+      test: ["CMD", "redis-cli", "-e", "QUIT"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  ckan-datapusher:
+    image: ${CKAN_DATAPUSHER_IMAGE:-ckan/ckan-base-datapusher:0.0.21}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "/dev/null", "http://localhost:8800"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  ckan-init:
+    image: ${CKAN_IMAGE:-ckan/ckan-base:2.11}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+      ckan-solr:
+        condition: service_healthy
+      ckan-redis:
+        condition: service_healthy
+    environment:
+      <<: *ckan-env
+    volumes:
+      - edp-ckan-storage:/var/lib/ckan
+    command:
+      - /bin/sh
+      - -c
+      - |
+        set -e
+        ckan -c /srv/app/ckan.ini db init
+        ckan -c /srv/app/ckan.ini datastore set-permissions | psql "$$CKAN_DATASTORE_WRITE_URL"
+        ckan -c /srv/app/ckan.ini sysadmin add "$$CKAN_SYSADMIN_NAME" email="$$CKAN_SYSADMIN_EMAIL" password="$$CKAN_SYSADMIN_PASSWORD" || true
+    restart: "no"
+
+  ckan:
+    image: ${CKAN_IMAGE:-ckan/ckan-base:2.11}
+    depends_on:
+      pgbouncer:
+        condition: service_started
+      ckan-solr:
+        condition: service_healthy
+      ckan-redis:
+        condition: service_healthy
+      ckan-init:
+        condition: service_completed_successfully
+      ckan-datapusher:
+        condition: service_started
+    environment:
+      <<: *ckan-env
+    ports:
+      - "5000:5000"
+    volumes:
+      - edp-ckan-storage:/var/lib/ckan
+    healthcheck:
+      test: ["CMD", "wget", "-qO", "/dev/null", "http://localhost:5000/api/action/status_show"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
 volumes:
   edp-postgres:
     name: edp-postgres
@@ -270,3 +807,21 @@ volumes:
     name: edp-superset-home
   edp-pgadmin:
     name: edp-pgadmin
+  edp-pgbackrest:
+    name: edp-pgbackrest
+  edp-pgbackrest-spool:
+    name: edp-pgbackrest-spool
+  edp-openmetadata-elasticsearch:
+    name: edp-openmetadata-elasticsearch
+  edp-openmetadata-ingestion-dag-airflow:
+    name: edp-openmetadata-ingestion-dag-airflow
+  edp-openmetadata-ingestion-dags:
+    name: edp-openmetadata-ingestion-dags
+  edp-openmetadata-ingestion-tmp:
+    name: edp-openmetadata-ingestion-tmp
+  edp-ckan-storage:
+    name: edp-ckan-storage
+  edp-ckan-solr:
+    name: edp-ckan-solr
+  edp-minio:
+    name: edp-minio

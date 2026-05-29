@@ -21,6 +21,10 @@ database clients through PgBouncer. The init script creates these databases:
 - `edp_app`
 - `airflow`
 - `superset`
+- `openmetadata`
+- `openmetadata_airflow`
+- `ckan`
+- `ckan_datastore`
 
 Postgres bootstrap settings and connection strings are documented in
 `.env.example`. Docker Compose reads `.env` automatically.
@@ -30,7 +34,8 @@ runs database tooling inside containers on the same Compose network, so direct
 PostgreSQL host-port exposure is not required.
 
 The init script uses `POSTGRES_USER` as the owner for EDP-owned databases and
-creates separate owners for the `airflow` and `superset` metadata databases.
+creates separate owners for the `airflow`, `superset`, OpenMetadata, and CKAN
+metadata databases.
 
 ## Install Migration Tooling
 
@@ -54,14 +59,33 @@ The EDP migration histories target these databases:
 Each EDP-owned database has its own `meta` schema for Alembic's version table
 and operational metadata that belongs with that layer.
 
-The `airflow` and `superset` databases are component metadata databases. Create
-them locally so the tools have somewhere to store state, but let Airflow and
-Superset manage their own tables.
+The `airflow`, `superset`, OpenMetadata, and CKAN databases are component
+metadata databases. Create them locally so the tools have somewhere to store
+state, but let those applications manage their own tables.
 
-Airflow and Superset use their own local database roles:
+Airflow, Superset, OpenMetadata, and CKAN use their own local database roles:
 
 - `AIRFLOW_DATABASE_USER` owns the `airflow` database.
 - `SUPERSET_DATABASE_USER` owns the `superset` database.
+- `OPENMETADATA_DATABASE_USER` owns the `openmetadata` database.
+- `OPENMETADATA_AIRFLOW_DATABASE_USER` owns the `openmetadata_airflow` database.
+- `CKAN_DATABASE_USER` owns the `ckan` and `ckan_datastore` databases.
+- `CKAN_DATASTORE_READONLY_USER` has read-only CKAN DataStore access after CKAN permissions are initialized.
+
+## Backup and Restore
+
+The local PostgreSQL image includes pgBackRest for physical backup and WAL
+archiving. Initialize the local stanza and take a full backup with:
+
+```sh
+make pgbackrest-stanza
+make pgbackrest-check
+make pgbackrest-backup
+make pgbackrest-info
+```
+
+See [Local pgBackRest](/runbooks/local-pgbackrest) for restore guidance and
+backup troubleshooting.
 
 ## Create New Migrations
 

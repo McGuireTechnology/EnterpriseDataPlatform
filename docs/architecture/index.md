@@ -7,11 +7,14 @@ Enterprise Data Platform is not a single tool. It is a collection of tools paire
 - Connectors and data movement tools bring data in from source systems and external services.
 - Orchestration and workflow tools schedule, coordinate, monitor, and recover platform workflows.
 - Storage, transformation, quality, catalog, and governance tools turn raw data into trusted products.
+- Secrets-management and policy tools keep credentials, access decisions, and publication gates explicit.
 - Consumer tools, APIs, and custom applications expose governed data to users and workflows.
 
 ## Data Lifecycle
 
 Data is collected across systems into a raw data store. From there, it is normalized, correlated, and enriched into an Operational Data Store. Dimensional modeling and historical processing are then applied into a Data Vault. The Data Vault is pared down into focused Data Marts for reporting, dashboards, applications, and downstream analytics.
+
+Trust services run alongside this lifecycle. OpenMetadata documents assets and lineage, Great Expectations records validation evidence, OPA evaluates policy decisions, and OpenBao provides a local pattern for keeping service credentials and API secrets out of source control.
 
 ## Architecture Notes
 
@@ -33,7 +36,7 @@ Use this section to explain how the platform is assembled, how data moves throug
 - [GRC use cases and OSCAL-backed policy traceability](/grc/)
 - [Contrib reference workflow](/contrib/)
 - [Platform positioning and differentiation](/architecture/platform-positioning)
-- Access, identity, and authorization model
+- Access, identity, authorization, and secrets-management model
 - Observability and reliability model
 - Environment strategy and GitOps deployment model
 
